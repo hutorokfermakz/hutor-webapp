@@ -1,323 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Хуторок 🍃</title>
 
-  <link rel="stylesheet" href="style.css">
-
+  <!-- TELEGRAM WEB APP -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- JS -->
+  <script src="app.js" defer></script>
 </head>
+
 <body>
 
-  <!-- BACKGROUND -->
+  <!-- PROFILE -->
+  <div id="profileCard" class="profile-card bg1">
 
-  <div class="background"></div>
-
-  <!-- PROFILE HERO -->
-
-  <header class="profile-hero">
-
-    <!-- AVATAR BLOCK -->
-
-    <div class="avatar-wrapper">
-
-      <!-- ANIMATED RING -->
-
-      <div class="avatar-ring"></div>
+    <div class="profile-top">
 
       <!-- AVATAR -->
-
-      <label
-        class="avatar"
-        for="avatarInput"
-      >
-
+      <label for="avatarInput" class="avatar-wrapper">
         <img
-          id="avatarImage"
-          src="https://i.ibb.co/0jqHpnp/tractor.png"
-        />
-
+          id="avatar"
+          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        >
       </label>
 
-      <input
-        type="file"
-        id="avatarInput"
-        accept="image/*"
-        hidden
-      />
+      <input type="file" id="avatarInput" hidden>
 
-      <!-- LEVEL BADGE -->
+      <!-- INFO -->
+      <div class="profile-info">
 
-      <div class="level-badge">
+        <h2 id="playerName">Фермер</h2>
 
-        LVL 12
-
-      </div>
-
-    </div>
-
-    <!-- PROFILE INFO -->
-
-    <div class="hero-info">
-
-      <h1
-        id="username"
-        class="editable-name"
-      >
-        Фермер
-      </h1>
-
-      <div class="player-tag">
-
-        🌾 Легендарный фермер
-
-      </div>
-
-      <!-- XP -->
-
-      <div class="xp-wrapper">
+        <div class="level-box">
+          ⭐ Уровень:
+          <span id="level">1</span>
+        </div>
 
         <div class="xp-bar">
-          <div class="xp-fill"></div>
-        </div>
-
-        <span>620 / 1000 XP</span>
-
-      </div>
-
-      <!-- STATS -->
-
-      <div class="profile-stats">
-
-        <div class="stat-card">
-          <h3>💰</h3>
-          <p class="money">
-            12 450
-          </p>
-        </div>
-
-        <div class="stat-card">
-          <h3>⭐</h3>
-          <p class="stars">
-            240
-          </p>
-        </div>
-
-        <div class="stat-card">
-          <h3>🏆</h3>
-          <p>
-            #24
-          </p>
+          <div id="xpFill"></div>
         </div>
 
       </div>
 
     </div>
 
-  </header>
+    <!-- MONEY -->
+    <div class="stats">
 
-  <!-- CUSTOM BACKGROUNDS -->
-
-  <section class="backgrounds-section">
-
-    <h2>
-      🎨 Фоны профиля
-    </h2>
-
-    <div class="background-grid">
-
-      <div
-        class="bg-card active-bg"
-        data-bg="default"
-      >
-        🌌
+      <div class="stat-box">
+        💰
+        <span id="money">500</span>
       </div>
 
-      <div
-        class="bg-card"
-        data-bg="forest"
-      >
-        🌲
-      </div>
-
-      <div
-        class="bg-card"
-        data-bg="sunset"
-      >
-        🌅
-      </div>
-
-      <div
-        class="bg-card"
-        data-bg="ice"
-      >
-        ❄️
+      <div class="stat-box">
+        ⭐
+        <span id="stars">0</span>
       </div>
 
     </div>
 
-  </section>
+  </div>
 
-  <!-- PAGES -->
+  <!-- ACTIONS -->
+  <div class="actions">
 
-  <main id="pages">
-
-    <!-- FARM -->
-
-    <section
-      class="page active"
-      id="farmPage"
-    >
-
-      <section class="farm-grid">
-
-        <div class="tile planted">
-          🌽
-          <span>12м</span>
-        </div>
-
-        <div class="tile ready">
-          🥕
-        </div>
-
-        <div class="tile empty">+</div>
-
-        <div class="tile empty">+</div>
-
-        <div class="tile animal">
-          🐔
-        </div>
-
-        <div class="tile animal">
-          🐄
-        </div>
-
-        <div class="tile building">
-          🏠
-        </div>
-
-        <div class="tile building">
-          🚜
-        </div>
-
-      </section>
-
-    </section>
-
-    <!-- SHOP -->
-
-    <section
-      class="page"
-      id="shopPage"
-    >
-
-      <div class="shop-item">
-        🌽 Семена
-        <span>50 💰</span>
-      </div>
-
-      <div class="shop-item">
-        🐔 Курица
-        <span>500 💰</span>
-      </div>
-
-      <div class="shop-item">
-        🚜 Трактор
-        <span>5000 💰</span>
-      </div>
-
-    </section>
-
-    <!-- CLANS -->
-
-    <section
-      class="page"
-      id="clansPage"
-    >
-
-      <div class="info-card">
-        👥 HUTOR LEGENDS
-      </div>
-
-      <div class="info-card">
-        🏆 Топ #3 мира
-      </div>
-
-    </section>
-
-    <!-- TOP -->
-
-    <section
-      class="page"
-      id="topPage"
-    >
-
-      <div class="leader">
-        🥇 FarmerPro — 52000
-      </div>
-
-      <div class="leader">
-        🥈 AgroKing — 48000
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- CASE -->
-
-  <section class="case-banner">
-
-    <div>
-
-      <h3>🎁 Бесплатный кейс</h3>
-
-      <p>Доступен сейчас</p>
-
-    </div>
-
-    <button id="openCase">
-      Открыть
+    <button id="farmBtn" class="main-btn">
+      🌾 Собрать урожай
     </button>
 
-  </section>
-
-  <!-- NAVIGATION -->
-
-  <nav class="bottom-nav">
-
-    <button class="nav-btn active">
-      🏠
-      <span>Ферма</span>
+    <button id="caseBtn" class="main-btn">
+      🎁 Открыть кейс
     </button>
 
-    <button class="nav-btn">
-      🛒
-      <span>Магазин</span>
+  </div>
+
+  <!-- BACKGROUNDS -->
+  <div class="backgrounds">
+
+    <button class="bg-select" data-bg="bg1">
+      🌿
     </button>
 
-    <button class="nav-btn">
-      👥
-      <span>Кланы</span>
+    <button class="bg-select" data-bg="bg2">
+      🌅
     </button>
 
-    <button class="nav-btn">
-      🏆
-      <span>Топ</span>
+    <button class="bg-select" data-bg="bg3">
+      🌌
     </button>
 
-  </nav>
-
-  <script src="app.js"></script>
+  </div>
 
 </body>
 </html>
