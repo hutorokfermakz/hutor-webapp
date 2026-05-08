@@ -1,106 +1,355 @@
-body {
-  margin: 0;
-  padding: 0;
-  background: #1b5e20;
-  font-family: Arial, sans-serif;
-  color: white;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
 }
 
-.app {
-  padding: 20px;
+body{
+  background:#10151d;
+  color:white;
+  min-height:100vh;
+  overflow-x:hidden;
+  padding-bottom:100px;
 }
 
-.top {
-  margin-bottom: 20px;
+/* ФОН */
+
+.background{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left,#1f6b42 0%,transparent 40%),
+    radial-gradient(circle at bottom right,#244f8f 0%,transparent 40%),
+    #10151d;
+  z-index:-1;
 }
 
-h1 {
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 20px;
+/* TOPBAR */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  gap:14px;
 }
 
-.stats {
-  display: flex;
-  gap: 10px;
+.profile-card{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+
+  padding:14px;
+  border-radius:22px;
+
+  backdrop-filter:blur(12px);
 }
 
-.stat {
-  flex: 1;
-  background: #2e7d32;
-  padding: 15px;
-  border-radius: 18px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
+.avatar{
+  width:60px;
+  height:60px;
+
+  border-radius:18px;
+
+  background:linear-gradient(135deg,#ffd54f,#ff9800);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:30px;
 }
 
-.inventory {
-  background: #33691e;
-  padding: 15px;
-  border-radius: 20px;
-  margin-bottom: 20px;
+.profile-info{
+  flex:1;
 }
 
-.inv-item {
-  font-size: 22px;
-  margin-bottom: 10px;
+.profile-info h2{
+  font-size:20px;
+  margin-bottom:8px;
 }
 
-.title {
-  font-size: 34px;
-  margin-bottom: 20px;
+.level-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.seeds {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+.xp-bar{
+  flex:1;
+  height:10px;
+  background:#222c38;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.seed-btn {
-  flex: 1;
-  border: none;
-  border-radius: 18px;
-  padding: 15px;
-  font-size: 20px;
-  font-weight: bold;
-  background: #fbc02d;
+.xp-fill{
+  width:62%;
+  height:100%;
+
+  background:linear-gradient(90deg,#4caf50,#8bc34a);
 }
 
-.farm-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
+.balance-card{
+  min-width:110px;
+
+  background:rgba(255,255,255,0.06);
+
+  border-radius:22px;
+  padding:14px;
+
+  text-align:center;
+
+  backdrop-filter:blur(12px);
 }
 
-.plot {
-  background: #4e342e;
-  border-radius: 20px;
-  height: 140px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  font-size: 24px;
-  font-weight: bold;
-
-  transition: 0.2s;
-  white-space: pre-line;
+.money{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
-.plot:active {
-  transform: scale(0.95);
+.stars{
+  color:#ffd54f;
 }
 
-.growing {
-  background: #558b2f;
+/* СЕЗОН */
+
+.season-banner{
+  margin:0 18px 18px;
+
+  background:linear-gradient(135deg,#43a047,#2e7d32);
+
+  border-radius:24px;
+
+  padding:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
-.ready {
-  background: #8bc34a;
-  color: black;
+.season-banner h3{
+  margin-bottom:6px;
+}
+
+.season-banner button{
+  border:none;
+  background:white;
+  color:#2e7d32;
+
+  padding:12px 18px;
+
+  border-radius:16px;
+
+  font-weight:bold;
+}
+
+/* FARM */
+
+.farm-container{
+  padding:0 18px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.farm-grid{
+  display:grid;
+
+  grid-template-columns:repeat(4,1fr);
+
+  gap:12px;
+}
+
+.tile{
+  aspect-ratio:1;
+
+  border-radius:22px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  font-size:28px;
+
+  position:relative;
+
+  backdrop-filter:blur(10px);
+
+  transition:0.2s;
+}
+
+.tile:active{
+  transform:scale(0.96);
+}
+
+.tile span{
+  position:absolute;
+  bottom:10px;
+  font-size:12px;
+}
+
+.empty{
+  background:rgba(255,255,255,0.05);
+  border:2px dashed rgba(255,255,255,0.12);
+}
+
+.planted{
+  background:linear-gradient(135deg,#558b2f,#33691e);
+}
+
+.ready{
+  background:linear-gradient(135deg,#ffb300,#ff6f00);
+}
+
+.animal{
+  background:linear-gradient(135deg,#8e24aa,#5e35b1);
+}
+
+.building{
+  background:linear-gradient(135deg,#1e88e5,#1565c0);
+}
+
+/* SIDE PANEL */
+
+.side-panel{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.panel-card{
+  background:rgba(255,255,255,0.06);
+
+  border-radius:22px;
+
+  padding:18px;
+
+  backdrop-filter:blur(10px);
+}
+
+.panel-card h3{
+  margin-bottom:10px;
+}
+
+.energy-bar{
+  height:12px;
+  background:#263238;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:8px;
+}
+
+.energy-fill{
+  width:84%;
+  height:100%;
+
+  background:linear-gradient(90deg,#00e676,#00c853);
+}
+
+/* CASE */
+
+.case-banner{
+  margin:18px;
+
+  background:linear-gradient(135deg,#ff9800,#ff5722);
+
+  border-radius:24px;
+
+  padding:18px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.case-banner button{
+  border:none;
+
+  background:white;
+  color:#ff5722;
+
+  padding:12px 18px;
+
+  border-radius:16px;
+
+  font-weight:bold;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+
+  background:rgba(16,21,29,0.92);
+
+  backdrop-filter:blur(18px);
+
+  border-top:1px solid rgba(255,255,255,0.08);
+
+  display:flex;
+  justify-content:space-around;
+
+  padding:14px 10px 22px;
+
+  z-index:50;
+}
+
+.nav-btn{
+  background:none;
+  border:none;
+  color:#9ba7b4;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:4px;
+
+  font-size:22px;
+}
+
+.nav-btn span{
+  font-size:11px;
+}
+
+.nav-btn.active{
+  color:white;
+}
+
+/* АНИМАЦИИ */
+
+.tile,
+.panel-card,
+.profile-card,
+.balance-card,
+.case-banner,
+.season-banner{
+  animation:fadeUp .5s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
