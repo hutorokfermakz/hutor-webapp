@@ -1,3 +1,5 @@
+alert("database.js works")
+
 const tg = window.Telegram.WebApp
 tg.expand()
 
