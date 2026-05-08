@@ -6,6 +6,7 @@ if (!save) {
     coins: 100,
     xp: 0,
     energy: 20,
+    lastEnergyTime: Date.now(),
     plots: [
       null,
       null,
@@ -19,6 +20,9 @@ if (!save) {
 let coins = save.coins;
 let xp = save.xp;
 let energy = save.energy;
+
+const MAX_ENERGY = 20;
+const ENERGY_REGEN_TIME = 30000;
 
 let currentSeed = "wheat";
 
@@ -49,12 +53,14 @@ const seedButtons = document.querySelectorAll(".seed-btn");
 
 function saveGame() {
 
-  localStorage.setItem("hutor_save", JSON.stringify({
-    coins,
-    xp,
-    energy,
-    plots: save.plots
-  }));
+  save.coins = coins;
+  save.xp = xp;
+  save.energy = energy;
+
+  localStorage.setItem(
+    "hutor_save",
+    JSON.stringify(save)
+  );
 
 }
 
@@ -65,6 +71,48 @@ function updateStats() {
   energyText.innerText = energy;
 
 }
+
+function regenEnergy() {
+
+  let now = Date.now();
+
+  if (energy < MAX_ENERGY) {
+
+    let passed =
+      now - save.lastEnergyTime;
+
+    if (passed >= ENERGY_REGEN_TIME) {
+
+      let restored =
+        Math.floor(
+          passed / ENERGY_REGEN_TIME
+        );
+
+      energy += restored;
+
+      if (energy > MAX_ENERGY) {
+        energy = MAX_ENERGY;
+      }
+
+      save.lastEnergyTime = now;
+
+      saveGame();
+
+      updateStats();
+
+    }
+
+  }
+
+}
+
+regenEnergy();
+
+setInterval(() => {
+
+  regenEnergy();
+
+}, 5000);
 
 updateStats();
 
@@ -82,7 +130,6 @@ plots.forEach((plot, index) => {
 
   let data = save.plots[index];
 
-  // Восстановление
   if (data) {
 
     let crop = seeds[data.seed];
@@ -167,6 +214,8 @@ plots.forEach((plot, index) => {
 
       energy -= 1;
 
+      save.lastEnergyTime = Date.now();
+
       updateStats();
 
       let crop = seeds[currentSeed];
@@ -203,8 +252,6 @@ plots.forEach((plot, index) => {
         saveGame();
 
       }, crop.growTime);
-
-      saveGame();
 
     }
 
