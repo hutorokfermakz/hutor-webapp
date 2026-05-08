@@ -1,10 +1,29 @@
-let coins = 100;
-let xp = 0;
-let energy = 20;
+let save = JSON.parse(localStorage.getItem("hutor_save"));
+
+if (!save) {
+
+  save = {
+    coins: 100,
+    xp: 0,
+    energy: 20,
+    plots: [
+      null,
+      null,
+      null,
+      null
+    ]
+  };
+
+}
+
+let coins = save.coins;
+let xp = save.xp;
+let energy = save.energy;
 
 let currentSeed = "wheat";
 
 const seeds = {
+
   wheat: {
     name: "🌾 Пшеница",
     growTime: 10000,
@@ -18,6 +37,7 @@ const seeds = {
     reward: 50,
     xp: 20
   }
+
 };
 
 const coinsText = document.getElementById("coins");
@@ -27,10 +47,23 @@ const energyText = document.getElementById("energy");
 const plots = document.querySelectorAll(".plot");
 const seedButtons = document.querySelectorAll(".seed-btn");
 
+function saveGame() {
+
+  localStorage.setItem("hutor_save", JSON.stringify({
+    coins,
+    xp,
+    energy,
+    plots: save.plots
+  }));
+
+}
+
 function updateStats() {
+
   coinsText.innerText = coins;
   xpText.innerText = xp;
   energyText.innerText = energy;
+
 }
 
 updateStats();
@@ -45,28 +78,19 @@ seedButtons.forEach(btn => {
 
 });
 
-plots.forEach(plot => {
+plots.forEach((plot, index) => {
 
-  let state = "empty";
+  let data = save.plots[index];
 
-  let crop = null;
+  // Восстановление
+  if (data) {
 
-  plot.addEventListener("click", () => {
+    let crop = seeds[data.seed];
 
-    if (state === "empty") {
+    let remaining =
+      data.finishTime - Date.now();
 
-      if (energy <= 0) {
-        alert("⚡ Нет энергии");
-        return;
-      }
-
-      energy -= 1;
-
-      updateStats();
-
-      crop = seeds[currentSeed];
-
-      state = "growing";
+    if (remaining > 0) {
 
       plot.classList.add("growing");
 
@@ -75,7 +99,97 @@ plots.forEach(plot => {
 
       setTimeout(() => {
 
-        state = "ready";
+        plot.classList.remove("growing");
+
+        plot.classList.add("ready");
+
+        plot.innerText =
+          crop.name + "\n🌾 Готово";
+
+        save.plots[index].ready = true;
+
+        saveGame();
+
+      }, remaining);
+
+    }
+
+    else {
+
+      plot.classList.add("ready");
+
+      plot.innerText =
+        crop.name + "\n🌾 Готово";
+
+      save.plots[index].ready = true;
+
+    }
+
+  }
+
+  plot.addEventListener("click", () => {
+
+    let plotData = save.plots[index];
+
+    // Сбор
+    if (plotData && plotData.ready) {
+
+      let crop = seeds[plotData.seed];
+
+      coins += crop.reward;
+
+      xp += crop.xp;
+
+      updateStats();
+
+      save.plots[index] = null;
+
+      plot.classList.remove("ready");
+
+      plot.innerText = "Пусто";
+
+      saveGame();
+
+      return;
+
+    }
+
+    // Посадка
+    if (!plotData) {
+
+      if (energy <= 0) {
+
+        alert("⚡ Нет энергии");
+
+        return;
+
+      }
+
+      energy -= 1;
+
+      updateStats();
+
+      let crop = seeds[currentSeed];
+
+      let finishTime =
+        Date.now() + crop.growTime;
+
+      save.plots[index] = {
+
+        seed: currentSeed,
+        finishTime,
+        ready: false
+
+      };
+
+      saveGame();
+
+      plot.classList.add("growing");
+
+      plot.innerText =
+        crop.name + "\n⏳ Растет";
+
+      setTimeout(() => {
 
         plot.classList.remove("growing");
 
@@ -84,23 +198,13 @@ plots.forEach(plot => {
         plot.innerText =
           crop.name + "\n🌾 Готово";
 
+        save.plots[index].ready = true;
+
+        saveGame();
+
       }, crop.growTime);
 
-    }
-
-    else if (state === "ready") {
-
-      coins += crop.reward;
-
-      xp += crop.xp;
-
-      updateStats();
-
-      state = "empty";
-
-      plot.classList.remove("ready");
-
-      plot.innerText = "Пусто";
+      saveGame();
 
     }
 
