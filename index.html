@@ -4,73 +4,161 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Хуторок</title>
+  <title>HUTOR 10.0</title>
 
   <link rel="stylesheet" href="style.css">
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 
-<div class="app">
+  <!-- ФОН -->
+  <div class="background"></div>
 
-  <div class="top">
+  <!-- HEADER -->
+  <header class="topbar">
 
-    <h1>🌾 Хуторок</h1>
+    <div class="profile-card">
+      <div class="avatar">🚜</div>
 
-    <div class="stats">
+      <div class="profile-info">
+        <h2 id="username">Фермер</h2>
 
-      <div class="stat">
-        💰 <span id="coins">100</span>
+        <div class="level-line">
+          <span>LVL 12</span>
+
+          <div class="xp-bar">
+            <div class="xp-fill"></div>
+          </div>
+        </div>
       </div>
-
-      <div class="stat">
-        ⭐ <span id="xp">0</span>
-      </div>
-
-      <div class="stat">
-        ⚡ <span id="energy">20</span>
-      </div>
-
     </div>
 
-  </div>
-
-  <div class="inventory">
-
-    <div class="inv-item">
-      🌾 Семена: <span id="wheatSeeds">5</span>
+    <div class="balance-card">
+      <div class="money">💰 12 450</div>
+      <div class="stars">⭐ 240</div>
     </div>
 
-    <div class="inv-item">
-      🌽 Семена: <span id="cornSeeds">3</span>
+  </header>
+
+  <!-- СЕЗОН -->
+  <section class="season-banner">
+
+    <div>
+      <h3>🌾 Весенний сезон</h3>
+      <p>До конца: 12 дней</p>
     </div>
 
-  </div>
+    <button>🎁 Забрать</button>
 
-  <h2 class="title">🌱 Ферма</h2>
+  </section>
 
-  <div class="seeds">
+  <!-- ОСНОВНАЯ ФЕРМА -->
+  <main class="farm-container">
 
-    <button class="seed-btn" data-seed="wheat">
-      🌾 Пшеница
+    <!-- ПОЛЕ -->
+    <section class="farm-grid">
+
+      <div class="tile planted">
+        🌽
+        <span>12м</span>
+      </div>
+
+      <div class="tile ready">
+        🥕
+      </div>
+
+      <div class="tile empty">+</div>
+      <div class="tile empty">+</div>
+
+      <div class="tile animal">
+        🐔
+      </div>
+
+      <div class="tile animal">
+        🐄
+      </div>
+
+      <div class="tile building">
+        🏠
+      </div>
+
+      <div class="tile building">
+        🚜
+      </div>
+
+    </section>
+
+    <!-- ПРАВАЯ ПАНЕЛЬ -->
+    <aside class="side-panel">
+
+      <div class="panel-card">
+        <h3>⚡ Энергия</h3>
+        <div class="energy-bar">
+          <div class="energy-fill"></div>
+        </div>
+        <p>84 / 100</p>
+      </div>
+
+      <div class="panel-card">
+        <h3>🏆 Рейтинг</h3>
+        <p>#24 в мире</p>
+      </div>
+
+      <div class="panel-card">
+        <h3>👥 Клан</h3>
+        <p>HUTOR LEGENDS</p>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- КЕЙС -->
+  <section class="case-banner">
+
+    <div>
+      <h3>🎁 Бесплатный кейс</h3>
+      <p>Доступен сейчас</p>
+    </div>
+
+    <button id="openCase">
+      Открыть
     </button>
 
-    <button class="seed-btn" data-seed="corn">
-      🌽 Кукуруза
+  </section>
+
+  <!-- НИЖНЕЕ МЕНЮ -->
+  <nav class="bottom-nav">
+
+    <button class="nav-btn active">
+      🏠
+      <span>Ферма</span>
     </button>
 
-  </div>
+    <button class="nav-btn">
+      🛒
+      <span>Магазин</span>
+    </button>
 
-  <div class="farm-grid">
+    <button class="nav-btn">
+      🐔
+      <span>Животные</span>
+    </button>
 
-    <div class="plot">Пусто</div>
-    <div class="plot">Пусто</div>
-    <div class="plot">Пусто</div>
-    <div class="plot">Пусто</div>
+    <button class="nav-btn">
+      👥
+      <span>Кланы</span>
+    </button>
 
-  </div>
+    <button class="nav-btn">
+      🏆
+      <span>Топ</span>
+    </button>
 
-</div>
+  </nav>
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
+
 </body>
 </html>
