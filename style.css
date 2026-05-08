@@ -1,80 +1,133 @@
-body{
-  margin:0;
-  padding:20px;
-  background:#1f2937;
-  font-family:Arial;
-  color:white;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.card{
-  background:#22c55e;
-  padding:30px;
-  border-radius:30px;
-  text-align:center;
+body {
+  background:
+    linear-gradient(to bottom, #87ceeb 0%, #b8ecff 35%, #7ccf6b 100%);
+
+  min-height: 100vh;
+
+  font-family: Arial, sans-serif;
+
+  color: white;
+
+  padding: 16px;
 }
 
-.avatar{
-  width:120px;
-  height:120px;
-  border-radius:50%;
+/* TOP BAR */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
 }
 
-.stats{
-  margin-top:15px;
-  font-size:28px;
-}
-
-.xp-bar{
-  width:100%;
-  height:20px;
-  background:rgba(255,255,255,0.3);
-  border-radius:20px;
-  margin-top:20px;
-  overflow:hidden;
-}
-
-#xpFill{
-  width:10%;
-  height:100%;
-  background:yellow;
-}
-
-.menu-btn{
-  width:100%;
-  margin-top:20px;
-  padding:22px;
-  border:none;
-  border-radius:25px;
-  background:#22c55e;
-  color:white;
-  font-size:28px;
-}
-.farm-grid {
-  margin-top: 25px;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
+.profile {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.farm-tile {
+.avatar {
+  width: 60px;
+  height: 60px;
 
-  height: 90px;
+  border-radius: 50%;
 
-  border-radius: 20px;
-
-  background: #6b4d2d;
+  background: #ffcc4d;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 40px;
+  font-size: 30px;
 
-  transition: 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#playerName {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.level {
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.coins-box {
+  background: #ffb300;
+
+  padding: 12px 18px;
+
+  border-radius: 16px;
+
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* FARM */
+
+.farm-wrapper {
+  background: rgba(255,255,255,0.12);
+
+  border-radius: 24px;
+
+  padding: 18px;
+
+  backdrop-filter: blur(6px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.2),
+    inset 0 2px 0 rgba(255,255,255,0.15);
+}
+
+.farm-wrapper h2 {
+  margin-bottom: 18px;
+}
+
+.farm-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 16px;
+}
+
+.farm-tile {
+  height: 95px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(to bottom, #9b6a35, #7a4e25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 44px;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition: 0.15s;
+
+  box-shadow:
+    inset 0 4px 0 rgba(255,255,255,0.15),
+    0 7px 0 #5c3817,
+    0 10px 20px rgba(0,0,0,0.25);
 }
 
 .farm-tile:active {
-  transform: scale(0.95);
+  transform: scale(0.93);
 }
