@@ -12,8 +12,7 @@ const player = {
   level: 12,
   xp: 62,
   money: 12450,
-  stars: 240,
-  energy: 84
+  stars: 240
 };
 
 /* =========================================
@@ -23,11 +22,14 @@ const player = {
 const username =
   document.getElementById("username");
 
+const avatarInput =
+  document.getElementById("avatarInput");
+
+const avatarImage =
+  document.getElementById("avatarImage");
+
 const xpFill =
   document.querySelector(".xp-fill");
-
-const energyFill =
-  document.querySelector(".energy-fill");
 
 const moneyText =
   document.querySelector(".money");
@@ -41,6 +43,12 @@ const openCaseBtn =
 const navButtons =
   document.querySelectorAll(".nav-btn");
 
+const backgroundCards =
+  document.querySelectorAll(".bg-card");
+
+const background =
+  document.querySelector(".background");
+
 let tiles =
   document.querySelectorAll(".tile");
 
@@ -49,20 +57,19 @@ let tiles =
 ========================================= */
 
 const pages = {
+
   "Ферма":
     document.getElementById("farmPage"),
 
   "Магазин":
     document.getElementById("shopPage"),
 
-  "Животные":
-    document.getElementById("animalsPage"),
-
   "Кланы":
     document.getElementById("clansPage"),
 
   "Топ":
     document.getElementById("topPage")
+
 };
 
 /* =========================================
@@ -77,14 +84,11 @@ function loadProfile(){
   xpFill.style.width =
     player.xp + "%";
 
-  energyFill.style.width =
-    player.energy + "%";
-
   moneyText.textContent =
-    `💰 ${player.money.toLocaleString()}`;
+    player.money.toLocaleString();
 
   starsText.textContent =
-    `⭐ ${player.stars}`;
+    player.stars;
 
 }
 
@@ -114,7 +118,7 @@ navButtons.forEach(btn => {
       btn.querySelector("span")
       .textContent;
 
-    if (pages[pageName]) {
+    if(pages[pageName]){
 
       pages[pageName]
         .classList.add("active");
@@ -129,89 +133,281 @@ navButtons.forEach(btn => {
 });
 
 /* =========================================
-   CASE OPEN
+   CHANGE NAME
 ========================================= */
 
-openCaseBtn.addEventListener("click", () => {
+username.addEventListener("click", () => {
 
-  tg.HapticFeedback
-    .notificationOccurred("success");
+  const newName =
+    prompt("Введите название фермы");
 
-  const rewards = [
-    "💰 500 монет",
-    "⭐ 15 Stars",
-    "🥕 Морковь x10",
-    "🐔 Курица",
-    "⚡ Энергия +20",
-    "🎁 Редкий предмет"
-  ];
+  if(!newName) return;
 
-  const reward =
-    rewards[
-      Math.floor(
-        Math.random() * rewards.length
-      )
-    ];
+  username.textContent =
+    newName;
 
-  tg.showPopup({
-    title: "🎁 Кейс открыт",
-    message: `Вы получили:\n${reward}`,
-    buttons: [
-      {
-        type: "ok"
-      }
-    ]
+  localStorage.setItem(
+    "farm_name",
+    newName
+  );
+
+});
+
+/* =========================================
+   LOAD SAVED NAME
+========================================= */
+
+const savedName =
+  localStorage.getItem("farm_name");
+
+if(savedName){
+
+  username.textContent =
+    savedName;
+
+}
+
+/* =========================================
+   CHANGE AVATAR
+========================================= */
+
+avatarInput.addEventListener(
+  "change",
+  (event) => {
+
+    const file =
+      event.target.files[0];
+
+    if(!file) return;
+
+    const reader =
+      new FileReader();
+
+    reader.onload = function(e){
+
+      avatarImage.src =
+        e.target.result;
+
+      localStorage.setItem(
+        "farm_avatar",
+        e.target.result
+      );
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+/* =========================================
+   LOAD SAVED AVATAR
+========================================= */
+
+const savedAvatar =
+  localStorage.getItem("farm_avatar");
+
+if(savedAvatar){
+
+  avatarImage.src =
+    savedAvatar;
+
+}
+
+/* =========================================
+   BACKGROUNDS
+========================================= */
+
+backgroundCards.forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    backgroundCards.forEach(c =>
+      c.classList.remove("active-bg")
+    );
+
+    card.classList.add("active-bg");
+
+    background.className =
+      "background";
+
+    const bg =
+      card.dataset.bg;
+
+    if(bg !== "default"){
+
+      background.classList.add(bg);
+
+    }
+
+    localStorage.setItem(
+      "farm_background",
+      bg
+    );
+
+    tg.HapticFeedback
+      .impactOccurred("medium");
+
   });
 
 });
 
 /* =========================================
-   TILE EVENTS
+   LOAD BACKGROUND
+========================================= */
+
+const savedBackground =
+  localStorage.getItem(
+    "farm_background"
+  );
+
+if(savedBackground){
+
+  backgroundCards.forEach(card => {
+
+    card.classList.remove(
+      "active-bg"
+    );
+
+    if(
+      card.dataset.bg ===
+      savedBackground
+    ){
+
+      card.classList.add(
+        "active-bg"
+      );
+
+    }
+
+  });
+
+  if(savedBackground !== "default"){
+
+    background.classList.add(
+      savedBackground
+    );
+
+  }
+
+}
+
+/* =========================================
+   CASE
+========================================= */
+
+openCaseBtn.addEventListener(
+  "click",
+  () => {
+
+    tg.HapticFeedback
+      .notificationOccurred(
+        "success"
+      );
+
+    const rewards = [
+
+      "💰 500 монет",
+
+      "⭐ 15 Stars",
+
+      "🎨 Новый фон",
+
+      "🔥 Epic рамка",
+
+      "🚜 Трактор",
+
+      "👑 Legendary статус"
+
+    ];
+
+    const reward =
+      rewards[
+        Math.floor(
+          Math.random() *
+          rewards.length
+        )
+      ];
+
+    tg.showPopup({
+
+      title:"🎁 Кейс открыт",
+
+      message:
+        `Вы получили:\n${reward}`,
+
+      buttons:[
+        {
+          type:"ok"
+        }
+      ]
+
+    });
+
+});
+
+/* =========================================
+   FARM TILES
 ========================================= */
 
 function setupTiles(){
 
   tiles =
-    document.querySelectorAll(".tile");
+    document.querySelectorAll(
+      ".tile"
+    );
 
   tiles.forEach(tile => {
 
-    tile.addEventListener("click", () => {
+    tile.addEventListener(
+      "click",
+      () => {
 
-      tg.HapticFeedback
-        .impactOccurred("medium");
+        tg.HapticFeedback
+          .impactOccurred(
+            "medium"
+          );
 
-      if (
-        tile.classList.contains("ready")
-      ){
+        if(
+          tile.classList.contains(
+            "ready"
+          )
+        ){
 
-        collectCrop(tile);
+          collectCrop(tile);
+
+        }
+
+        else if(
+          tile.classList.contains(
+            "empty"
+          )
+        ){
+
+          plantCrop(tile);
+
+        }
+
+        else{
+
+          tg.showPopup({
+
+            title:"🌾 Хуторок 🍃",
+
+            message:
+              "Объект выбран",
+
+            buttons:[
+              {
+                type:"ok"
+              }
+            ]
+
+          });
+
+        }
 
       }
-
-      else if (
-        tile.classList.contains("empty")
-      ){
-
-        plantCrop(tile);
-
-      }
-
-      else{
-
-        tg.showPopup({
-          title: "🌾 HUTOR",
-          message: "Объект выбран",
-          buttons: [
-            {
-              type: "ok"
-            }
-          ]
-        });
-
-      }
-
-    });
+    );
 
   });
 
@@ -228,22 +424,31 @@ function plantCrop(tile){
   if(player.money < 50){
 
     tg.showPopup({
-      title: "❌ Ошибка",
-      message: "Недостаточно монет",
-      buttons: [
+
+      title:"❌ Ошибка",
+
+      message:
+        "Недостаточно монет",
+
+      buttons:[
         {
           type:"ok"
         }
       ]
+
     });
 
     return;
 
   }
 
-  tile.classList.remove("empty");
+  tile.classList.remove(
+    "empty"
+  );
 
-  tile.classList.add("planted");
+  tile.classList.add(
+    "planted"
+  );
 
   tile.innerHTML = `
     🌽
@@ -254,16 +459,6 @@ function plantCrop(tile){
 
   updateMoney();
 
-  tg.showPopup({
-    title: "🌱 Посадка",
-    message: "Кукуруза посажена",
-    buttons: [
-      {
-        type:"ok"
-      }
-    ]
-  });
-
 }
 
 /* =========================================
@@ -272,9 +467,13 @@ function plantCrop(tile){
 
 function collectCrop(tile){
 
-  tile.classList.remove("ready");
+  tile.classList.remove(
+    "ready"
+  );
 
-  tile.classList.add("empty");
+  tile.classList.add(
+    "empty"
+  );
 
   tile.innerHTML = `+`;
 
@@ -283,20 +482,27 @@ function collectCrop(tile){
   player.xp += 4;
 
   if(player.xp > 100){
+
     player.xp = 100;
+
   }
 
   updateMoney();
   updateXP();
 
   tg.showPopup({
-    title: "🌽 Урожай собран",
-    message: "+120 монет\n+4 XP",
-    buttons: [
+
+    title:"🌽 Урожай",
+
+    message:
+      "+120 монет\n+4 XP",
+
+    buttons:[
       {
         type:"ok"
       }
     ]
+
   });
 
 }
@@ -308,7 +514,7 @@ function collectCrop(tile){
 function updateMoney(){
 
   moneyText.textContent =
-    `💰 ${player.money.toLocaleString()}`;
+    player.money.toLocaleString();
 
 }
 
@@ -326,7 +532,9 @@ function updateXP(){
 setInterval(() => {
 
   const plantedTiles =
-    document.querySelectorAll(".planted");
+    document.querySelectorAll(
+      ".planted"
+    );
 
   plantedTiles.forEach(tile => {
 
@@ -336,20 +544,28 @@ setInterval(() => {
     if(!span) return;
 
     let time =
-      parseInt(span.textContent);
+      parseInt(
+        span.textContent
+      );
 
     time--;
 
     if(time <= 0){
 
-      tile.classList.remove("planted");
+      tile.classList.remove(
+        "planted"
+      );
 
-      tile.classList.add("ready");
+      tile.classList.add(
+        "ready"
+      );
 
       tile.innerHTML = `🥕`;
 
       tg.HapticFeedback
-        .notificationOccurred("success");
+        .notificationOccurred(
+          "success"
+        );
 
     }
 
@@ -377,13 +593,18 @@ tg.MainButton.show();
 tg.MainButton.onClick(() => {
 
   tg.showPopup({
-    title:"HUTOR 10.0",
-    message:"Добро пожаловать на ферму",
+
+    title:"Хуторок 🍃",
+
+    message:
+      "Добро пожаловать",
+
     buttons:[
       {
         type:"ok"
       }
     ]
+
   });
 
 });
@@ -392,4 +613,6 @@ tg.MainButton.onClick(() => {
    START
 ========================================= */
 
-console.log("HUTOR 10.0 LOADED");
+console.log(
+  "Хуторок 🍃 LOADED"
+);
