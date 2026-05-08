@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+  <title>Хуторок 🍃</title>
+
+  <link rel="stylesheet" href="style.css"/>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="background"></div>
+
+  <!-- APP -->
+  <div class="app">
+
+    <!-- HEADER -->
+    <div class="topbar">
+
+      <div class="profile-mini">
+
+        <div class="avatar-frame">
+          <img id="avatar" src="https://i.imgur.com/9Xn4F6L.png">
+        </div>
+
+        <div class="profile-info">
+          <div id="playerName" class="player-name">
+            Фермер
+          </div>
+
+          <div class="player-level">
+            ⭐ <span id="level">1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="currencies">
+        <div class="money-box">
+          💰 <span id="money">500</span>
+        </div>
+
+        <div class="stars-box">
+          ⭐ <span id="stars">0</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- XP -->
+    <div class="xp-wrapper">
+      <div class="xp-bar">
+        <div id="xpFill" class="xp-fill"></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile-card">
+
+      <div class="big-avatar-frame">
+        <img id="bigAvatar" src="https://i.imgur.com/9Xn4F6L.png">
+      </div>
+
+      <input type="file" id="avatarInput" hidden>
+
+      <button class="change-avatar-btn" onclick="changeAvatar()">
+        Сменить фото
+      </button>
+
+      <div class="profile-name-box">
+        <input id="nameInput" value="Фермер">
+      </div>
+
+      <button class="save-profile-btn" onclick="saveProfile()">
+        Сохранить профиль
+      </button>
+
+    </div>
+
+    <!-- FARM -->
+    <div class="section">
+
+      <div class="section-title">
+        🌾 Ферма
+      </div>
+
+      <div id="farmGrid" class="farm-grid"></div>
+
+    </div>
+
+    <!-- INVENTORY -->
+    <div class="section">
+
+      <div class="section-title">
+        🎒 Инвентарь
+      </div>
+
+      <div id="inventory" class="inventory-grid"></div>
+
+    </div>
+
+    <!-- ONLINE -->
+    <div class="section">
+
+      <div class="section-title">
+        🌍 Онлайн игроки
+      </div>
+
+      <div id="onlinePlayers" class="online-list"></div>
+
+    </div>
+
+    <!-- CLANS -->
+    <div class="section">
+
+      <div class="section-title">
+        🛡️ Кланы
+      </div>
+
+      <div class="clan-card">
+        <div class="clan-name">
+          Нет клана
+        </div>
+
+        <button class="clan-btn">
+          Создать клан
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SHOP -->
+    <div class="section">
+
+      <div class="section-title">
+        🛒 Магазин
+      </div>
+
+      <div class="shop-grid">
+
+        <div class="shop-item">
+          <div class="shop-icon">🖼️</div>
+          <div class="shop-name">Рамка</div>
+          <button class="buy-btn">
+            ⭐ 50
+          </button>
+        </div>
+
+        <div class="shop-item">
+          <div class="shop-icon">🌌</div>
+          <div class="shop-name">Фон</div>
+          <button class="buy-btn">
+            ⭐ 100
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+  <script src="js/ui.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/farm.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/clans.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/online.js"></script>
+
+</body>
+</html>
