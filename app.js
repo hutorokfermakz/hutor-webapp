@@ -1,618 +1,426 @@
+const SUPABASE_URL =
+  "https://gihybzpefojxiyyxheks.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_epzMrCasnlXMmAENesXgTw_dkRzwBag";
+
 const tg = window.Telegram.WebApp;
 
-tg.ready();
 tg.expand();
 
-/* =========================================
-   PLAYER
-========================================= */
+const telegramUser =
+  tg.initDataUnsafe.user;
 
-const player = {
-  name: "Фермер",
-  level: 12,
-  xp: 62,
-  money: 12450,
-  stars: 240
+const telegramId =
+  telegramUser?.id || "0";
+
+
+
+// ===== PLAYER =====
+
+let player = {
+
+  money: 500,
+
+  stars: 0,
+
+  level: 1,
+
+  xp: 0
+
 };
 
-/* =========================================
-   DOM
-========================================= */
+
+
+// ===== ELEMENTS =====
+
+const moneyEl =
+  document.getElementById("money");
+
+const starsEl =
+  document.getElementById("stars");
+
+const levelEl =
+  document.getElementById("level");
+
+const xpBar =
+  document.getElementById("xp-bar");
 
 const username =
   document.getElementById("username");
 
-const avatarInput =
-  document.getElementById("avatarInput");
-
 const avatarImage =
-  document.getElementById("avatarImage");
+  document.getElementById("avatar-image");
 
-const xpFill =
-  document.querySelector(".xp-fill");
+const bonusBtn =
+  document.getElementById("bonus-case");
 
-const moneyText =
-  document.querySelector(".money");
+const bonusTimer =
+  document.getElementById("bonus-timer");
 
-const starsText =
-  document.querySelector(".stars");
 
-const openCaseBtn =
-  document.getElementById("openCase");
 
-const navButtons =
-  document.querySelectorAll(".nav-btn");
+// ===== UPDATE UI =====
 
-const backgroundCards =
-  document.querySelectorAll(".bg-card");
+function updateUI(){
 
-const background =
-  document.querySelector(".background");
-
-let tiles =
-  document.querySelectorAll(".tile");
-
-/* =========================================
-   PAGES
-========================================= */
-
-const pages = {
-
-  "Ферма":
-    document.getElementById("farmPage"),
-
-  "Магазин":
-    document.getElementById("shopPage"),
-
-  "Кланы":
-    document.getElementById("clansPage"),
-
-  "Топ":
-    document.getElementById("topPage")
-
-};
-
-/* =========================================
-   LOAD PROFILE
-========================================= */
-
-function loadProfile(){
-
-  username.textContent =
-    player.name;
-
-  xpFill.style.width =
-    player.xp + "%";
-
-  moneyText.textContent =
+  moneyEl.textContent =
     player.money.toLocaleString();
 
-  starsText.textContent =
+  starsEl.textContent =
     player.stars;
+
+  levelEl.textContent =
+    `LVL ${player.level}`;
+
+  xpBar.style.width =
+    `${player.xp}%`;
 
 }
 
-loadProfile();
 
-/* =========================================
-   NAVIGATION
-========================================= */
 
-navButtons.forEach(btn => {
+// ===== SAVE PLAYER =====
 
-  btn.addEventListener("click", () => {
+async function savePlayer(){
 
-    navButtons.forEach(b =>
-      b.classList.remove("active")
+  try{
+
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/Players`,
+      {
+
+        method: "POST",
+
+        headers: {
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            `Bearer ${SUPABASE_KEY}`,
+
+          "Content-Type":
+            "application/json",
+
+          "Prefer":
+            "resolution=merge-duplicates"
+
+        },
+
+        body: JSON.stringify({
+
+          telegram_id:
+            String(telegramId),
+
+          name:
+            username.textContent,
+
+          money:
+            player.money,
+
+          stars:
+            player.stars,
+
+          level:
+            player.level,
+
+          xp:
+            player.xp,
+
+          avatar:
+            avatarImage.src,
+
+          background:
+            localStorage.getItem(
+              "farm_background"
+            ) || ""
+
+        })
+
+      }
     );
 
-    btn.classList.add("active");
+    console.log("PLAYER SAVED");
 
-    document
-      .querySelectorAll(".page")
-      .forEach(page =>
-        page.classList.remove("active")
+  }catch(err){
+
+    console.log(err);
+
+  }
+
+}
+
+
+
+// ===== LOAD PLAYER =====
+
+async function loadPlayer(){
+
+  try{
+
+    const response =
+      await fetch(
+
+        `${SUPABASE_URL}/rest/v1/Players?telegram_id=eq.${telegramId}`,
+
+        {
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${SUPABASE_KEY}`
+
+          }
+
+        }
+
       );
 
-    const pageName =
-      btn.querySelector("span")
-      .textContent;
+    const data =
+      await response.json();
 
-    if(pages[pageName]){
+    if(data.length > 0){
 
-      pages[pageName]
-        .classList.add("active");
+      const dbPlayer =
+        data[0];
+
+      player.money =
+        dbPlayer.money || 0;
+
+      player.stars =
+        dbPlayer.stars || 0;
+
+      player.level =
+        dbPlayer.level || 1;
+
+      player.xp =
+        dbPlayer.xp || 0;
+
+      username.textContent =
+        dbPlayer.name || "Фермер";
+
+      if(dbPlayer.avatar){
+
+        avatarImage.src =
+          dbPlayer.avatar;
+
+      }
+
+      updateUI();
+
+    }else{
+
+      await savePlayer();
 
     }
 
-    tg.HapticFeedback
-      .impactOccurred("light");
+  }catch(err){
 
-  });
+    console.log(err);
 
-});
+  }
 
-/* =========================================
-   CHANGE NAME
-========================================= */
+}
 
-username.addEventListener("click", () => {
+
+
+// ===== CHANGE NAME =====
+
+username.onclick = async () => {
 
   const newName =
-    prompt("Введите название фермы");
+    prompt("Введите имя");
 
   if(!newName) return;
 
   username.textContent =
     newName;
 
-  localStorage.setItem(
-    "farm_name",
-    newName
-  );
+  await savePlayer();
 
-});
+};
 
-/* =========================================
-   LOAD SAVED NAME
-========================================= */
 
-const savedName =
-  localStorage.getItem("farm_name");
 
-if(savedName){
+// ===== CHANGE AVATAR =====
 
-  username.textContent =
-    savedName;
+avatarImage.onclick = () => {
 
-}
+  const input =
+    document.createElement("input");
 
-/* =========================================
-   CHANGE AVATAR
-========================================= */
+  input.type = "file";
 
-avatarInput.addEventListener(
-  "change",
-  (event) => {
+  input.accept = "image/*";
+
+  input.onchange = () => {
 
     const file =
-      event.target.files[0];
-
-    if(!file) return;
+      input.files[0];
 
     const reader =
       new FileReader();
 
-    reader.onload = function(e){
+    reader.onload = async () => {
 
       avatarImage.src =
-        e.target.result;
+        reader.result;
 
-      localStorage.setItem(
-        "farm_avatar",
-        e.target.result
-      );
+      await savePlayer();
 
     };
 
     reader.readAsDataURL(file);
 
-});
+  };
 
-/* =========================================
-   LOAD SAVED AVATAR
-========================================= */
+  input.click();
 
-const savedAvatar =
-  localStorage.getItem("farm_avatar");
+};
 
-if(savedAvatar){
 
-  avatarImage.src =
-    savedAvatar;
 
-}
+// ===== FARM =====
 
-/* =========================================
-   BACKGROUNDS
-========================================= */
+window.collectWheat = async function(){
 
-backgroundCards.forEach(card => {
+  player.money += 120;
 
-  card.addEventListener("click", () => {
+  player.xp += 5;
 
-    backgroundCards.forEach(c =>
-      c.classList.remove("active-bg")
-    );
+  if(player.xp >= 100){
 
-    card.classList.add("active-bg");
+    player.level += 1;
 
-    background.className =
-      "background";
-
-    const bg =
-      card.dataset.bg;
-
-    if(bg !== "default"){
-
-      background.classList.add(bg);
-
-    }
-
-    localStorage.setItem(
-      "farm_background",
-      bg
-    );
-
-    tg.HapticFeedback
-      .impactOccurred("medium");
-
-  });
-
-});
-
-/* =========================================
-   LOAD BACKGROUND
-========================================= */
-
-const savedBackground =
-  localStorage.getItem(
-    "farm_background"
-  );
-
-if(savedBackground){
-
-  backgroundCards.forEach(card => {
-
-    card.classList.remove(
-      "active-bg"
-    );
-
-    if(
-      card.dataset.bg ===
-      savedBackground
-    ){
-
-      card.classList.add(
-        "active-bg"
-      );
-
-    }
-
-  });
-
-  if(savedBackground !== "default"){
-
-    background.classList.add(
-      savedBackground
-    );
+    player.xp = 0;
 
   }
 
-}
+  updateUI();
 
-/* =========================================
-   CASE
-========================================= */
+  await savePlayer();
 
-openCaseBtn.addEventListener(
-  "click",
-  () => {
+};
 
-    tg.HapticFeedback
-      .notificationOccurred(
-        "success"
-      );
 
-    const rewards = [
 
-      "💰 500 монет",
+// ===== BONUS CASE =====
 
-      "⭐ 15 Stars",
+function getRemainingTime(){
 
-      "🎨 Новый фон",
-
-      "🔥 Epic рамка",
-
-      "🚜 Трактор",
-
-      "👑 Legendary статус"
-
-    ];
-
-    const reward =
-      rewards[
-        Math.floor(
-          Math.random() *
-          rewards.length
-        )
-      ];
-
-    tg.showPopup({
-
-      title:"🎁 Кейс открыт",
-
-      message:
-        `Вы получили:\n${reward}`,
-
-      buttons:[
-        {
-          type:"ok"
-        }
-      ]
-
-    });
-
-});
-
-/* =========================================
-   FARM TILES
-========================================= */
-
-function setupTiles(){
-
-  tiles =
-    document.querySelectorAll(
-      ".tile"
+  const lastOpen =
+    localStorage.getItem(
+      "bonus_case_time"
     );
 
-  tiles.forEach(tile => {
+  if(!lastOpen) return 0;
 
-    tile.addEventListener(
-      "click",
-      () => {
+  const now =
+    Date.now();
 
-        tg.HapticFeedback
-          .impactOccurred(
-            "medium"
-          );
+  const diff =
+    now - Number(lastOpen);
 
-        if(
-          tile.classList.contains(
-            "ready"
-          )
-        ){
+  const cooldown =
+    1000 * 60 * 60 * 3;
 
-          collectCrop(tile);
-
-        }
-
-        else if(
-          tile.classList.contains(
-            "empty"
-          )
-        ){
-
-          plantCrop(tile);
-
-        }
-
-        else{
-
-          tg.showPopup({
-
-            title:"🌾 Хуторок 🍃",
-
-            message:
-              "Объект выбран",
-
-            buttons:[
-              {
-                type:"ok"
-              }
-            ]
-
-          });
-
-        }
-
-      }
-    );
-
-  });
+  return cooldown - diff;
 
 }
 
-setupTiles();
 
-/* =========================================
-   PLANT
-========================================= */
 
-function plantCrop(tile){
+function updateBonusTimer(){
 
-  if(player.money < 50){
+  const left =
+    getRemainingTime();
 
-    tg.showPopup({
+  if(left <= 0){
 
-      title:"❌ Ошибка",
+    bonusBtn.disabled = false;
 
-      message:
-        "Недостаточно монет",
+    bonusBtn.innerText =
+      "🎁 Бесплатный кейс";
 
-      buttons:[
-        {
-          type:"ok"
-        }
-      ]
-
-    });
+    bonusTimer.innerText =
+      "";
 
     return;
 
   }
 
-  tile.classList.remove(
-    "empty"
-  );
+  bonusBtn.disabled = true;
 
-  tile.classList.add(
-    "planted"
-  );
-
-  tile.innerHTML = `
-    🌽
-    <span>15м</span>
-  `;
-
-  player.money -= 50;
-
-  updateMoney();
-
-}
-
-/* =========================================
-   COLLECT
-========================================= */
-
-function collectCrop(tile){
-
-  tile.classList.remove(
-    "ready"
-  );
-
-  tile.classList.add(
-    "empty"
-  );
-
-  tile.innerHTML = `+`;
-
-  player.money += 120;
-
-  player.xp += 4;
-
-  if(player.xp > 100){
-
-    player.xp = 100;
-
-  }
-
-  updateMoney();
-  updateXP();
-
-  tg.showPopup({
-
-    title:"🌽 Урожай",
-
-    message:
-      "+120 монет\n+4 XP",
-
-    buttons:[
-      {
-        type:"ok"
-      }
-    ]
-
-  });
-
-}
-
-/* =========================================
-   UPDATE UI
-========================================= */
-
-function updateMoney(){
-
-  moneyText.textContent =
-    player.money.toLocaleString();
-
-}
-
-function updateXP(){
-
-  xpFill.style.width =
-    player.xp + "%";
-
-}
-
-/* =========================================
-   GROW TIMER
-========================================= */
-
-setInterval(() => {
-
-  const plantedTiles =
-    document.querySelectorAll(
-      ".planted"
+  const hours =
+    Math.floor(
+      left / 1000 / 60 / 60
     );
 
-  plantedTiles.forEach(tile => {
+  const minutes =
+    Math.floor(
+      (left / 1000 / 60) % 60
+    );
 
-    const span =
-      tile.querySelector("span");
+  const seconds =
+    Math.floor(
+      (left / 1000) % 60
+    );
 
-    if(!span) return;
+  bonusTimer.innerText =
+    `⏳ ${hours}ч ${minutes}м ${seconds}с`;
 
-    let time =
-      parseInt(
-        span.textContent
-      );
+}
 
-    time--;
 
-    if(time <= 0){
 
-      tile.classList.remove(
-        "planted"
-      );
+bonusBtn.onclick = async () => {
 
-      tile.classList.add(
-        "ready"
-      );
+  const left =
+    getRemainingTime();
 
-      tile.innerHTML = `🥕`;
+  if(left > 0) return;
 
-      tg.HapticFeedback
-        .notificationOccurred(
-          "success"
-        );
+  const reward =
+    Math.floor(
+      Math.random() * 500
+    ) + 100;
 
-    }
+  player.money += reward;
 
-    else{
+  alert(
+    `🎁 Вы получили ${reward} монет!`
+  );
 
-      span.textContent =
-        `${time}м`;
+  localStorage.setItem(
+    "bonus_case_time",
+    Date.now()
+  );
 
-    }
+  updateUI();
 
-  });
+  await savePlayer();
 
-},3000);
+  updateBonusTimer();
 
-/* =========================================
-   MAIN BUTTON
-========================================= */
+};
 
-tg.MainButton.setText(
-  "🚜 Открыть ферму"
+
+
+setInterval(
+  updateBonusTimer,
+  1000
 );
 
-tg.MainButton.show();
 
-tg.MainButton.onClick(() => {
 
-  tg.showPopup({
+// ===== INIT =====
 
-    title:"Хуторок 🍃",
+updateUI();
 
-    message:
-      "Добро пожаловать",
+loadPlayer();
 
-    buttons:[
-      {
-        type:"ok"
-      }
-    ]
-
-  });
-
-});
-
-/* =========================================
-   START
-========================================= */
-
-console.log(
-  "Хуторок 🍃 LOADED"
-);
+updateBonusTimer();
