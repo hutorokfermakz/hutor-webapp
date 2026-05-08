@@ -1,3 +1,5 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -7,23 +9,29 @@
 
   <title>Хуторок 🍃</title>
 
+  <!-- Telegram -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
+  <!-- JS -->
   <script src="app.js" defer></script>
 </head>
 
 <body>
 
-  <div id="profileCard" class="profile-card">
+  <!-- PROFILE -->
+  <div class="profile-card">
 
-    <img
-      id="avatar"
-      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-    >
+    <label for="avatarInput">
+      <img
+        id="avatar"
+        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+      >
+    </label>
 
-    <input type="file" id="avatarInput">
+    <input type="file" id="avatarInput" hidden>
 
     <h1 id="playerName">Фермер</h1>
 
@@ -32,7 +40,8 @@
     </div>
 
     <div class="stats">
-      ⭐ <span id="level">1</span>
+      ⭐ Уровень:
+      <span id="level">1</span>
     </div>
 
     <div class="xp-bar">
@@ -41,12 +50,30 @@
 
   </div>
 
+  <!-- FARM -->
+  <div class="farm-grid">
+
+    <div class="farm-slot" id="slot1">🟫</div>
+    <div class="farm-slot" id="slot2">🟫</div>
+    <div class="farm-slot" id="slot3">🟫</div>
+
+    <div class="farm-slot" id="slot4">🟫</div>
+    <div class="farm-slot" id="slot5">🟫</div>
+    <div class="farm-slot" id="slot6">🟫</div>
+
+    <div class="farm-slot" id="slot7">🟫</div>
+    <div class="farm-slot" id="slot8">🟫</div>
+    <div class="farm-slot" id="slot9">🟫</div>
+
+  </div>
+
+  <!-- BUTTONS -->
   <button id="farmBtn">
-    🌾 Ферма
+    🌾 Посадить пшеницу
   </button>
 
   <button id="caseBtn">
-    🎁 Кейс
+    🎁 Открыть кейс
   </button>
 
 </body>
