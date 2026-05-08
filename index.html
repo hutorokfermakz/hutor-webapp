@@ -1,12 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>HUTOR WEBAPP</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Хуторок</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🌾 HUTOR WEBAPP</h1>
+
+  <div class="app">
+    <h1>🌾 Хуторок</h1>
+
+    <div class="card">
+      <h2>Баланс</h2>
+      <p id="coins">0 монет</p>
+    </div>
+
+    <button id="farmBtn">
+      🌱 Собрать урожай
+    </button>
+
+    <div class="card">
+      <h2>Ферма</h2>
+      <p>Уровень: <span id="level">1</span></p>
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
