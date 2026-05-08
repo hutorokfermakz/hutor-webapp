@@ -1,8 +1,11 @@
+/* style.css */
 
 body {
   margin: 0;
   padding: 20px;
-  background: #0f172a;
+
+  background: #1e293b;
+
   color: white;
   font-family: Arial, sans-serif;
 }
@@ -10,10 +13,13 @@ body {
 /* PROFILE */
 
 .profile-card {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border-radius: 28px;
-  padding: 20px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+
+  border-radius: 30px;
+
+  padding: 24px;
+
+  margin-bottom: 24px;
 }
 
 /* AVATAR */
@@ -21,11 +27,15 @@ body {
 #avatar {
   width: 120px;
   height: 120px;
+
   border-radius: 50%;
+
   object-fit: cover;
-  border: 5px solid #22c55e;
+
+  border: 5px solid white;
 
   display: block;
+
   margin: 0 auto 20px;
 }
 
@@ -33,61 +43,93 @@ body {
 
 #playerName {
   text-align: center;
+
   margin: 0;
-  font-size: 28px;
+
+  font-size: 32px;
 }
 
 /* STATS */
 
 .stats {
-  margin-top: 18px;
-  font-size: 22px;
+  text-align: center;
+
+  margin-top: 14px;
+
+  font-size: 24px;
 }
 
 /* XP BAR */
 
 .xp-bar {
   width: 100%;
-  height: 16px;
-  background: rgba(255,255,255,0.1);
+  height: 18px;
+
+  background: rgba(255,255,255,0.2);
+
   border-radius: 999px;
+
   overflow: hidden;
-  margin-top: 14px;
+
+  margin-top: 20px;
 }
 
 #xpFill {
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, #22c55e, #84cc16);
+
+  background: yellow;
+
   transition: 0.3s;
+}
+
+/* FARM */
+
+.farm-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 24px;
+}
+
+.farm-slot {
+  aspect-ratio: 1/1;
+
+  background: #92400e;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 42px;
 }
 
 /* BUTTONS */
 
 button {
   width: 100%;
+
   border: none;
-  border-radius: 18px;
-  padding: 16px;
+
+  border-radius: 20px;
+
+  padding: 18px;
+
   margin-top: 14px;
 
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 
   background: #22c55e;
-  color: white;
 
-  cursor: pointer;
+  color: white;
 }
 
 button:active {
   transform: scale(0.98);
-}
-
-/* BACKGROUND BUTTONS */
-
-.bg-select {
-  width: 60px;
-  height: 60px;
-  font-size: 26px;
 }
