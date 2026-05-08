@@ -1,66 +1,182 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>HUTOR 10.0</title>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Хуторок 🍃</title>
 
   <link rel="stylesheet" href="style.css">
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 </head>
 <body>
 
+  <!-- BACKGROUND -->
+
   <div class="background"></div>
 
-  <!-- HEADER -->
-  <header class="topbar">
+  <!-- PROFILE HERO -->
 
-    <div class="profile-card">
+  <header class="profile-hero">
 
-      <div class="avatar">🚜</div>
+    <!-- AVATAR BLOCK -->
 
-      <div class="profile-info">
-        <h2 id="username">Фермер</h2>
+    <div class="avatar-wrapper">
 
-        <div class="level-line">
+      <!-- ANIMATED RING -->
 
-          <span>LVL 12</span>
+      <div class="avatar-ring"></div>
 
-          <div class="xp-bar">
-            <div class="xp-fill"></div>
-          </div>
+      <!-- AVATAR -->
 
-        </div>
+      <label
+        class="avatar"
+        for="avatarInput"
+      >
+
+        <img
+          id="avatarImage"
+          src="https://i.ibb.co/0jqHpnp/tractor.png"
+        />
+
+      </label>
+
+      <input
+        type="file"
+        id="avatarInput"
+        accept="image/*"
+        hidden
+      />
+
+      <!-- LEVEL BADGE -->
+
+      <div class="level-badge">
+
+        LVL 12
+
       </div>
 
     </div>
 
-    <div class="balance-card">
-      <div class="money">💰 12 450</div>
-      <div class="stars">⭐ 240</div>
+    <!-- PROFILE INFO -->
+
+    <div class="hero-info">
+
+      <h1
+        id="username"
+        class="editable-name"
+      >
+        Фермер
+      </h1>
+
+      <div class="player-tag">
+
+        🌾 Легендарный фермер
+
+      </div>
+
+      <!-- XP -->
+
+      <div class="xp-wrapper">
+
+        <div class="xp-bar">
+          <div class="xp-fill"></div>
+        </div>
+
+        <span>620 / 1000 XP</span>
+
+      </div>
+
+      <!-- STATS -->
+
+      <div class="profile-stats">
+
+        <div class="stat-card">
+          <h3>💰</h3>
+          <p class="money">
+            12 450
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <h3>⭐</h3>
+          <p class="stars">
+            240
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <h3>🏆</h3>
+          <p>
+            #24
+          </p>
+        </div>
+
+      </div>
+
     </div>
 
   </header>
 
-  <!-- SEASON -->
-  <section class="season-banner">
+  <!-- CUSTOM BACKGROUNDS -->
 
-    <div>
-      <h3>🌾 Весенний сезон</h3>
-      <p>До конца: 12 дней</p>
+  <section class="backgrounds-section">
+
+    <h2>
+      🎨 Фоны профиля
+    </h2>
+
+    <div class="background-grid">
+
+      <div
+        class="bg-card active-bg"
+        data-bg="default"
+      >
+        🌌
+      </div>
+
+      <div
+        class="bg-card"
+        data-bg="forest"
+      >
+        🌲
+      </div>
+
+      <div
+        class="bg-card"
+        data-bg="sunset"
+      >
+        🌅
+      </div>
+
+      <div
+        class="bg-card"
+        data-bg="ice"
+      >
+        ❄️
+      </div>
+
     </div>
-
-    <button>🎁 Забрать</button>
 
   </section>
 
   <!-- PAGES -->
+
   <main id="pages">
 
-    <!-- ФЕРМА -->
-    <section class="page active" id="farmPage">
+    <!-- FARM -->
+
+    <section
+      class="page active"
+      id="farmPage"
+    >
 
       <section class="farm-grid">
 
@@ -74,119 +190,83 @@
         </div>
 
         <div class="tile empty">+</div>
+
         <div class="tile empty">+</div>
 
-        <div class="tile animal">🐔</div>
+        <div class="tile animal">
+          🐔
+        </div>
 
-        <div class="tile animal">🐄</div>
+        <div class="tile animal">
+          🐄
+        </div>
 
-        <div class="tile building">🏠</div>
+        <div class="tile building">
+          🏠
+        </div>
 
-        <div class="tile building">🚜</div>
+        <div class="tile building">
+          🚜
+        </div>
 
       </section>
 
-      <div class="side-panel">
+    </section>
 
-        <div class="panel-card">
-          <h3>⚡ Энергия</h3>
+    <!-- SHOP -->
 
-          <div class="energy-bar">
-            <div class="energy-fill"></div>
-          </div>
+    <section
+      class="page"
+      id="shopPage"
+    >
 
-          <p>84 / 100</p>
-        </div>
+      <div class="shop-item">
+        🌽 Семена
+        <span>50 💰</span>
+      </div>
 
+      <div class="shop-item">
+        🐔 Курица
+        <span>500 💰</span>
+      </div>
+
+      <div class="shop-item">
+        🚜 Трактор
+        <span>5000 💰</span>
       </div>
 
     </section>
 
-    <!-- МАГАЗИН -->
-    <section class="page" id="shopPage">
+    <!-- CLANS -->
 
-      <div class="shop-grid">
-
-        <div class="shop-item">
-          🌽 Семена
-          <span>50 💰</span>
-        </div>
-
-        <div class="shop-item">
-          🥕 Морковь
-          <span>80 💰</span>
-        </div>
-
-        <div class="shop-item">
-          🐔 Курица
-          <span>500 💰</span>
-        </div>
-
-        <div class="shop-item">
-          🐄 Корова
-          <span>1500 💰</span>
-        </div>
-
-        <div class="shop-item">
-          🚜 Трактор
-          <span>5000 💰</span>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ЖИВОТНЫЕ -->
-    <section class="page" id="animalsPage">
-
-      <div class="info-card">
-        🐔 Курицы: 12
-      </div>
-
-      <div class="info-card">
-        🐄 Коровы: 4
-      </div>
-
-      <div class="info-card">
-        🥚 Яиц в час: 24
-      </div>
-
-    </section>
-
-    <!-- КЛАНЫ -->
-    <section class="page" id="clansPage">
+    <section
+      class="page"
+      id="clansPage"
+    >
 
       <div class="info-card">
         👥 HUTOR LEGENDS
       </div>
 
       <div class="info-card">
-        🏆 Топ #3
-      </div>
-
-      <div class="info-card">
-        🌍 Участников: 48
+        🏆 Топ #3 мира
       </div>
 
     </section>
 
-    <!-- ТОП -->
-    <section class="page" id="topPage">
+    <!-- TOP -->
 
-      <div class="leaderboard">
+    <section
+      class="page"
+      id="topPage"
+    >
 
-        <div class="leader">
-          🥇 FarmerPro — 52 000
-        </div>
+      <div class="leader">
+        🥇 FarmerPro — 52000
+      </div>
 
-        <div class="leader">
-          🥈 HUTOR KING — 48 000
-        </div>
-
-        <div class="leader">
-          🥉 AgroMaster — 39 000
-        </div>
-
+      <div class="leader">
+        🥈 AgroKing — 48000
       </div>
 
     </section>
@@ -194,11 +274,15 @@
   </main>
 
   <!-- CASE -->
+
   <section class="case-banner">
 
     <div>
+
       <h3>🎁 Бесплатный кейс</h3>
+
       <p>Доступен сейчас</p>
+
     </div>
 
     <button id="openCase">
@@ -207,7 +291,8 @@
 
   </section>
 
-  <!-- NAV -->
+  <!-- NAVIGATION -->
+
   <nav class="bottom-nav">
 
     <button class="nav-btn active">
@@ -218,11 +303,6 @@
     <button class="nav-btn">
       🛒
       <span>Магазин</span>
-    </button>
-
-    <button class="nav-btn">
-      🐔
-      <span>Животные</span>
     </button>
 
     <button class="nav-btn">
