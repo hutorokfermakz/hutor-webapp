@@ -1,5 +1,8 @@
+// app.js
+
 document.addEventListener("DOMContentLoaded", () => {
 
+  // ===== TELEGRAM =====
   const tg = window.Telegram.WebApp;
 
   tg.expand();
@@ -23,17 +26,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const farmBtn = document.getElementById("farmBtn");
   const caseBtn = document.getElementById("caseBtn");
 
+  const avatar = document.getElementById("avatar");
+  const avatarInput = document.getElementById("avatarInput");
+
+  // ===== FARM SLOTS =====
+  const slots = [];
+
+  for (let i = 1; i <= 9; i++) {
+
+    slots.push(
+      document.getElementById(`slot${i}`)
+    );
+
+  }
+
   // ===== UPDATE UI =====
   function updateUI() {
 
     moneyEl.innerText = player.money;
+
     levelEl.innerText = player.level;
 
     xpFill.style.width = player.xp + "%";
 
-    // FARM BUTTON
+    // BUTTON TEXT
     if (!wheatGrowing && !wheatReady) {
-      farmBtn.innerText = "🌱 Посадить пшеницу";
+      farmBtn.innerText = "🌾 Посадить пшеницу";
     }
 
     if (wheatGrowing) {
@@ -45,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== LEVEL SYSTEM =====
+  // ===== XP =====
   function addXP(amount) {
 
     player.xp += amount;
@@ -53,9 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (player.xp >= 100) {
 
       player.level += 1;
+
       player.xp = 0;
 
+      tg.HapticFeedback.notificationOccurred("success");
+
       alert("🎉 Новый уровень!");
+
     }
   }
 
@@ -69,6 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       wheatGrowing = true;
 
+      slots.forEach(slot => {
+        slot.innerText = "🌱";
+      });
+
       updateUI();
 
       // GROW TIMER
@@ -76,6 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         wheatGrowing = false;
         wheatReady = true;
+
+        slots.forEach(slot => {
+          slot.innerText = "🌾";
+        });
 
         updateUI();
 
@@ -91,7 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       wheatReady = false;
 
-      const reward = 50;
+      slots.forEach(slot => {
+        slot.innerText = "🟫";
+      });
+
+      const reward = 150;
 
       player.money += reward;
 
@@ -118,6 +152,26 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("🎁 +" + reward + " монет");
 
     updateUI();
+  });
+
+  // ===== AVATAR =====
+  avatarInput.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      avatar.src = event.target.result;
+
+      tg.HapticFeedback.notificationOccurred("success");
+
+    };
+
+    reader.readAsDataURL(file);
   });
 
   // ===== START =====
