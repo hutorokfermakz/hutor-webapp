@@ -6,7 +6,12 @@ if (!save) {
     coins: 100,
     xp: 0,
     energy: 20,
+
+    wheatSeeds: 5,
+    cornSeeds: 3,
+
     lastEnergyTime: Date.now(),
+
     plots: [
       null,
       null,
@@ -48,6 +53,12 @@ const coinsText = document.getElementById("coins");
 const xpText = document.getElementById("xp");
 const energyText = document.getElementById("energy");
 
+const wheatSeedsText =
+  document.getElementById("wheatSeeds");
+
+const cornSeedsText =
+  document.getElementById("cornSeeds");
+
 const plots = document.querySelectorAll(".plot");
 const seedButtons = document.querySelectorAll(".seed-btn");
 
@@ -69,6 +80,12 @@ function updateStats() {
   coinsText.innerText = coins;
   xpText.innerText = xp;
   energyText.innerText = energy;
+
+  wheatSeedsText.innerText =
+    save.wheatSeeds;
+
+  cornSeedsText.innerText =
+    save.cornSeeds;
 
 }
 
@@ -210,6 +227,38 @@ plots.forEach((plot, index) => {
 
         return;
 
+      }
+
+      // Проверка семян
+      if (
+        currentSeed === "wheat" &&
+        save.wheatSeeds <= 0
+      ) {
+
+        alert("🌾 Нет семян пшеницы");
+
+        return;
+
+      }
+
+      if (
+        currentSeed === "corn" &&
+        save.cornSeeds <= 0
+      ) {
+
+        alert("🌽 Нет семян кукурузы");
+
+        return;
+
+      }
+
+      // Тратим семена
+      if (currentSeed === "wheat") {
+        save.wheatSeeds -= 1;
+      }
+
+      if (currentSeed === "corn") {
+        save.cornSeeds -= 1;
       }
 
       energy -= 1;
