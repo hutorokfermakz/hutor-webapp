@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Хуторок</title>
 
   <link rel="stylesheet" href="style.css">
@@ -11,20 +12,44 @@
 
 <div class="app">
 
-  <h1>🌾 Хуторок</h1>
+  <div class="top">
+    <h1>🌾 Хуторок</h1>
 
-  <div class="card">
-    <h2>Баланс</h2>
-    <p id="coins">0 монет</p>
+    <div class="stats">
+      <div class="stat">
+        💰 <span id="coins">100</span>
+      </div>
+
+      <div class="stat">
+        ⭐ <span id="xp">0</span>
+      </div>
+
+      <div class="stat">
+        ⚡ <span id="energy">20</span>
+      </div>
+    </div>
   </div>
 
-  <button id="farmBtn">
-    🌱 Собрать урожай
-  </button>
+  <h2 class="title">🌱 Ферма</h2>
 
-  <div class="card">
-    <h2>Ферма</h2>
-    <p>Уровень: <span id="level">1</span></p>
+  <div class="farm-grid">
+
+    <div class="plot" data-id="0">
+      Пусто
+    </div>
+
+    <div class="plot" data-id="1">
+      Пусто
+    </div>
+
+    <div class="plot" data-id="2">
+      Пусто
+    </div>
+
+    <div class="plot" data-id="3">
+      Пусто
+    </div>
+
   </div>
 
 </div>
