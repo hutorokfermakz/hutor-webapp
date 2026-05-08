@@ -1,96 +1,157 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Хуторок</title>
+const farmTiles = document.querySelectorAll(".farm-tile");
 
-  <link rel="stylesheet" href="style.css">
-</head>
+const CROPS = {
+  wheat: {
+    emoji: "🌾",
+    growTime: 10000,
+    reward: 20
+  }
+};
 
-<body>
+async function loadFarm() {
+  const tg = window.Telegram.WebApp;
+  const user = tg.initDataUnsafe.user;
 
-<div class="container">
+  if (!user) return;
 
-  <div class="card">
+  const telegramId = user.id;
 
-    <img
-      class="avatar"
-      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-    >
+  const { data, error } = await window.supabaseClient
+    .from("farm_tiles")
+    .select("*")
+    .eq("telegram_id", telegramId);
 
-    <h1 id="playerName">Фермер</h1>
+  if (error) {
+    console.error(error);
+    return;
+  }
 
-    <div class="stats">
-      💰 <span id="coins">500</span>
-    </div>
+  // если грядок нет — создаём
+  if (!data || data.length === 0) {
+    for (let i = 1; i <= 6; i++) {
+      await window.supabaseClient
+        .from("farm_tiles")
+        .insert({
+          telegram_id: telegramId,
+          tile_id: i,
+          state: "empty",
+          planted_at: 0,
+          grow_time: 0
+        });
+    }
 
-    <div class="stats">
-      ⭐ <span id="level">1</span>
-    </div>
+    return loadFarm();
+  }
 
-    <div class="xp-bar">
-      <div id="xpFill"></div>
-    </div>
+  renderFarm(data);
+}
 
-  </div>
+function renderFarm(data) {
+  data.forEach(tile => {
+    const tileElement = document.querySelector(
+      `.farm-tile[data-id="${tile.tile_id}"]`
+    );
 
-<button id="farmBtn" class="menu-btn">
-  🌾 Ферма
-</button>
+    if (!tileElement) return;
 
-<div id="farmSection" class="farm-grid">
+    updateTile(tileElement, tile);
 
-  <div class="farm-tile" data-id="1">
-    🟫
-  </div>
+    tileElement.onclick = async () => {
+      await handleTileClick(tile);
+    };
+  });
+}
 
-  <div class="farm-tile" data-id="2">
-    🟫
-  </div>
+function updateTile(element, tile) {
+  const now = Date.now();
 
-  <div class="farm-tile" data-id="3">
-    🟫
-  </div>
+  if (tile.state === "empty") {
+    element.innerHTML = "🟫";
+    return;
+  }
 
-  <div class="farm-tile" data-id="4">
-    🟫
-  </div>
+  const finish = tile.planted_at + tile.grow_time;
 
-  <div class="farm-tile" data-id="5">
-    🟫
-  </div>
+  if (now >= finish) {
+    element.innerHTML = "🌾";
+  } else {
+    element.innerHTML = "🌱";
+  }
+}
 
-  <div class="farm-tile" data-id="6">
-    🟫
-  </div>
+async function handleTileClick(tile) {
+  const tg = window.Telegram.WebApp;
+  const user = tg.initDataUnsafe.user;
 
-</div>
+  const telegramId = user.id;
 
-<button id="shopBtn" class="menu-btn">
-  🛒 Магазин
-</button>
+  // пустая грядка → посадка
+  if (tile.state === "empty") {
+    const crop = CROPS.wheat;
 
-<button id="clanBtn" class="menu-btn">
-  🛡 Кланы
-</button>
+    const plantedAt = Date.now();
 
-<button id="caseBtn" class="menu-btn">
-  🎁 Кейсы
-</button>
+    await window.supabaseClient
+      .from("farm_tiles")
+      .update({
+        state: "growing",
+        planted_at: plantedAt,
+        grow_time: crop.growTime
+      })
+      .eq("telegram_id", telegramId)
+      .eq("tile_id", tile.tile_id);
 
-</div>
+    loadFarm();
+    return;
+  }
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+  // сбор
+  const finish = tile.planted_at + tile.grow_time;
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  if (Date.now() >= finish) {
+    // обновляем монеты
+    const coinsElement = document.getElementById("coins");
 
-<script src="js/supabase.js"></script>
-<script src="js/database.js"></script>
-<script src="js/timers.js"></script>
-<script src="js/profile.js"></script>
-<script src="js/farm.js"></script>
-<script src="app.js"></script>
+    let coins = Number(coinsElement.innerText);
+    coins += 20;
 
-</body>
-</html>
+    coinsElement.innerText = coins;
+
+    await window.supabaseClient
+      .from("players")
+      .update({
+        coins: coins
+      })
+      .eq("telegram_id", telegramId);
+
+    // очищаем грядку
+    await window.supabaseClient
+      .from("farm_tiles")
+      .update({
+        state: "empty",
+        planted_at: 0,
+        grow_time: 0
+      })
+      .eq("telegram_id", telegramId)
+      .eq("tile_id", tile.tile_id);
+
+    loadFarm();
+  }
+}
+
+// автообновление таймеров
+setInterval(async () => {
+  const tg = window.Telegram.WebApp;
+  const user = tg.initDataUnsafe.user;
+
+  if (!user) return;
+
+  const { data } = await window.supabaseClient
+    .from("farm_tiles")
+    .select("*")
+    .eq("telegram_id", user.id);
+
+  renderFarm(data);
+}, 1000);
+
+loadFarm();
