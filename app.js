@@ -1,6 +1,8 @@
-const tg = window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp;
 
-tg.expand();
+if (tg) {
+  tg.expand();
+}
 
 const SUPABASE_URL =
 "https://gihybzpefojxiyyxheks.supabase.co";
@@ -9,7 +11,7 @@ const SUPABASE_KEY =
 "sb_publishable_epzMrCasnlXMmAENesXgTw_dkRzwBag";
 
 const telegramId =
-tg.initDataUnsafe?.user?.id || "guest";
+tg?.initDataUnsafe?.user?.id || "guest";
 
 let player = {
   telegram_id: telegramId,
@@ -17,116 +19,163 @@ let player = {
   money: 500,
   stars: 0,
   level: 1,
-  xp: 0,
+  xp: 25,
   avatar: "https://i.imgur.com/9Xn4F6L.png",
   background: "default"
 };
 
-const farmGrid = document.getElementById("farmGrid");
+const farmGrid =
+document.getElementById("farmGrid");
 
 const crops = [
-  "🌱","🌾","🥕","🍅"
+  "🌾",
+  "🥕",
+  "🍅",
+  "🌽"
 ];
 
-async function loadPlayer(){
+async function loadPlayer() {
 
-  try{
+  try {
 
     const response = await fetch(
       `${SUPABASE_URL}/rest/v1/players?telegram_id=eq.${telegramId}`,
       {
-        headers:{
-          apikey:SUPABASE_KEY,
-          Authorization:`Bearer ${SUPABASE_KEY}`
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
         }
       }
     );
 
     const data = await response.json();
 
-    if(data.length > 0){
-      player = data[0];
-    }else{
+    if (data && data.length > 0) {
+
+      player = {
+        ...player,
+        ...data[0]
+      };
+
+    } else {
+
       await savePlayer();
+
     }
 
-    updateUI();
+  } catch (err) {
 
-  }catch(err){
-    console.log(err);
+    console.log("Load Error:", err);
+
   }
+
+  updateUI();
 
 }
 
-async function savePlayer(){
+async function savePlayer() {
 
-  try{
+  try {
 
     await fetch(
       `${SUPABASE_URL}/rest/v1/players`,
       {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-          apikey:SUPABASE_KEY,
-          Authorization:`Bearer ${SUPABASE_KEY}`,
-          Prefer:"resolution=merge-duplicates"
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          Prefer: "resolution=merge-duplicates"
         },
-        body:JSON.stringify(player)
+        body: JSON.stringify(player)
       }
     );
 
-  }catch(err){
-    console.log(err);
+  } catch (err) {
+
+    console.log("Save Error:", err);
+
   }
 
 }
 
-function updateUI(){
+function updateUI() {
 
-  document.getElementById("money").innerText =
-  player.money;
+  const money =
+  document.getElementById("money");
 
-  document.getElementById("stars").innerText =
-  player.stars;
+  const stars =
+  document.getElementById("stars");
 
-  document.getElementById("level").innerText =
-  player.level;
+  const level =
+  document.getElementById("level");
 
-  document.getElementById("playerName").innerText =
-  player.name;
+  const playerName =
+  document.getElementById("playerName");
 
-  document.getElementById("nameInput").value =
-  player.name;
+  const nameInput =
+  document.getElementById("nameInput");
 
-  document.getElementById("avatar").src =
-  player.avatar;
+  const avatar =
+  document.getElementById("avatar");
 
-  document.getElementById("bigAvatar").src =
-  player.avatar;
+  const bigAvatar =
+  document.getElementById("bigAvatar");
 
-  const percent =
-  (player.xp % 100);
+  const xpFill =
+  document.getElementById("xpFill");
 
-  document.getElementById("xpFill").style.width =
-  percent + "%";
+  if (money)
+    money.innerText = player.money;
+
+  if (stars)
+    stars.innerText = player.stars;
+
+  if (level)
+    level.innerText = player.level;
+
+  if (playerName)
+    playerName.innerText = player.name;
+
+  if (nameInput)
+    nameInput.value = player.name;
+
+  if (avatar)
+    avatar.src = player.avatar;
+
+  if (bigAvatar)
+    bigAvatar.src = player.avatar;
+
+  if (xpFill) {
+
+    const percent =
+    player.xp % 100;
+
+    xpFill.style.width =
+    percent + "%";
+
+  }
 
 }
 
-function createFarm(){
+function createFarm() {
+
+  if (!farmGrid) return;
 
   farmGrid.innerHTML = "";
 
-  for(let i = 0; i < 9; i++){
+  for (let i = 0; i < 9; i++) {
 
     const tile =
     document.createElement("div");
 
-    tile.className = "farm-tile";
+    tile.className =
+    "farm-tile";
 
     tile.innerHTML = "🌱";
 
-    tile.onclick = () => growCrop(tile);
+    tile.onclick = () =>
+    growCrop(tile);
 
     farmGrid.appendChild(tile);
 
@@ -134,32 +183,50 @@ function createFarm(){
 
 }
 
-function growCrop(tile){
+function growCrop(tile) {
 
-  tg.HapticFeedback.impactOccurred("light");
+  if (tg) {
+    tg.HapticFeedback
+    .impactOccurred("light");
+  }
 
   tile.innerHTML = "⏳";
 
-  setTimeout(()=>{
+  setTimeout(() => {
 
     tile.innerHTML =
     crops[
-      Math.floor(Math.random()*crops.length)
+      Math.floor(
+        Math.random() *
+        crops.length
+      )
     ];
 
-    player.money +=
-    Math.floor(Math.random()*80)+20;
+    const reward =
+    Math.floor(
+      Math.random() * 80
+    ) + 20;
+
+    player.money += reward;
 
     player.xp += 15;
 
-    if(player.xp >= player.level*100){
+    if (
+      player.xp >=
+      player.level * 100
+    ) {
 
       player.level++;
       player.stars++;
 
-      tg.HapticFeedback.notificationOccurred(
-        "success"
-      );
+      if (tg) {
+
+        tg.HapticFeedback
+        .notificationOccurred(
+          "success"
+        );
+
+      }
 
     }
 
@@ -167,71 +234,113 @@ function growCrop(tile){
 
     savePlayer();
 
-  },3000);
+  }, 3000);
 
 }
 
-function changeAvatar(){
+function changeAvatar() {
 
-  document
-  .getElementById("avatarInput")
-  .click();
+  const input =
+  document.getElementById(
+    "avatarInput"
+  );
+
+  if (input) {
+    input.click();
+  }
 
 }
 
-document
-.getElementById("avatarInput")
-.addEventListener("change",(e)=>{
+const avatarInput =
+document.getElementById(
+  "avatarInput"
+);
 
-  const file = e.target.files[0];
+if (avatarInput) {
 
-  if(!file) return;
+  avatarInput.addEventListener(
+    "change",
+    (e) => {
 
-  const reader = new FileReader();
+      const file =
+      e.target.files[0];
 
-  reader.onload = function(event){
+      if (!file) return;
 
-    player.avatar =
-    event.target.result;
+      const reader =
+      new FileReader();
 
-    updateUI();
+      reader.onload =
+      function(event) {
 
-    savePlayer();
+        player.avatar =
+        event.target.result;
 
-  };
+        updateUI();
 
-  reader.readAsDataURL(file);
+        savePlayer();
 
-});
+      };
 
-function saveProfile(){
+      reader.readAsDataURL(file);
 
-  player.name =
-  document.getElementById("nameInput").value;
+    }
+  );
+
+}
+
+function saveProfile() {
+
+  const input =
+  document.getElementById(
+    "nameInput"
+  );
+
+  if (input) {
+
+    player.name =
+    input.value;
+
+  }
 
   updateUI();
 
   savePlayer();
 
-  tg.HapticFeedback.notificationOccurred(
-    "success"
-  );
+  if (tg) {
+
+    tg.HapticFeedback
+    .notificationOccurred(
+      "success"
+    );
+
+  }
 
 }
 
-function createInventory(){
+function createInventory() {
 
   const inventory =
-  document.getElementById("inventory");
+  document.getElementById(
+    "inventory"
+  );
+
+  if (!inventory) return;
 
   inventory.innerHTML = "";
 
   const items = [
-    "🌾","🥕","🍅","💎",
-    "🎁","🪙","⭐","🖼️"
+    "🌾",
+    "🥕",
+    "🍅",
+    "💎",
+    "🎁",
+    "⭐",
+    "🪙",
+    "🖼️"
   ];
 
-  items.forEach(item=>{
+  items.forEach(item => {
 
     const div =
     document.createElement("div");
@@ -247,21 +356,25 @@ function createInventory(){
 
 }
 
-function createOnlinePlayers(){
+function createOnlinePlayers() {
 
   const online =
-  document.getElementById("onlinePlayers");
+  document.getElementById(
+    "onlinePlayers"
+  );
+
+  if (!online) return;
 
   online.innerHTML = "";
 
   const players = [
     "FarmerPro",
-    "HayMaster",
+    "HayDayKing",
     "ClashFarmer",
-    "HutorKing"
+    "HutorMaster"
   ];
 
-  players.forEach(name=>{
+  players.forEach(name => {
 
     const div =
     document.createElement("div");
@@ -271,7 +384,7 @@ function createOnlinePlayers(){
 
     div.innerHTML = `
       <span>🟢 ${name}</span>
-      <span>🌾 Онлайн</span>
+      <span>Онлайн</span>
     `;
 
     online.appendChild(div);
