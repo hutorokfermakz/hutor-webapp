@@ -1,102 +1,54 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Хуторок 🍃</title>
 
-  <!-- TELEGRAM WEB APP -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- JS -->
   <script src="app.js" defer></script>
 </head>
 
 <body>
 
-  <!-- PROFILE -->
-  <div id="profileCard" class="profile-card bg1">
+  <div id="profileCard" class="profile-card">
 
-    <div class="profile-top">
+    <img
+      id="avatar"
+      src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+    >
 
-      <!-- AVATAR -->
-      <label for="avatarInput" class="avatar-wrapper">
-        <img
-          id="avatar"
-          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-        >
-      </label>
+    <input type="file" id="avatarInput">
 
-      <input type="file" id="avatarInput" hidden>
+    <h1 id="playerName">Фермер</h1>
 
-      <!-- INFO -->
-      <div class="profile-info">
-
-        <h2 id="playerName">Фермер</h2>
-
-        <div class="level-box">
-          ⭐ Уровень:
-          <span id="level">1</span>
-        </div>
-
-        <div class="xp-bar">
-          <div id="xpFill"></div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- MONEY -->
     <div class="stats">
+      💰 <span id="money">500</span>
+    </div>
 
-      <div class="stat-box">
-        💰
-        <span id="money">500</span>
-      </div>
+    <div class="stats">
+      ⭐ <span id="level">1</span>
+    </div>
 
-      <div class="stat-box">
-        ⭐
-        <span id="stars">0</span>
-      </div>
-
+    <div class="xp-bar">
+      <div id="xpFill"></div>
     </div>
 
   </div>
 
-  <!-- ACTIONS -->
-  <div class="actions">
+  <button id="farmBtn">
+    🌾 Ферма
+  </button>
 
-    <button id="farmBtn" class="main-btn">
-      🌾 Собрать урожай
-    </button>
-
-    <button id="caseBtn" class="main-btn">
-      🎁 Открыть кейс
-    </button>
-
-  </div>
-
-  <!-- BACKGROUNDS -->
-  <div class="backgrounds">
-
-    <button class="bg-select" data-bg="bg1">
-      🌿
-    </button>
-
-    <button class="bg-select" data-bg="bg2">
-      🌅
-    </button>
-
-    <button class="bg-select" data-bg="bg3">
-      🌌
-    </button>
-
-  </div>
+  <button id="caseBtn">
+    🎁 Кейс
+  </button>
 
 </body>
+
 </html>
