@@ -49,3 +49,32 @@ body{
   color:white;
   font-size:28px;
 }
+.farm-grid {
+  margin-top: 25px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+}
+
+.farm-tile {
+
+  height: 90px;
+
+  border-radius: 20px;
+
+  background: #6b4d2d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 40px;
+
+  transition: 0.2s;
+}
+
+.farm-tile:active {
+  transform: scale(0.95);
+}
