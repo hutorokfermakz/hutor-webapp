@@ -1,6 +1,8 @@
 const tg = window.Telegram.WebApp
 tg.expand()
 
+const supabase = window.supabaseClient
+
 async function loadPlayer() {
 
   const user = tg.initDataUnsafe.user
