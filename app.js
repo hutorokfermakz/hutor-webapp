@@ -1,309 +1,321 @@
-let save = JSON.parse(localStorage.getItem("hutor_save"));
+const tg = window.Telegram.WebApp;
 
-if (!save) {
+tg.ready();
+tg.expand();
 
-  save = {
-    coins: 100,
-    xp: 0,
-    energy: 20,
+/* =========================================
+   ДАННЫЕ ИГРОКА
+========================================= */
 
-    wheatSeeds: 5,
-    cornSeeds: 3,
-
-    lastEnergyTime: Date.now(),
-
-    plots: [
-      null,
-      null,
-      null,
-      null
-    ]
-  };
-
-}
-
-let coins = save.coins;
-let xp = save.xp;
-let energy = save.energy;
-
-const MAX_ENERGY = 20;
-const ENERGY_REGEN_TIME = 30000;
-
-let currentSeed = "wheat";
-
-const seeds = {
-
-  wheat: {
-    name: "🌾 Пшеница",
-    growTime: 10000,
-    reward: 25,
-    xp: 10
-  },
-
-  corn: {
-    name: "🌽 Кукуруза",
-    growTime: 20000,
-    reward: 50,
-    xp: 20
-  }
-
+const player = {
+  name: "Фермер",
+  level: 12,
+  xp: 62,
+  money: 12450,
+  stars: 240,
+  energy: 84
 };
 
-const coinsText = document.getElementById("coins");
-const xpText = document.getElementById("xp");
-const energyText = document.getElementById("energy");
+/* =========================================
+   DOM
+========================================= */
 
-const wheatSeedsText =
-  document.getElementById("wheatSeeds");
+const username = document.getElementById("username");
 
-const cornSeedsText =
-  document.getElementById("cornSeeds");
+const xpFill = document.querySelector(".xp-fill");
 
-const plots = document.querySelectorAll(".plot");
-const seedButtons = document.querySelectorAll(".seed-btn");
+const energyFill = document.querySelector(".energy-fill");
 
-function saveGame() {
+const moneyText = document.querySelector(".money");
 
-  save.coins = coins;
-  save.xp = xp;
-  save.energy = energy;
+const starsText = document.querySelector(".stars");
 
-  localStorage.setItem(
-    "hutor_save",
-    JSON.stringify(save)
-  );
+const openCaseBtn = document.getElementById("openCase");
 
-}
+const navButtons = document.querySelectorAll(".nav-btn");
 
-function updateStats() {
+const tiles = document.querySelectorAll(".tile");
 
-  coinsText.innerText = coins;
-  xpText.innerText = xp;
-  energyText.innerText = energy;
+/* =========================================
+   ЗАГРУЗКА ПРОФИЛЯ
+========================================= */
 
-  wheatSeedsText.innerText =
-    save.wheatSeeds;
+function loadProfile() {
 
-  cornSeedsText.innerText =
-    save.cornSeeds;
+  username.textContent = player.name;
 
-}
+  xpFill.style.width = player.xp + "%";
 
-function regenEnergy() {
+  energyFill.style.width = player.energy + "%";
 
-  let now = Date.now();
+  moneyText.textContent =
+    `💰 ${player.money.toLocaleString()}`;
 
-  if (energy < MAX_ENERGY) {
-
-    let passed =
-      now - save.lastEnergyTime;
-
-    if (passed >= ENERGY_REGEN_TIME) {
-
-      let restored =
-        Math.floor(
-          passed / ENERGY_REGEN_TIME
-        );
-
-      energy += restored;
-
-      if (energy > MAX_ENERGY) {
-        energy = MAX_ENERGY;
-      }
-
-      save.lastEnergyTime = now;
-
-      saveGame();
-
-      updateStats();
-
-    }
-
-  }
+  starsText.textContent =
+    `⭐ ${player.stars}`;
 
 }
 
-regenEnergy();
+loadProfile();
 
-setInterval(() => {
+/* =========================================
+   КНОПКИ НАВИГАЦИИ
+========================================= */
 
-  regenEnergy();
-
-}, 5000);
-
-updateStats();
-
-seedButtons.forEach(btn => {
+navButtons.forEach(btn => {
 
   btn.addEventListener("click", () => {
 
-    currentSeed = btn.dataset.seed;
+    navButtons.forEach(b =>
+      b.classList.remove("active")
+    );
+
+    btn.classList.add("active");
+
+    const page =
+      btn.querySelector("span").textContent;
+
+    tg.HapticFeedback.impactOccurred("light");
+
+    tg.showPopup({
+      title: "HUTOR 10.0",
+      message: `Раздел "${page}" скоро откроется`,
+      buttons: [
+        {
+          type: "ok"
+        }
+      ]
+    });
 
   });
 
 });
 
-plots.forEach((plot, index) => {
+/* =========================================
+   КЕЙС
+========================================= */
 
-  let data = save.plots[index];
+openCaseBtn.addEventListener("click", () => {
 
-  if (data) {
+  tg.HapticFeedback.notificationOccurred("success");
 
-    let crop = seeds[data.seed];
+  const rewards = [
+    "💰 500 монет",
+    "⭐ 15 Stars",
+    "🥕 Морковь x10",
+    "🐔 Курица",
+    "⚡ Энергия +20",
+    "🎁 Редкий предмет"
+  ];
 
-    let remaining =
-      data.finishTime - Date.now();
+  const reward =
+    rewards[
+      Math.floor(Math.random() * rewards.length)
+    ];
 
-    if (remaining > 0) {
+  tg.showPopup({
+    title: "🎁 Кейс открыт",
+    message: `Вы получили:\n${reward}`,
+    buttons: [
+      {
+        type: "ok"
+      }
+    ]
+  });
 
-      plot.classList.add("growing");
+});
 
-      plot.innerText =
-        crop.name + "\n⏳ Растет";
+/* =========================================
+   КЛИК ПО КЛЕТКАМ
+========================================= */
 
-      setTimeout(() => {
+tiles.forEach(tile => {
 
-        plot.classList.remove("growing");
+  tile.addEventListener("click", () => {
 
-        plot.classList.add("ready");
+    tg.HapticFeedback.impactOccurred("medium");
 
-        plot.innerText =
-          crop.name + "\n🌾 Готово";
+    if (tile.classList.contains("ready")) {
 
-        save.plots[index].ready = true;
+      collectCrop(tile);
 
-        saveGame();
+    }
 
-      }, remaining);
+    else if (tile.classList.contains("empty")) {
+
+      plantCrop(tile);
 
     }
 
     else {
 
-      plot.classList.add("ready");
-
-      plot.innerText =
-        crop.name + "\n🌾 Готово";
-
-      save.plots[index].ready = true;
-
-    }
-
-  }
-
-  plot.addEventListener("click", () => {
-
-    let plotData = save.plots[index];
-
-    // Сбор
-    if (plotData && plotData.ready) {
-
-      let crop = seeds[plotData.seed];
-
-      coins += crop.reward;
-
-      xp += crop.xp;
-
-      updateStats();
-
-      save.plots[index] = null;
-
-      plot.classList.remove("ready");
-
-      plot.innerText = "Пусто";
-
-      saveGame();
-
-      return;
-
-    }
-
-    // Посадка
-    if (!plotData) {
-
-      if (energy <= 0) {
-
-        alert("⚡ Нет энергии");
-
-        return;
-
-      }
-
-      // Проверка семян
-      if (
-        currentSeed === "wheat" &&
-        save.wheatSeeds <= 0
-      ) {
-
-        alert("🌾 Нет семян пшеницы");
-
-        return;
-
-      }
-
-      if (
-        currentSeed === "corn" &&
-        save.cornSeeds <= 0
-      ) {
-
-        alert("🌽 Нет семян кукурузы");
-
-        return;
-
-      }
-
-      // Тратим семена
-      if (currentSeed === "wheat") {
-        save.wheatSeeds -= 1;
-      }
-
-      if (currentSeed === "corn") {
-        save.cornSeeds -= 1;
-      }
-
-      energy -= 1;
-
-      save.lastEnergyTime = Date.now();
-
-      updateStats();
-
-      let crop = seeds[currentSeed];
-
-      let finishTime =
-        Date.now() + crop.growTime;
-
-      save.plots[index] = {
-
-        seed: currentSeed,
-        finishTime,
-        ready: false
-
-      };
-
-      saveGame();
-
-      plot.classList.add("growing");
-
-      plot.innerText =
-        crop.name + "\n⏳ Растет";
-
-      setTimeout(() => {
-
-        plot.classList.remove("growing");
-
-        plot.classList.add("ready");
-
-        plot.innerText =
-          crop.name + "\n🌾 Готово";
-
-        save.plots[index].ready = true;
-
-        saveGame();
-
-      }, crop.growTime);
+      tg.showPopup({
+        title: "🌾 HUTOR",
+        message: "Объект выбран",
+        buttons: [
+          {
+            type: "ok"
+          }
+        ]
+      });
 
     }
 
   });
 
 });
+
+/* =========================================
+   ПОСАДКА
+========================================= */
+
+function plantCrop(tile) {
+
+  tile.classList.remove("empty");
+
+  tile.classList.add("planted");
+
+  tile.innerHTML = `
+    🌽
+    <span>15м</span>
+  `;
+
+  player.money -= 50;
+
+  updateMoney();
+
+  tg.showPopup({
+    title: "🌱 Посадка",
+    message: "Кукуруза посажена",
+    buttons: [
+      {
+        type: "ok"
+      }
+    ]
+  });
+
+}
+
+/* =========================================
+   СБОР УРОЖАЯ
+========================================= */
+
+function collectCrop(tile) {
+
+  tile.classList.remove("ready");
+
+  tile.classList.add("empty");
+
+  tile.innerHTML = `+`;
+
+  player.money += 120;
+
+  player.xp += 4;
+
+  if (player.xp > 100) {
+    player.xp = 100;
+  }
+
+  updateMoney();
+  updateXP();
+
+  tg.showPopup({
+    title: "🌽 Урожай собран",
+    message: "+120 монет\n+4 XP",
+    buttons: [
+      {
+        type: "ok"
+      }
+    ]
+  });
+
+}
+
+/* =========================================
+   ОБНОВЛЕНИЕ UI
+========================================= */
+
+function updateMoney() {
+
+  moneyText.textContent =
+    `💰 ${player.money.toLocaleString()}`;
+
+}
+
+function updateXP() {
+
+  xpFill.style.width =
+    player.xp + "%";
+
+}
+
+/* =========================================
+   ТАЙМЕР РОСТА
+========================================= */
+
+setInterval(() => {
+
+  const plantedTiles =
+    document.querySelectorAll(".planted");
+
+  plantedTiles.forEach(tile => {
+
+    const span = tile.querySelector("span");
+
+    if (!span) return;
+
+    let time =
+      parseInt(span.textContent);
+
+    time--;
+
+    if (time <= 0) {
+
+      tile.classList.remove("planted");
+
+      tile.classList.add("ready");
+
+      tile.innerHTML = `🥕`;
+
+      tg.HapticFeedback.notificationOccurred(
+        "success"
+      );
+
+    }
+
+    else {
+
+      span.textContent = `${time}м`;
+
+    }
+
+  });
+
+}, 3000);
+
+/* =========================================
+   TELEGRAM MAIN BUTTON
+========================================= */
+
+tg.MainButton.setText("🚜 Открыть ферму");
+tg.MainButton.show();
+
+tg.MainButton.onClick(() => {
+
+  tg.showPopup({
+    title: "HUTOR 10.0",
+    message: "Добро пожаловать на ферму",
+    buttons: [
+      {
+        type: "ok"
+      }
+    ]
+  });
+
+});
+
+/* =========================================
+   СТАРТ
+========================================= */
+
+console.log("HUTOR 10.0 loaded");
