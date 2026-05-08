@@ -1,35 +1,34 @@
-window.DB = {
+async function loadPlayer() {
+  const tg = window.Telegram.WebApp
+  const user = tg.initDataUnsafe.user
 
-  async getPlayer(id) {
+  if (!user) return
 
-    const { data, error } = await supabaseClient
+  let { data } = await supabase
+    .from("players")
+    .select("*")
+    .eq("telegram_id", user.id)
+    .single()
+
+  if (!data) {
+    const { data: newPlayer } = await supabase
       .from("players")
-      .select("*")
-      .eq("telegram_id", id)
-      .single();
+      .insert({
+        telegram_id: user.id,
+        name: user.first_name,
+        coins: 500,
+        level: 1,
+        xp: 0
+      })
+      .select()
+      .single()
 
-    if (error) return null;
-
-    return data;
-  },
-
-  async createPlayer(player) {
-
-    const { data, error } = await supabaseClient
-      .from("players")
-      .insert([player]);
-
-    return data;
-  },
-
-  async savePlayer(id, updates) {
-
-    const { data, error } = await supabaseClient
-      .from("players")
-      .update(updates)
-      .eq("telegram_id", id);
-
-    return data;
+    data = newPlayer
   }
 
-};
+  document.getElementById("playerName").innerText = data.name
+  document.getElementById("coins").innerText = data.coins
+  document.getElementById("level").innerText = data.level
+}
+
+loadPlayer()
