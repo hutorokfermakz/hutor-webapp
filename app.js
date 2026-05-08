@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     xp: 0
   };
 
+  // ===== FARM =====
+  let wheatGrowing = false;
+  let wheatReady = false;
+
   // ===== ELEMENTS =====
   const moneyEl = document.getElementById("money");
   const levelEl = document.getElementById("level");
@@ -23,21 +27,29 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateUI() {
 
     moneyEl.innerText = player.money;
-
     levelEl.innerText = player.level;
 
     xpFill.style.width = player.xp + "%";
+
+    // FARM BUTTON
+    if (!wheatGrowing && !wheatReady) {
+      farmBtn.innerText = "🌱 Посадить пшеницу";
+    }
+
+    if (wheatGrowing) {
+      farmBtn.innerText = "⏳ Пшеница растет...";
+    }
+
+    if (wheatReady) {
+      farmBtn.innerText = "🌾 Собрать урожай";
+    }
   }
 
-  // ===== FARM =====
-  farmBtn.addEventListener("click", () => {
+  // ===== LEVEL SYSTEM =====
+  function addXP(amount) {
 
-    tg.HapticFeedback.impactOccurred("light");
+    player.xp += amount;
 
-    player.money += 10;
-    player.xp += 10;
-
-    // LEVEL UP
     if (player.xp >= 100) {
 
       player.level += 1;
@@ -45,8 +57,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
       alert("🎉 Новый уровень!");
     }
+  }
 
-    updateUI();
+  // ===== FARM =====
+  farmBtn.addEventListener("click", () => {
+
+    tg.HapticFeedback.impactOccurred("light");
+
+    // ===== PLANT =====
+    if (!wheatGrowing && !wheatReady) {
+
+      wheatGrowing = true;
+
+      updateUI();
+
+      // GROW TIMER
+      setTimeout(() => {
+
+        wheatGrowing = false;
+        wheatReady = true;
+
+        updateUI();
+
+        tg.HapticFeedback.notificationOccurred("success");
+
+      }, 5000);
+
+      return;
+    }
+
+    // ===== COLLECT =====
+    if (wheatReady) {
+
+      wheatReady = false;
+
+      const reward = 50;
+
+      player.money += reward;
+
+      addXP(20);
+
+      alert("🌾 Урожай собран! +" + reward);
+
+      updateUI();
+    }
+
   });
 
   // ===== CASE =====
@@ -57,6 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const reward = Math.floor(Math.random() * 100) + 50;
 
     player.money += reward;
+
+    addXP(15);
 
     alert("🎁 +" + reward + " монет");
 
