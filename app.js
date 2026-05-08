@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ===== TELEGRAM MINI APP =====
+  // ===== TELEGRAM =====
   const tg = window.Telegram.WebApp;
   tg.expand();
 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== TELEGRAM USER =====
   const telegramId = tg.initDataUnsafe?.user?.id || null;
 
-  // ===== PLAYER DATA =====
+  // ===== PLAYER =====
   let player = {
     name: "Фермер",
     money: 500,
@@ -23,59 +23,43 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ===== ELEMENTS =====
-  const nameEl = document.getElementById("playerName");
+  const playerName = document.getElementById("playerName");
   const moneyEl = document.getElementById("money");
   const starsEl = document.getElementById("stars");
   const levelEl = document.getElementById("level");
-  const xpBar = document.getElementById("xpFill");
-  const avatarEl = document.getElementById("avatar");
+  const xpFill = document.getElementById("xpFill");
+  const avatar = document.getElementById("avatar");
   const profileCard = document.getElementById("profileCard");
+
+  const farmBtn = document.getElementById("farmBtn");
+  const caseBtn = document.getElementById("caseBtn");
+  const avatarInput = document.getElementById("avatarInput");
 
   // ===== UPDATE UI =====
   function updateUI() {
 
-    if (nameEl) {
-      nameEl.innerText = player.name;
+    playerName.innerText = player.name;
+    moneyEl.innerText = player.money;
+    starsEl.innerText = player.stars;
+    levelEl.innerText = player.level;
+
+    // XP
+    const xpPercent = Math.min(player.xp, 100);
+
+    xpFill.style.width = xpPercent + "%";
+
+    // Avatar
+    if (player.avatar) {
+      avatar.src = player.avatar;
     }
 
-    if (moneyEl) {
-      moneyEl.innerText = player.money;
-    }
-
-    if (starsEl) {
-      starsEl.innerText = player.stars;
-    }
-
-    if (levelEl) {
-      levelEl.innerText = player.level;
-    }
-
-    // ===== XP BAR =====
-    const percent = Math.min((player.xp / 100) * 100, 100);
-
-    if (xpBar) {
-      xpBar.style.width = percent + "%";
-    }
-
-    // ===== AVATAR =====
-    if (avatarEl) {
-
-      if (player.avatar) {
-        avatarEl.src = player.avatar;
-      } else {
-        avatarEl.src =
-          "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-      }
-    }
-
-    // ===== BACKGROUND =====
-    if (profileCard) {
-      profileCard.className = "";
-      profileCard.classList.add(player.background);
-    }
+    // Background
+    profileCard.className = "";
+    profileCard.classList.add("profile-card");
+    profileCard.classList.add(player.background);
   }
 
-  // ===== SAVE PLAYER =====
+  // ===== SAVE =====
   async function savePlayer() {
 
     if (!telegramId) return;
@@ -104,16 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(playerData)
       });
 
-      console.log("Игрок сохранён");
+      console.log("Сохранено");
 
     } catch (err) {
 
-      console.error("Ошибка сохранения:", err);
+      console.error(err);
 
     }
   }
 
-  // ===== LOAD PLAYER =====
+  // ===== LOAD =====
   async function loadPlayer() {
 
     if (!telegramId) return;
@@ -146,117 +130,115 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         await savePlayer();
-        updateUI();
 
-        return;
+      } else {
+
+        // ===== EXISTING PLAYER =====
+        player = {
+          name: data[0].name || "Фермер",
+          money: data[0].money || 500,
+          stars: data[0].stars || 0,
+          level: data[0].level || 1,
+          xp: data[0].xp || 0,
+          avatar: data[0].avatar || "",
+          background: data[0].background || "bg1"
+        };
+
       }
-
-      // ===== LOAD EXISTING PLAYER =====
-      player = {
-        name: data[0].name || "Фермер",
-        money: data[0].money || 500,
-        stars: data[0].stars || 0,
-        level: data[0].level || 1,
-        xp: data[0].xp || 0,
-        avatar: data[0].avatar || "",
-        background: data[0].background || "bg1"
-      };
 
       updateUI();
 
     } catch (err) {
 
-      console.error("Ошибка загрузки:", err);
+      console.error(err);
 
     }
   }
 
   // ===== CHANGE NAME =====
-  if (nameEl) {
+  playerName.addEventListener("click", () => {
 
-    nameEl.addEventListener("click", async () => {
+    const newName = prompt("Введите имя");
 
-      const newName = prompt("Введите новое имя");
+    if (!newName) return;
 
-      if (!newName) return;
+    player.name = newName;
 
-      player.name = newName;
+    updateUI();
+    savePlayer();
+
+    tg.HapticFeedback.notificationOccurred("success");
+  });
+
+  // ===== CHANGE AVATAR =====
+  avatarInput.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      player.avatar = event.target.result;
 
       updateUI();
       savePlayer();
 
       tg.HapticFeedback.notificationOccurred("success");
+    };
 
-    });
+    reader.readAsDataURL(file);
+  });
 
-  }
+  // ===== FARM BUTTON =====
+  farmBtn.addEventListener("click", () => {
 
-  // ===== CHANGE AVATAR =====
-  const avatarInput = document.getElementById("avatarInput");
+    tg.HapticFeedback.impactOccurred("light");
 
-  if (avatarInput) {
+    player.money += 10;
+    player.xp += 5;
 
-    avatarInput.addEventListener("change", (e) => {
+    // LEVEL UP
+    if (player.xp >= 100) {
 
-      const file = e.target.files[0];
+      player.level += 1;
+      player.xp = 0;
 
-      if (!file) return;
+      alert("🎉 Новый уровень!");
+    }
 
-      const reader = new FileReader();
-
-      reader.onload = function(event) {
-
-        player.avatar = event.target.result;
-
-        updateUI();
-        savePlayer();
-
-        tg.HapticFeedback.notificationOccurred("success");
-
-      };
-
-      reader.readAsDataURL(file);
-
-    });
-
-  }
+    updateUI();
+    savePlayer();
+  });
 
   // ===== CASE BUTTON =====
-  const caseBtn = document.getElementById("caseBtn");
+  caseBtn.addEventListener("click", () => {
 
-  if (caseBtn) {
+    tg.HapticFeedback.impactOccurred("medium");
 
-    caseBtn.addEventListener("click", async () => {
+    const reward = Math.floor(Math.random() * 200) + 50;
 
-      tg.HapticFeedback.impactOccurred("medium");
+    player.money += reward;
+    player.xp += 15;
 
-      const reward = Math.floor(Math.random() * 200) + 50;
+    // LEVEL UP
+    if (player.xp >= 100) {
 
-      player.money += reward;
-      player.xp += 15;
+      player.level += 1;
+      player.xp = 0;
 
-      // ===== LEVEL UP =====
-      if (player.xp >= 100) {
+      alert("🎉 Новый уровень!");
+    }
 
-        player.level += 1;
-        player.xp = 0;
+    updateUI();
+    savePlayer();
 
-        tg.HapticFeedback.notificationOccurred("success");
+    alert(`🎁 Вы получили ${reward} монет!`);
+  });
 
-        alert("🎉 Новый уровень!");
-
-      }
-
-      updateUI();
-      savePlayer();
-
-      alert(`🎁 Вы получили ${reward} монет!`);
-
-    });
-
-  }
-
-  // ===== BACKGROUND BUTTONS =====
+  // ===== BACKGROUNDS =====
   const bgButtons = document.querySelectorAll(".bg-select");
 
   bgButtons.forEach(btn => {
@@ -271,40 +253,11 @@ document.addEventListener("DOMContentLoaded", () => {
       savePlayer();
 
       tg.HapticFeedback.selectionChanged();
-
     });
 
   });
 
-  // ===== FARM BUTTON =====
-  const farmBtn = document.getElementById("farmBtn");
-
-  if (farmBtn) {
-
-    farmBtn.addEventListener("click", () => {
-
-      tg.HapticFeedback.impactOccurred("light");
-
-      player.money += 10;
-      player.xp += 2;
-
-      // ===== LEVEL UP =====
-      if (player.xp >= 100) {
-
-        player.level += 1;
-        player.xp = 0;
-
-      }
-
-      updateUI();
-      savePlayer();
-
-    });
-
-  }
-
   // ===== START =====
   loadPlayer();
-  updateUI();
 
 });
