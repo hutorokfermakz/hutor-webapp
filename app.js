@@ -2,11 +2,30 @@ let coins = 100;
 let xp = 0;
 let energy = 20;
 
+let currentSeed = "wheat";
+
+const seeds = {
+  wheat: {
+    name: "🌾 Пшеница",
+    growTime: 10000,
+    reward: 25,
+    xp: 10
+  },
+
+  corn: {
+    name: "🌽 Кукуруза",
+    growTime: 20000,
+    reward: 50,
+    xp: 20
+  }
+};
+
 const coinsText = document.getElementById("coins");
 const xpText = document.getElementById("xp");
 const energyText = document.getElementById("energy");
 
 const plots = document.querySelectorAll(".plot");
+const seedButtons = document.querySelectorAll(".seed-btn");
 
 function updateStats() {
   coinsText.innerText = coins;
@@ -16,17 +35,28 @@ function updateStats() {
 
 updateStats();
 
+seedButtons.forEach(btn => {
+
+  btn.addEventListener("click", () => {
+
+    currentSeed = btn.dataset.seed;
+
+  });
+
+});
+
 plots.forEach(plot => {
 
   let state = "empty";
 
+  let crop = null;
+
   plot.addEventListener("click", () => {
 
-    // Пустая грядка
     if (state === "empty") {
 
       if (energy <= 0) {
-        alert("⚡ Недостаточно энергии");
+        alert("⚡ Нет энергии");
         return;
       }
 
@@ -34,13 +64,15 @@ plots.forEach(plot => {
 
       updateStats();
 
+      crop = seeds[currentSeed];
+
       state = "growing";
 
       plot.classList.add("growing");
 
-      plot.innerText = "🌱 Растет...";
+      plot.innerText =
+        crop.name + "\n⏳ Растет";
 
-      // Таймер роста
       setTimeout(() => {
 
         state = "ready";
@@ -49,18 +81,18 @@ plots.forEach(plot => {
 
         plot.classList.add("ready");
 
-        plot.innerText = "🌾 Собрать";
+        plot.innerText =
+          crop.name + "\n🌾 Готово";
 
-      }, 10000);
+      }, crop.growTime);
 
     }
 
-    // Готово к сбору
     else if (state === "ready") {
 
-      coins += 25;
+      coins += crop.reward;
 
-      xp += 10;
+      xp += crop.xp;
 
       updateStats();
 
