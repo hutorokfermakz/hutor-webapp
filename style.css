@@ -1,45 +1,93 @@
+
 body {
-  background: #1f2937;
-  color: white;
-  font-family: Arial;
-  text-align: center;
+  margin: 0;
   padding: 20px;
+  background: #0f172a;
+  color: white;
+  font-family: Arial, sans-serif;
 }
+
+/* PROFILE */
 
 .profile-card {
-  background: #22c55e;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: 28px;
   padding: 20px;
-  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
 }
+
+/* AVATAR */
 
 #avatar {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #22c55e;
+
+  display: block;
+  margin: 0 auto 20px;
 }
 
-button {
-  width: 100%;
-  padding: 16px;
-  margin-top: 12px;
-  border: none;
-  border-radius: 16px;
-  background: #22c55e;
-  color: white;
-  font-size: 18px;
+/* NAME */
+
+#playerName {
+  text-align: center;
+  margin: 0;
+  font-size: 28px;
 }
+
+/* STATS */
+
+.stats {
+  margin-top: 18px;
+  font-size: 22px;
+}
+
+/* XP BAR */
 
 .xp-bar {
   width: 100%;
-  height: 12px;
-  background: rgba(255,255,255,0.3);
+  height: 16px;
+  background: rgba(255,255,255,0.1);
   border-radius: 999px;
-  margin-top: 10px;
+  overflow: hidden;
+  margin-top: 14px;
 }
 
 #xpFill {
   width: 0%;
   height: 100%;
-  background: yellow;
-  border-radius: 999px;
+  background: linear-gradient(90deg, #22c55e, #84cc16);
+  transition: 0.3s;
+}
+
+/* BUTTONS */
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 14px;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  background: #22c55e;
+  color: white;
+
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* BACKGROUND BUTTONS */
+
+.bg-select {
+  width: 60px;
+  height: 60px;
+  font-size: 26px;
 }
