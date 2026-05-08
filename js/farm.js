@@ -1,14 +1,16 @@
-const tiles = document.querySelectorAll(".farm-tile")
+const farmTiles = document.querySelectorAll(".farm-tile")
 
-tiles.forEach(tile => {
+farmTiles.forEach(tile => {
 
   tile.addEventListener("click", async () => {
 
-    const tileIndex = tile.dataset.tile
+    if (tile.innerText !== "🟫") return
 
-    console.log("Tile:", tileIndex)
+    tile.innerText = "🌱"
 
-    tile.innerHTML = "🌾"
+    setTimeout(() => {
+      tile.innerText = "🌾"
+    }, 10000)
 
   })
 
