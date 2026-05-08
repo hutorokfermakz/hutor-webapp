@@ -12,26 +12,29 @@
 </head>
 <body>
 
-  <!-- ФОН -->
   <div class="background"></div>
 
   <!-- HEADER -->
   <header class="topbar">
 
     <div class="profile-card">
+
       <div class="avatar">🚜</div>
 
       <div class="profile-info">
         <h2 id="username">Фермер</h2>
 
         <div class="level-line">
+
           <span>LVL 12</span>
 
           <div class="xp-bar">
             <div class="xp-fill"></div>
           </div>
+
         </div>
       </div>
+
     </div>
 
     <div class="balance-card">
@@ -41,7 +44,7 @@
 
   </header>
 
-  <!-- СЕЗОН -->
+  <!-- SEASON -->
   <section class="season-banner">
 
     <div>
@@ -53,68 +56,144 @@
 
   </section>
 
-  <!-- ОСНОВНАЯ ФЕРМА -->
-  <main class="farm-container">
+  <!-- PAGES -->
+  <main id="pages">
 
-    <!-- ПОЛЕ -->
-    <section class="farm-grid">
+    <!-- ФЕРМА -->
+    <section class="page active" id="farmPage">
 
-      <div class="tile planted">
-        🌽
-        <span>12м</span>
-      </div>
+      <section class="farm-grid">
 
-      <div class="tile ready">
-        🥕
-      </div>
+        <div class="tile planted">
+          🌽
+          <span>12м</span>
+        </div>
 
-      <div class="tile empty">+</div>
-      <div class="tile empty">+</div>
+        <div class="tile ready">
+          🥕
+        </div>
 
-      <div class="tile animal">
-        🐔
-      </div>
+        <div class="tile empty">+</div>
+        <div class="tile empty">+</div>
 
-      <div class="tile animal">
-        🐄
-      </div>
+        <div class="tile animal">🐔</div>
 
-      <div class="tile building">
-        🏠
-      </div>
+        <div class="tile animal">🐄</div>
 
-      <div class="tile building">
-        🚜
+        <div class="tile building">🏠</div>
+
+        <div class="tile building">🚜</div>
+
+      </section>
+
+      <div class="side-panel">
+
+        <div class="panel-card">
+          <h3>⚡ Энергия</h3>
+
+          <div class="energy-bar">
+            <div class="energy-fill"></div>
+          </div>
+
+          <p>84 / 100</p>
+        </div>
+
       </div>
 
     </section>
 
-    <!-- ПРАВАЯ ПАНЕЛЬ -->
-    <aside class="side-panel">
+    <!-- МАГАЗИН -->
+    <section class="page" id="shopPage">
 
-      <div class="panel-card">
-        <h3>⚡ Энергия</h3>
-        <div class="energy-bar">
-          <div class="energy-fill"></div>
+      <div class="shop-grid">
+
+        <div class="shop-item">
+          🌽 Семена
+          <span>50 💰</span>
         </div>
-        <p>84 / 100</p>
+
+        <div class="shop-item">
+          🥕 Морковь
+          <span>80 💰</span>
+        </div>
+
+        <div class="shop-item">
+          🐔 Курица
+          <span>500 💰</span>
+        </div>
+
+        <div class="shop-item">
+          🐄 Корова
+          <span>1500 💰</span>
+        </div>
+
+        <div class="shop-item">
+          🚜 Трактор
+          <span>5000 💰</span>
+        </div>
+
       </div>
 
-      <div class="panel-card">
-        <h3>🏆 Рейтинг</h3>
-        <p>#24 в мире</p>
+    </section>
+
+    <!-- ЖИВОТНЫЕ -->
+    <section class="page" id="animalsPage">
+
+      <div class="info-card">
+        🐔 Курицы: 12
       </div>
 
-      <div class="panel-card">
-        <h3>👥 Клан</h3>
-        <p>HUTOR LEGENDS</p>
+      <div class="info-card">
+        🐄 Коровы: 4
       </div>
 
-    </aside>
+      <div class="info-card">
+        🥚 Яиц в час: 24
+      </div>
+
+    </section>
+
+    <!-- КЛАНЫ -->
+    <section class="page" id="clansPage">
+
+      <div class="info-card">
+        👥 HUTOR LEGENDS
+      </div>
+
+      <div class="info-card">
+        🏆 Топ #3
+      </div>
+
+      <div class="info-card">
+        🌍 Участников: 48
+      </div>
+
+    </section>
+
+    <!-- ТОП -->
+    <section class="page" id="topPage">
+
+      <div class="leaderboard">
+
+        <div class="leader">
+          🥇 FarmerPro — 52 000
+        </div>
+
+        <div class="leader">
+          🥈 HUTOR KING — 48 000
+        </div>
+
+        <div class="leader">
+          🥉 AgroMaster — 39 000
+        </div>
+
+      </div>
+
+    </section>
 
   </main>
 
-  <!-- КЕЙС -->
+  <!-- CASE -->
   <section class="case-banner">
 
     <div>
@@ -128,7 +207,7 @@
 
   </section>
 
-  <!-- НИЖНЕЕ МЕНЮ -->
+  <!-- NAV -->
   <nav class="bottom-nav">
 
     <button class="nav-btn active">
