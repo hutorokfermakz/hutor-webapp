@@ -1,6 +1,33 @@
 body{
-  background:#1f3d1f;
+  margin:0;
+  padding:0;
+  background:#1f4d1f;
   color:white;
   font-family:Arial;
+}
+
+.app{
+  padding:20px;
+}
+
+h1{
   text-align:center;
+}
+
+.card{
+  background:#2d6a2d;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:15px;
+  background:#7ed957;
+  color:black;
+  font-size:18px;
+  font-weight:bold;
 }
