@@ -1,7 +1,11 @@
 const CROPS = {
+
   wheat: {
+
     emoji: "🌾",
+
     growTime: 10000,
+
     reward: 20
   }
 };
@@ -9,19 +13,23 @@ const CROPS = {
 async function loadFarm() {
 
   const tg = window.Telegram.WebApp;
+
   const user = tg.initDataUnsafe.user;
 
   if (!user) return;
 
   const telegramId = user.id;
 
-  const { data, error } = await window.supabaseClient
-    .from("farm_tiles")
-    .select("*")
-    .eq("telegram_id", telegramId);
+  const { data, error } =
+    await window.supabaseClient
+      .from("farm_tiles")
+      .select("*")
+      .eq("telegram_id", telegramId);
 
   if (error) {
+
     console.error(error);
+
     return;
   }
 
@@ -34,13 +42,17 @@ async function loadFarm() {
       await window.supabaseClient
         .from("farm_tiles")
         .insert({
+
           telegram_id: telegramId,
+
           tile_id: i,
+
           state: "empty",
+
           planted_at: 0,
+
           grow_time: 0
         });
-
     }
 
     return loadFarm();
@@ -53,21 +65,30 @@ function renderFarm(data) {
 
   data.forEach(tile => {
 
-    const oldTile = document.querySelector(
-      `.farm-tile[data-id="${tile.tile_id}"]`
-    );
+    const oldTile =
+      document.querySelector(
+        `.farm-tile[data-id="${tile.tile_id}"]`
+      );
 
     if (!oldTile) return;
 
-    const newTile = oldTile.cloneNode(true);
+    const newTile =
+      oldTile.cloneNode(true);
 
     updateTile(newTile, tile);
 
-    oldTile.parentNode.replaceChild(newTile, oldTile);
+    oldTile.parentNode.replaceChild(
+      newTile,
+      oldTile
+    );
 
-    newTile.addEventListener("click", async () => {
-      await handleTileClick(tile);
-    });
+    newTile.addEventListener(
+      "click",
+      async () => {
+
+        await handleTileClick(tile);
+      }
+    );
 
   });
 
@@ -77,13 +98,17 @@ function updateTile(element, tile) {
 
   const now = Date.now();
 
+  // ПУСТО
+
   if (tile.state === "empty") {
 
     element.innerHTML = "🟫";
+
     return;
   }
 
-  const finish = tile.planted_at + tile.grow_time;
+  const finish =
+    tile.planted_at + tile.grow_time;
 
   // ГОТОВО
 
@@ -96,12 +121,19 @@ function updateTile(element, tile) {
 
   else {
 
-    const left = Math.ceil((finish - now) / 1000);
+    const left =
+      Math.ceil((finish - now) / 1000);
 
     element.innerHTML = `
-      <div style="text-align:center;">
+      <div style="
+        text-align:center;
+      ">
         🌱
-        <div style="font-size:14px;">
+
+        <div style="
+          font-size:14px;
+          margin-top:4px;
+        ">
           ${left}с
         </div>
       </div>
@@ -113,6 +145,7 @@ function updateTile(element, tile) {
 async function handleTileClick(tile) {
 
   const tg = window.Telegram.WebApp;
+
   const user = tg.initDataUnsafe.user;
 
   if (!user) return;
@@ -128,9 +161,13 @@ async function handleTileClick(tile) {
     await window.supabaseClient
       .from("farm_tiles")
       .update({
+
         state: "growing",
+
         planted_at: Date.now(),
+
         grow_time: crop.growTime
+
       })
       .eq("telegram_id", telegramId)
       .eq("tile_id", tile.tile_id);
@@ -142,7 +179,8 @@ async function handleTileClick(tile) {
 
   // СБОР
 
-  const finish = tile.planted_at + tile.grow_time;
+  const finish =
+    tile.planted_at + tile.grow_time;
 
   if (Date.now() >= finish) {
 
@@ -170,9 +208,13 @@ async function handleTileClick(tile) {
     await window.supabaseClient
       .from("farm_tiles")
       .update({
+
         state: "empty",
+
         planted_at: 0,
+
         grow_time: 0
+
       })
       .eq("telegram_id", telegramId)
       .eq("tile_id", tile.tile_id);
@@ -182,11 +224,12 @@ async function handleTileClick(tile) {
 
 }
 
-// АВТООБНОВЛЕНИЕ
+// ОБНОВЛЕНИЕ ТАЙМЕРОВ
 
 setInterval(async () => {
 
   const tg = window.Telegram.WebApp;
+
   const user = tg.initDataUnsafe.user;
 
   if (!user) return;
@@ -200,5 +243,7 @@ setInterval(async () => {
   renderFarm(data);
 
 }, 1000);
+
+// СТАРТ
 
 loadFarm();
