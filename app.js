@@ -4,7 +4,9 @@ console.log("Хуторок 🍃 запущен");
 
 async function startGame(){
 
-  console.log("Game Started");
+  await loadPlayer();
+
+  console.log("Игрок загружен");
 
 }
 
