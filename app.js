@@ -8,6 +8,8 @@ async function startGame(){
 
   await loadFarm();
 
+  await loadInventory();
+
   console.log("Игра загружена");
 
 }
