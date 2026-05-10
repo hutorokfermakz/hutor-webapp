@@ -289,3 +289,83 @@ body{
 .nav-btn:active{
   transform:scale(0.9);
 }
+/* INVENTORY */
+
+.inventory-card{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:16px;
+
+  border-radius:22px;
+
+  margin-bottom:14px;
+}
+
+.inventory-left{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+}
+
+.inventory-icon{
+
+  width:54px;
+  height:54px;
+
+  border-radius:18px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:
+  rgba(255,255,255,0.06);
+
+  font-size:28px;
+}
+
+.inventory-name{
+
+  font-size:18px;
+  font-weight:700;
+}
+
+.inventory-count{
+
+  margin-top:4px;
+
+  opacity:0.7;
+
+  font-size:14px;
+}
+
+.sell-btn{
+
+  border:none;
+
+  padding:
+  10px 18px;
+
+  border-radius:14px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #b7ff65,
+    #74ff9f
+  );
+
+  color:#04140c;
+
+  font-weight:700;
+}
