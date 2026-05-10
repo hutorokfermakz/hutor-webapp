@@ -1,485 +1,277 @@
-/* =========================
-   ХУТОРОК 🍃 — STYLE.CSS
-========================= */
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-html,
 body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-
-    color:white;
-
-    background:#07140b;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:#07110a;
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-/* =========================
-   APP
-========================= */
-
-#app{
-    width:100%;
-    height:100vh;
-    position:relative;
-    overflow:hidden;
-}
-
-/* =========================
-   PAGES
-========================= */
+/* ===== ФОНЫ ===== */
 
 .page{
-    position:absolute;
-    inset:0;
-
-    overflow-y:auto;
-
-    display:none;
-
-    padding:
-    20px
-    16px
-    120px;
-
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+  min-height:100vh;
+  padding:30px 20px 140px;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 
-.page.active{
-    display:block;
+.farm-page{
+  background-image:url("./assets/images/farm.png");
 }
 
-/* =========================
-   BACKGROUNDS
-========================= */
-
-#farmPage{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.35),
-        rgba(0,0,0,.45)
-    ),
-    url("assets/images/farm.png");
+.inventory-page{
+  background-image:url("./assets/images/inventory.png");
 }
 
-#inventoryPage{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.45),
-        rgba(0,0,0,.55)
-    ),
-    url("assets/images/inventory.png");
+.shop-page{
+  background-image:url("./assets/images/shop.png");
 }
 
-#shopPage{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.45),
-        rgba(0,0,0,.55)
-    ),
-    url("assets/images/shop.png");
+.clans-page{
+  background-image:url("./assets/images/clans.png");
 }
 
-#clansPage{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.45),
-        rgba(0,0,0,.55)
-    ),
-    url("assets/images/clans.png");
+.profile-page{
+  background-image:url("./assets/images/profile.png");
 }
 
-#profilePage{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.45),
-        rgba(0,0,0,.55)
-    ),
-    url("assets/images/profile.png");
+/* ===== ТЕМНОЕ ЗАТЕМНЕНИЕ ===== */
+
+.page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:-1;
 }
 
-/* =========================
-   PLAYER CARD
-========================= */
+/* ===== ЗАГОЛОВКИ ===== */
 
-.player-card{
-    width:100%;
-
-    padding:18px;
-
-    border-radius:28px;
-
-    background:
-    rgba(0,0,0,.35);
-
-    backdrop-filter:blur(12px);
-
-    border:
-    1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-    0 0 30px rgba(140,255,80,.15);
-
-    margin-bottom:18px;
+h1{
+  font-size:58px;
+  font-weight:900;
+  margin-bottom:30px;
+  text-shadow:0 0 20px rgba(255,255,255,0.2);
 }
 
-.player-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+/* ===== КАРТОЧКИ ===== */
+
+.card{
+  background:rgba(18,26,18,0.72);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:28px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:
+    0 0 25px rgba(114,255,0,0.12),
+    inset 0 0 15px rgba(255,255,255,0.03);
 }
 
-.player-left{
-    display:flex;
-    align-items:center;
-    gap:14px;
+/* ===== ПРОФИЛЬ ===== */
+
+.profile-box{
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
 .avatar{
-    width:74px;
-    height:74px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:3px solid #d7ff9f;
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  border:4px solid rgba(215,255,102,0.8);
+  object-fit:cover;
 }
 
 .player-name{
-    font-size:34px;
-    font-weight:800;
+  font-size:32px;
+  font-weight:800;
 }
 
-.player-level{
-    font-size:18px;
-    opacity:.9;
+.player-info{
+  opacity:0.9;
+  margin-top:8px;
+  line-height:1.7;
 }
 
-.player-money{
-    font-size:28px;
-    font-weight:700;
-
-    color:#ffe36d;
-}
-
-/* =========================
-   XP BAR
-========================= */
-
-.xp-wrap{
-    margin-top:18px;
-}
+/* ===== XP ===== */
 
 .xp-bar{
-    width:100%;
-    height:22px;
-
-    border-radius:999px;
-
-    overflow:hidden;
-
-    background:
-    rgba(255,255,255,.15);
+  width:100%;
+  height:22px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.12);
+  overflow:hidden;
+  margin-top:14px;
 }
 
 .xp-fill{
-    width:35%;
-    height:100%;
-
-    border-radius:999px;
-
-    background:
-    linear-gradient(
-        90deg,
-        #d7ff84,
-        #74ff44
-    );
-
-    box-shadow:
-    0 0 20px #74ff44;
+  width:40%;
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(
+    90deg,
+    #9dff5a,
+    #6bff35
+  );
+  box-shadow:0 0 20px #8cff61;
 }
 
-.xp-text{
-    margin-top:8px;
+/* ===== СЕМЕНА ===== */
 
-    font-size:18px;
-    font-weight:700;
+.seed-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:15px;
 }
 
-/* =========================
-   TITLES
-========================= */
+.seed-card{
+  height:120px;
+  border-radius:28px;
+  background:rgba(84,130,42,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:52px;
+  backdrop-filter:blur(5px);
+  border:1px solid rgba(255,255,255,0.05);
 
-.section-title{
-    font-size:32px;
-    font-weight:900;
+  box-shadow:
+    inset 0 0 15px rgba(255,255,255,0.05),
+    0 0 20px rgba(104,255,74,0.08);
 
-    margin:
-    24px
-    0
-    18px;
-
-    text-shadow:
-    0 4px 14px rgba(0,0,0,.45);
+  transition:0.2s;
 }
 
-/* =========================
-   CROPS
-========================= */
-
-.crops-row{
-    display:flex;
-    gap:14px;
-
-    overflow-x:auto;
-
-    padding-bottom:6px;
+.seed-card:active{
+  transform:scale(0.96);
 }
 
-.crop-btn{
-    min-width:110px;
-    height:110px;
-
-    border:none;
-
-    border-radius:28px;
-
-    font-size:48px;
-
-    background:
-    rgba(140,255,90,.22);
-
-    color:white;
-
-    backdrop-filter:blur(10px);
-
-    border:
-    1px solid rgba(255,255,255,.08);
-
-    transition:.15s;
-}
-
-.crop-btn.active{
-    background:
-    linear-gradient(
-        180deg,
-        #dfff8b,
-        #98ff5d
-    );
-
-    color:#234100;
-
-    box-shadow:
-    0 0 25px rgba(140,255,90,.6);
-}
-
-/* =========================
-   FARM GRID
-========================= */
+/* ===== ГРЯДКИ ===== */
 
 .farm-grid{
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:16px;
-
-    margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:28px;
 }
 
-.tile{
-    aspect-ratio:1;
+.plot{
+  aspect-ratio:1;
+  border-radius:30px;
+  background:linear-gradient(
+    180deg,
+    #8c5c34,
+    #5b351d
+  );
 
-    border-radius:30px;
+  border:5px solid rgba(255,190,120,0.2);
 
-    background:
-    rgba(125,72,35,.72);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    border:
-    3px solid rgba(255,210,140,.35);
+  font-size:48px;
 
-    backdrop-filter:blur(7px);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:52px;
-
-    box-shadow:
-    inset 0 3px 12px rgba(255,255,255,.08),
-    0 8px 24px rgba(0,0,0,.28);
-
-    transition:.15s;
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,0.05),
+    0 10px 20px rgba(0,0,0,0.4);
 }
 
-.tile:active{
-    transform:scale(.96);
-}
-
-/* =========================
-   GLASS CARD
-========================= */
-
-.glass-card{
-    background:
-    rgba(0,0,0,.32);
-
-    border:
-    1px solid rgba(255,255,255,.08);
-
-    border-radius:28px;
-
-    padding:18px;
-
-    backdrop-filter:blur(10px);
-
-    margin-bottom:16px;
-}
-
-/* =========================
-   INVENTORY
-========================= */
-
-.inventory-item{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:16px 0;
-
-    border-bottom:
-    1px solid rgba(255,255,255,.08);
-
-    font-size:22px;
-    font-weight:700;
-}
-
-.inventory-item:last-child{
-    border-bottom:none;
-}
-
-/* =========================
-   SHOP
-========================= */
-
-.shop-grid{
-    display:grid;
-    gap:14px;
-}
-
-.shop-item{
-    background:
-    rgba(0,0,0,.35);
-
-    border-radius:24px;
-
-    padding:18px;
-
-    backdrop-filter:blur(10px);
-
-    border:
-    1px solid rgba(255,255,255,.08);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
+/* ===== КНОПКИ ===== */
 
 .buy-btn{
-    border:none;
+  margin-top:12px;
+  border:none;
+  border-radius:18px;
+  padding:14px 24px;
+  font-size:26px;
+  font-weight:700;
+  color:#2c2400;
 
-    border-radius:18px;
+  background:linear-gradient(
+    180deg,
+    #ffe76a,
+    #ffd12c
+  );
 
-    padding:
-    10px
-    18px;
-
-    font-size:16px;
-    font-weight:800;
-
-    background:
-    linear-gradient(
-        180deg,
-        #ffe978,
-        #ffcc38
-    );
-
-    color:#3b2b00;
+  box-shadow:0 0 18px rgba(255,215,0,0.4);
 }
 
-/* =========================
-   BOTTOM NAV
-========================= */
+/* ===== НИЖНЕЕ МЕНЮ ===== */
 
 .bottom-nav{
-    position:fixed;
+  position:fixed;
+  left:20px;
+  right:20px;
+  bottom:20px;
 
-    left:16px;
-    right:16px;
-    bottom:16px;
+  height:100px;
 
-    height:88px;
+  background:rgba(70,35,10,0.88);
 
-    border-radius:34px;
+  backdrop-filter:blur(12px);
 
-    background:
-    rgba(70,45,20,.78);
+  border-radius:35px;
 
-    backdrop-filter:blur(16px);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
 
-    border:
-    1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 0 30px rgba(255,170,0,0.18),
+    inset 0 0 15px rgba(255,255,255,0.04);
 
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-
-    z-index:999;
+  z-index:999;
 }
 
 .nav-btn{
-    border:none;
-    background:none;
-
-    color:white;
-
-    font-size:34px;
-
-    opacity:.65;
-
-    transition:.15s;
+  font-size:48px;
+  opacity:0.7;
+  transition:0.2s;
 }
 
 .nav-btn.active{
-    opacity:1;
-
-    transform:translateY(-4px);
-
-    text-shadow:
-    0 0 18px #d7ff84;
+  opacity:1;
+  transform:scale(1.15);
+  filter:drop-shadow(0 0 12px #ffe55b);
 }
 
-/* =========================
-   SCROLLBAR
-========================= */
+/* ===== ИНВЕНТАРЬ ===== */
 
-::-webkit-scrollbar{
-    width:0;
-    height:0;
+.inventory-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+
+  padding:18px 20px;
+
+  border-radius:24px;
+
+  background:rgba(30,45,30,0.6);
+
+  backdrop-filter:blur(6px);
+}
+
+.inventory-left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:28px;
+}
+
+.inventory-count{
+  font-size:30px;
+  font-weight:700;
+  color:#ffe066;
 }
