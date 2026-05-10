@@ -1,22 +1,13 @@
-createFarm();
-
-gameState.player =
-createPlayer();
+alert("APP STARTED");
 
 document.getElementById(
-  "playerName"
-).innerText =
-gameState.player.username;
-
-document.getElementById(
-  "coins"
-).innerText =
-gameState.player.coins;
-
-renderFarm();
-
-updateWeather();
-
-console.log(
-  "HUTOROK STARTED"
-);
+  "screen"
+).innerHTML = `
+  <h1 style="
+    color:white;
+    text-align:center;
+    margin-top:100px;
+  ">
+    🌾 HUTOROK WORKING
+  </h1>
+`;
