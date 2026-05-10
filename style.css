@@ -806,3 +806,56 @@ body {
 .shop-item small {
   color: var(--green);
 }
+/* SCREENS */
+
+#screen-container {
+  position: relative;
+
+  flex: 1;
+
+  margin-top: 24px;
+
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+
+  inset: 0;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding-bottom: 120px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transform:
+    translateY(20px)
+    scale(0.98);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.screen.active {
+  opacity: 1;
+
+  pointer-events: auto;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+/* SCROLLBAR */
+
+.screen::-webkit-scrollbar {
+  width: 0;
+}
