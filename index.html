@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
 
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Хуторок 🍃</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Telegram -->
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Supabase -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+
+  <div class="topbar glass">
+
+    <div class="profile-mini">
+
+      <img
+        id="avatar"
+        class="avatar"
+        src="https://i.imgur.com/8Km9tLL.png"
+      >
+
+      <div>
+
+        <div id="playerName" class="player-name">
+          Игрок
+        </div>
+
+        <div class="level-text">
+          ⭐ Уровень <span id="level">1</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="coins-box">
+      🪙 <span id="coins">0</span>
+    </div>
+
+  </div>
+
+  <!-- XP -->
+
+  <div class="xp-wrapper glass">
+
+    <div class="xp-bar">
+
+      <div id="xpFill" class="xp-fill"></div>
+
+    </div>
+
+    <div class="xp-text">
+      XP <span id="xp">0</span>/100
+    </div>
+
+  </div>
+
+  <!-- PAGES -->
+
+  <div class="pages">
+
+    <!-- FARM -->
+
+    <section id="farmPage" class="page active">
+
+      <div class="section-title">
+        🌾 Моя ферма
+      </div>
+
+      <div id="farmGrid" class="farm-grid">
+
+        <div class="farm-tile glass">🟫</div>
+        <div class="farm-tile glass">🟫</div>
+        <div class="farm-tile glass">🟫</div>
+        <div class="farm-tile glass">🟫</div>
+        <div class="farm-tile glass">🟫</div>
+        <div class="farm-tile glass">🟫</div>
+
+      </div>
+
+    </section>
+
+    <!-- INVENTORY -->
+
+    <section id="inventoryPage" class="page">
+
+      <div class="section-title">
+        🎒 Инвентарь
+      </div>
+
+      <div class="glass card">
+        Пока пусто
+      </div>
+
+    </section>
+
+    <!-- SHOP -->
+
+    <section id="shopPage" class="page">
+
+      <div class="section-title">
+        🛒 Магазин
+      </div>
+
+      <div class="glass card">
+        Скоро товары
+      </div>
+
+    </section>
+
+    <!-- CLANS -->
+
+    <section id="clansPage" class="page">
+
+      <div class="section-title">
+        🤝 Кланы
+      </div>
+
+      <div class="glass card">
+        Кланы скоро
+      </div>
+
+    </section>
+
+    <!-- PROFILE -->
+
+    <section id="profilePage" class="page">
+
+      <div class="section-title">
+        👤 Профиль
+      </div>
+
+      <div class="glass profile-card">
+
+        <div>🌾 Фермер: <span id="profileName">Игрок</span></div>
+
+        <div>⭐ Уровень: <span id="profileLevel">1</span></div>
+
+        <div>🪙 Монеты: <span id="profileCoins">0</span></div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- NAVIGATION -->
+
+  <div class="bottom-nav glass">
+
+    <button class="nav-btn active" data-page="farmPage">
+      🌾
+    </button>
+
+    <button class="nav-btn" data-page="inventoryPage">
+      🎒
+    </button>
+
+    <button class="nav-btn" data-page="shopPage">
+      🛒
+    </button>
+
+    <button class="nav-btn" data-page="clansPage">
+      🤝
+    </button>
+
+    <button class="nav-btn" data-page="profilePage">
+      👤
+    </button>
+
+  </div>
+
+</div>
+
+<!-- CORE -->
+
+<script src="js/core/supabase.js"></script>
+<script src="js/core/database.js"></script>
+<script src="js/core/state.js"></script>
+<script src="js/core/navigation.js"></script>
+<script src="js/core/realtime.js"></script>
+
+<!-- SYSTEMS -->
+
+<script src="js/systems/farm.js"></script>
+<script src="js/systems/crops.js"></script>
+<script src="js/systems/inventory.js"></script>
+<script src="js/systems/shop.js"></script>
+<script src="js/systems/profile.js"></script>
+<script src="js/systems/clans.js"></script>
+<script src="js/systems/market.js"></script>
+<script src="js/systems/cases.js"></script>
+<script src="js/systems/stars.js"></script>
+<script src="js/systems/mmo.js"></script>
+<script src="js/systems/levels.js"></script>
+
+<!-- UI -->
+
+<script src="js/ui/ui.js"></script>
+<script src="js/ui/modal.js"></script>
+<script src="js/ui/notifications.js"></script>
+<script src="js/ui/animations.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
