@@ -1,20 +1,57 @@
 console.log("HUTOROK v7 STARTED");
 
 /* ---------------- */
+/* DATA */
+/* ---------------- */
+
+const SEEDS = {
+
+  wheat: {
+    name: "Wheat Seed",
+    price: 25,
+    growTime: 2500,
+    reward: 60
+  },
+
+  corn: {
+    name: "Corn Seed",
+    price: 40,
+    growTime: 3000,
+    reward: 90
+  },
+
+  carrot: {
+    name: "Carrot Seed",
+    price: 60,
+    growTime: 3500,
+    reward: 140
+  }
+
+};
+
+/* ---------------- */
 /* GAME STATE */
 /* ---------------- */
 
 const gameState = {
 
+  coins: 500,
+
+  crystals: 0,
+
+  selectedSeed: null,
+
   weather: "rain",
 
   time: "night",
 
+  inventory: [],
+
   plots: [
-    { stage: "seed" },
-    { stage: "sprout" },
-    { stage: "growing" },
-    { stage: "mature" },
+    null,
+    null,
+    null,
+    null,
 
     null,
     null,
@@ -23,6 +60,26 @@ const gameState = {
   ]
 
 };
+
+/* ---------------- */
+/* UI */
+/* ---------------- */
+
+const farmGrid =
+  document.getElementById("farm-grid");
+
+const inventoryGrid =
+  document.getElementById(
+    "inventory-grid"
+  );
+
+const inventoryCount =
+  document.getElementById(
+    "inventory-count"
+  );
+
+const coinsElement =
+  document.getElementById("coins");
 
 /* ---------------- */
 /* NAVIGATION */
@@ -46,73 +103,257 @@ navButtons.forEach((button) => {
 });
 
 /* ---------------- */
-/* FARM */
+/* UPDATE UI */
 /* ---------------- */
 
-const farmGrid =
-  document.getElementById("farm-grid");
+function updateUI() {
+
+  coinsElement.innerText =
+    gameState.coins;
+
+  inventoryCount.innerText =
+    `${gameState.inventory.length} Items`;
+
+}
+
+/* ---------------- */
+/* INVENTORY */
+/* ---------------- */
+
+function renderInventory() {
+
+  inventoryGrid.innerHTML = "";
+
+  if (
+    gameState.inventory.length === 0
+  ) {
+
+    inventoryGrid.innerHTML = `
+      <div class="inventory-item">
+        <span>Empty</span>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  gameState.inventory.forEach(
+    (item, index) => {
+
+      const itemElement =
+        document.createElement("div");
+
+      itemElement.className =
+        "inventory-item";
+
+      itemElement.innerHTML = `
+        <span>${item.name}</span>
+        <small>x${item.amount}</small>
+      `;
+
+      itemElement.addEventListener(
+        "click",
+        () => {
+
+          gameState.selectedSeed =
+            item.type;
+
+          document
+            .querySelectorAll(
+              ".inventory-item"
+            )
+            .forEach((el) => {
+              el.style.border =
+                "1px solid rgba(255,255,255,0.05)";
+            });
+
+          itemElement.style.border =
+            "1px solid rgba(47,255,149,0.5)";
+
+        }
+      );
+
+      inventoryGrid.appendChild(
+        itemElement
+      );
+
+    }
+  );
+
+}
+
+/* ---------------- */
+/* SHOP */
+/* ---------------- */
+
+const shopButtons =
+  document.querySelectorAll(
+    ".shop-item"
+  );
+
+shopButtons.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const seedType =
+        button.dataset.seed;
+
+      buySeed(seedType);
+
+    }
+  );
+
+});
+
+function buySeed(seedType) {
+
+  const seed =
+    SEEDS[seedType];
+
+  if (
+    gameState.coins <
+    seed.price
+  ) {
+    return;
+  }
+
+  gameState.coins -= seed.price;
+
+  const existing =
+    gameState.inventory.find(
+      (item) =>
+        item.type === seedType
+    );
+
+  if (existing) {
+
+    existing.amount++;
+
+  } else {
+
+    gameState.inventory.push({
+      type: seedType,
+      name: seed.name,
+      amount: 1
+    });
+
+  }
+
+  updateUI();
+
+  renderInventory();
+
+}
+
+/* ---------------- */
+/* FARM */
+/* ---------------- */
 
 function renderFarm() {
 
   farmGrid.innerHTML = "";
 
-  gameState.plots.forEach((plotData) => {
+  gameState.plots.forEach(
+    (plotData, index) => {
 
-    const plot =
-      document.createElement("div");
-
-    plot.className = "plot";
-
-    if (!plotData) {
-
-      plot.classList.add("empty");
-
-      plot.addEventListener("click", () => {
-        plantCrop(plot);
-      });
-
-    } else {
-
-      const crop =
+      const plot =
         document.createElement("div");
 
-      crop.className =
-        `crop ${plotData.stage}`;
+      plot.className = "plot";
 
-      plot.appendChild(crop);
+      if (!plotData) {
+
+        plot.classList.add("empty");
+
+        plot.addEventListener(
+          "click",
+          () => {
+            plantCrop(index);
+          }
+        );
+
+      } else {
+
+        const crop =
+          document.createElement("div");
+
+        crop.className =
+          `crop ${plotData.stage}`;
+
+        plot.appendChild(crop);
+
+      }
+
+      farmGrid.appendChild(plot);
 
     }
-
-    farmGrid.appendChild(plot);
-
-  });
+  );
 
 }
 
 /* ---------------- */
-/* PLANTING */
+/* PLANT */
 /* ---------------- */
 
-function plantCrop(plotElement) {
+function plantCrop(plotIndex) {
 
-  const crop =
-    document.createElement("div");
+  if (!gameState.selectedSeed) {
+    return;
+  }
 
-  crop.className = "crop seed";
+  const inventoryItem =
+    gameState.inventory.find(
+      (item) =>
+        item.type ===
+        gameState.selectedSeed
+    );
 
-  plotElement.classList.remove("empty");
+  if (
+    !inventoryItem ||
+    inventoryItem.amount <= 0
+  ) {
+    return;
+  }
 
-  plotElement.appendChild(crop);
+  inventoryItem.amount--;
 
-  growCrop(crop);
+  if (inventoryItem.amount <= 0) {
+
+    gameState.inventory =
+      gameState.inventory.filter(
+        (item) =>
+          item.amount > 0
+      );
+
+  }
+
+  gameState.plots[plotIndex] = {
+
+    type:
+      gameState.selectedSeed,
+
+    stage: "seed"
+
+  };
+
+  renderFarm();
+
+  renderInventory();
+
+  updateUI();
+
+  growCrop(plotIndex);
 
 }
 
 /* ---------------- */
-/* GROWTH */
+/* GROW */
 /* ---------------- */
 
-function growCrop(crop) {
+function growCrop(plotIndex) {
 
   const stages = [
     "seed",
@@ -123,22 +364,83 @@ function growCrop(crop) {
 
   let currentStage = 0;
 
+  const cropData =
+    gameState.plots[plotIndex];
+
+  const seedData =
+    SEEDS[cropData.type];
+
   const interval = setInterval(() => {
 
     currentStage++;
 
-    if (currentStage >= stages.length) {
+    if (
+      currentStage >=
+      stages.length
+    ) {
 
       clearInterval(interval);
+
+      makeHarvestable(plotIndex);
 
       return;
 
     }
 
-    crop.className =
-      `crop ${stages[currentStage]}`;
+    cropData.stage =
+      stages[currentStage];
 
-  }, 2500);
+    renderFarm();
+
+  }, seedData.growTime);
+
+}
+
+/* ---------------- */
+/* HARVEST */
+/* ---------------- */
+
+function makeHarvestable(
+  plotIndex
+) {
+
+  const plots =
+    document.querySelectorAll(
+      ".plot"
+    );
+
+  const plot =
+    plots[plotIndex];
+
+  plot.addEventListener(
+    "click",
+    () => {
+
+      harvestCrop(plotIndex);
+
+    },
+    { once: true }
+  );
+
+}
+
+function harvestCrop(plotIndex) {
+
+  const crop =
+    gameState.plots[plotIndex];
+
+  const seedData =
+    SEEDS[crop.type];
+
+  gameState.coins +=
+    seedData.reward;
+
+  gameState.plots[plotIndex] =
+    null;
+
+  renderFarm();
+
+  updateUI();
 
 }
 
@@ -156,11 +458,15 @@ function applyWeather() {
     "night"
   );
 
-  if (gameState.weather === "rain") {
+  if (
+    gameState.weather === "rain"
+  ) {
     farmScene.classList.add("rain");
   }
 
-  if (gameState.time === "night") {
+  if (
+    gameState.time === "night"
+  ) {
     farmScene.classList.add("night");
   }
 
@@ -171,5 +477,9 @@ applyWeather();
 /* ---------------- */
 /* START */
 /* ---------------- */
+
+updateUI();
+
+renderInventory();
 
 renderFarm();
