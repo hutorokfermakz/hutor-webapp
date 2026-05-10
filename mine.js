@@ -79,29 +79,7 @@ const inventoryCount =
   );
 
 const coinsElement =
-  document.getElementById("coins");
-
-/* ---------------- */
-/* NAVIGATION */
-/* ---------------- */
-
-const navButtons =
-  document.querySelectorAll(".nav-btn");
-
-navButtons.forEach((button) => {
-
-  button.addEventListener("click", () => {
-
-    navButtons.forEach((btn) => {
-      btn.classList.remove("active");
-    });
-
-    button.classList.add("active");
-
-  });
-
-});
-
+  document.getElementById("
 /* ---------------- */
 /* UPDATE UI */
 /* ---------------- */
@@ -114,8 +92,52 @@ function updateUI() {
   inventoryCount.innerText =
     `${gameState.inventory.length} Items`;
 
-}
+};
+/* ---------------- */
+/* SCREEN ROUTER */
+/* ---------------- */
 
+const navButtons =
+  document.querySelectorAll(".nav-btn");
+
+const screens =
+  document.querySelectorAll(".screen");
+
+navButtons.forEach((button) => {
+
+  button.addEventListener("click", () => {
+
+    const target =
+      button.dataset.screen;
+
+    /* ACTIVE NAV */
+
+    navButtons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    /* ACTIVE SCREEN */
+
+    screens.forEach((screen) => {
+      screen.classList.remove("active");
+    });
+
+    const activeScreen =
+      document.getElementById(
+        `${target}-screen`
+      );
+
+    if (activeScreen) {
+      activeScreen.classList.add(
+        "active"
+      );
+    }
+
+  });
+
+});
 /* ---------------- */
 /* INVENTORY */
 /* ---------------- */
