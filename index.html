@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
 
+  <title>HUTOROK v7</title>
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="background">
+    <div class="gradient"></div>
+    <div class="fog fog-1"></div>
+    <div class="fog fog-2"></div>
+    <div class="particles"></div>
+  </div>
+
+  <!-- App -->
+  <div id="app">
+
+    <!-- Top Bar -->
+    <header class="topbar glass">
+      <div class="logo-block">
+        <div class="logo-glow"></div>
+
+        <div>
+          <h1>HUTOROK</h1>
+          <p>Next Gen Farming MMO</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="currency glass">
+          <span class="currency-label">Coins</span>
+          <span id="coins">500</span>
+        </div>
+
+        <div class="currency glass crystals">
+          <span class="currency-label">Crystals</span>
+          <span id="crystals">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Screen -->
+    <main id="screen-container">
+
+      <!-- Farm Screen -->
+      <section class="screen active" id="farm-screen">
+        
+<!-- Live Farm Scene -->
+<div class="farm-scene">
+
+  <!-- Sky Light -->
+  <div class="sky-light"></div>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow"></div>
+
+  <!-- Farm Grid -->
+  <div class="farm-grid" id="farm-grid">
+
+  </div>
+
+</div>
+        <div class="hero-card glass">
+          <div class="hero-overlay"></div>
+
+          <div class="hero-content">
+            <h2>Welcome back</h2>
+
+            <p>
+              Build your premium farming world inside Telegram.
+            </p>
+
+            <button class="primary-button">
+              Enter Farm
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+
+          <div class="stat-card glass">
+            <span class="stat-title">Level</span>
+            <span class="stat-value">1</span>
+          </div>
+
+          <div class="stat-card glass">
+            <span class="stat-title">Harvest</span>
+            <span class="stat-value">0</span>
+          </div>
+
+          <div class="stat-card glass">
+            <span class="stat-title">Online</span>
+            <span class="stat-value online">
+              ● 124
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav glass">
+
+      <button class="nav-btn active">
+        <span>Farm</span>
+      </button>
+
+      <button class="nav-btn">
+        <span>Shop</span>
+      </button>
+
+      <button class="nav-btn">
+        <span>Inventory</span>
+      </button>
+
+      <button class="nav-btn">
+        <span>Clans</span>
+      </button>
+
+      <button class="nav-btn">
+        <span>Chat</span>
+      </button>
+
+      <button class="nav-btn">
+        <span>Profile</span>
+      </button>
+
+    </nav>
+
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
