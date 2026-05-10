@@ -1,4 +1,5 @@
 let selectedCrop = "wheat";
+
 const cropButtons =
 document.querySelectorAll(".crop-btn");
 
@@ -18,6 +19,7 @@ cropButtons.forEach(btn => {
   };
 
 });
+
 const farmGrid =
 document.getElementById("farmGrid");
 
@@ -68,6 +70,7 @@ async function loadFarm(){
   }
 
   renderFarm(farmTiles);
+
 }
 
 function renderFarm(tiles){
@@ -102,7 +105,9 @@ function updateTileVisual(div, tile){
   // EMPTY
 
   if(tile.crop === "empty"){
+
     div.innerHTML = "🟫";
+
     return;
   }
 
@@ -117,10 +122,10 @@ function updateTileVisual(div, tile){
   if(now >= ready){
 
     const cropData =
-window.CROPS[tile.crop];
+    window.CROPS[tile.crop];
 
-div.innerHTML =
-cropData.icon;
+    div.innerHTML =
+    cropData.icon;
 
   }else{
 
@@ -128,13 +133,13 @@ cropData.icon;
     Math.ceil((ready-now)/1000);
 
     const cropData =
-window.CROPS[tile.crop];
+    window.CROPS[tile.crop];
 
-div.innerHTML =
-cropData.icon +
-"<br><small>" +
-seconds +
-"с</small>";
+    div.innerHTML =
+    cropData.icon +
+    "<br><small>" +
+    seconds +
+    "с</small>";
 
   }
 
@@ -146,23 +151,29 @@ async function handleTileClick(tile){
 
   if(tile.crop === "empty"){
 
+    const cropData =
+    window.CROPS[selectedCrop];
+
     const now =
     new Date();
 
     const ready =
     new Date(
-      now.getTime() + GROW_TIME
+      now.getTime() +
+      cropData.growTime
     );
 
     await window.supabaseClient
       .from("farms")
       .update({
-        crop: "wheat",
+        crop: selectedCrop,
+
         planted_at:
-          now.toISOString(),
+        now.toISOString(),
 
         ready_at:
-          ready.toISOString()
+        ready.toISOString()
+
       })
       .eq("id", tile.id);
 
@@ -181,13 +192,18 @@ async function handleTileClick(tile){
 
   if(now >= ready){
 
+    const cropData =
+    window.CROPS[tile.crop];
+
     // RESET TILE
 
     await window.supabaseClient
       .from("farms")
       .update({
         crop: "empty",
+
         planted_at: null,
+
         ready_at: null
       })
       .eq("id", tile.id);
@@ -197,22 +213,21 @@ async function handleTileClick(tile){
     const player =
     window.gameState.player;
 
-    const cropData =
-window.CROPS[tile.crop];
+    const newCoins =
+    player.coins +
+    cropData.reward;
 
-const newCoins =
-player.coins +
-cropData.reward;
+    const newXp =
+    player.xp +
+    cropData.xp;
 
-const newXp =
-player.xp +
-cropData.xp;
-    
-await addItem(
-  cropData.name,
-  1
-);
-    
+    await addItem(
+      cropData.name,
+      1
+    );
+
+    // SAVE PLAYER
+
     await window.supabaseClient
       .from("players")
       .update({
@@ -221,10 +236,15 @@ await addItem(
       })
       .eq("id", player.id);
 
-    player.coins = newCoins;
-    player.xp = newXp;
+    player.coins =
+    newCoins;
+
+    player.xp =
+    newXp;
 
     updatePlayerUI(player);
+
+    await checkLevelUp();
 
     loadFarm();
 
@@ -250,7 +270,9 @@ setInterval(async ()=>{
     .eq("player_id", player.id);
 
   if(data){
+
     renderFarm(data);
+
   }
 
 },1000);
