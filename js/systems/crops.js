@@ -1,71 +1,63 @@
 window.CROPS = {
 
   wheat: {
-
     id: "wheat",
-
     name: "Пшеница",
-
     icon: "🌾",
 
     growTime: 10000,
 
     reward: 20,
-
     xp: 10,
 
-    level: 1
+    seedPrice: 0,
+
+    unlockLevel: 1
   },
 
   carrot: {
-
     id: "carrot",
-
     name: "Морковь",
-
     icon: "🥕",
 
-    growTime: 30000,
+    growTime: 20000,
 
-    reward: 50,
-
+    reward: 45,
     xp: 20,
 
-    level: 2
+    seedPrice: 50,
+
+    unlockLevel: 2
   },
 
   corn: {
-
     id: "corn",
-
     name: "Кукуруза",
-
     icon: "🌽",
 
-    growTime: 60000,
+    growTime: 40000,
 
     reward: 90,
-
     xp: 35,
 
-    level: 3
+    seedPrice: 120,
+
+    unlockLevel: 4
   },
 
   tomato: {
-
     id: "tomato",
-
-    name: "Томаты",
-
+    name: "Томат",
     icon: "🍅",
 
-    growTime: 120000,
+    growTime: 60000,
 
-    reward: 150,
+    reward: 160,
+    xp: 50,
 
-    xp: 60,
+    seedPrice: 250,
 
-    level: 5
+    unlockLevel: 6
   }
 
 };
