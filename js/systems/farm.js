@@ -116,17 +116,25 @@ function updateTileVisual(div, tile){
 
   if(now >= ready){
 
-    div.innerHTML = "🌾";
+    const cropData =
+window.CROPS[tile.crop];
+
+div.innerHTML =
+cropData.icon;
 
   }else{
 
     const seconds =
     Math.ceil((ready-now)/1000);
 
-    div.innerHTML =
-    "🌱<br><small>" +
-    seconds +
-    "с</small>";
+    const cropData =
+window.CROPS[tile.crop];
+
+div.innerHTML =
+cropData.icon +
+"<br><small>" +
+seconds +
+"с</small>";
 
   }
 
@@ -189,13 +197,21 @@ async function handleTileClick(tile){
     const player =
     window.gameState.player;
 
-    const newCoins =
-    player.coins + 20;
+    const cropData =
+window.CROPS[tile.crop];
 
-    const newXp =
-    player.xp + 10;
+const newCoins =
+player.coins +
+cropData.reward;
+
+const newXp =
+player.xp +
+cropData.xp;
     
-await addItem("Пшеница", 1);
+await addItem(
+  cropData.name,
+  1
+);
     
     await window.supabaseClient
       .from("players")
