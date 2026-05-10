@@ -176,7 +176,9 @@ async function handleTileClick(tile){
 
     const newXp =
     player.xp + 10;
-
+    
+await addItem("Пшеница", 1);
+    
     await window.supabaseClient
       .from("players")
       .update({
