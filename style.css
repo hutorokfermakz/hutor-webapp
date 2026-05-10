@@ -416,3 +416,48 @@ body{
   0 0 20px rgba(183,255,101,0.25);
 
 }
+/* NOTIFICATIONS */
+
+.game-notification{
+
+  position:fixed;
+
+  top:24px;
+  left:50%;
+
+  transform:
+  translateX(-50%)
+  translateY(-20px);
+
+  background:
+  linear-gradient(
+    135deg,
+    #b7ff65,
+    #74ff9f
+  );
+
+  color:#04140c;
+
+  padding:
+  14px 22px;
+
+  border-radius:18px;
+
+  font-weight:700;
+
+  opacity:0;
+
+  transition:0.3s;
+
+  z-index:9999;
+}
+
+.game-notification.show{
+
+  opacity:1;
+
+  transform:
+  translateX(-50%)
+  translateY(0);
+
+}
