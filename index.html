@@ -2,106 +2,309 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="
+      width=device-width,
+      initial-scale=1.0,
+      viewport-fit=cover
+    "
   />
 
   <title>HUTOROK v7</title>
 
   <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
 
-  <!-- Animated Background -->
+  <!-- BACKGROUND -->
+
   <div class="background">
+
     <div class="gradient"></div>
+
     <div class="fog fog-1"></div>
+
     <div class="fog fog-2"></div>
+
     <div class="particles"></div>
+
   </div>
 
-  <!-- App -->
+  <!-- APP -->
+
   <div id="app">
 
-    <!-- Top Bar -->
+    <!-- TOPBAR -->
+
     <header class="topbar glass">
+
       <div class="logo-block">
+
         <div class="logo-glow"></div>
 
         <div>
           <h1>HUTOROK</h1>
-          <p>Next Gen Farming MMO</p>
+
+          <p>
+            Next Gen Farming MMO
+          </p>
         </div>
+
       </div>
 
       <div class="topbar-right">
+
         <div class="currency glass">
-          <span class="currency-label">Coins</span>
-          <span id="coins">500</span>
+
+          <span class="currency-label">
+            Coins
+          </span>
+
+          <span id="coins">
+            500
+          </span>
+
         </div>
 
         <div class="currency glass crystals">
-          <span class="currency-label">Crystals</span>
-          <span id="crystals">0</span>
+
+          <span class="currency-label">
+            Crystals
+          </span>
+
+          <span id="crystals">
+            0
+          </span>
+
         </div>
+
       </div>
+
     </header>
 
-    <!-- Main Screen -->
+    <!-- MAIN -->
+
     <main id="screen-container">
 
-      <!-- Farm Screen -->
-      <section class="screen active" id="farm-screen">
-        
-<!-- Live Farm Scene -->
-<div class="farm-scene">
+      <!-- FARM SCREEN -->
 
-  <!-- Sky Light -->
-  <div class="sky-light"></div>
+      <section
+        class="screen active"
+        id="farm-screen"
+      >
 
-  <!-- Ambient Glow -->
-  <div class="ambient-glow"></div>
+        <!-- LIVE FARM SCENE -->
 
-  <!-- Farm Grid -->
-  <div class="farm-grid" id="farm-grid">
+        <div class="farm-scene">
 
-  </div>
+          <!-- SKY LIGHT -->
 
-</div>
+          <div class="sky-light"></div>
+
+          <!-- AMBIENT GLOW -->
+
+          <div class="ambient-glow"></div>
+
+          <!-- FARM GRID -->
+
+          <div
+            class="farm-grid"
+            id="farm-grid"
+          ></div>
+
+        </div>
+
+        <!-- HERO -->
+
         <div class="hero-card glass">
+
           <div class="hero-overlay"></div>
 
           <div class="hero-content">
-            <h2>Welcome back</h2>
+
+            <h2>
+              Welcome back
+            </h2>
 
             <p>
-              Build your premium farming world inside Telegram.
+              Build your premium farming
+              world inside Telegram.
             </p>
 
-            <button class="primary-button">
+            <button
+              class="primary-button"
+            >
               Enter Farm
             </button>
+
           </div>
+
         </div>
+
+        <!-- STATS -->
 
         <div class="stats-grid">
 
           <div class="stat-card glass">
-            <span class="stat-title">Level</span>
-            <span class="stat-value">1</span>
+
+            <span class="stat-title">
+              Level
+            </span>
+
+            <span class="stat-value">
+              1
+            </span>
+
           </div>
 
           <div class="stat-card glass">
-            <span class="stat-title">Harvest</span>
-            <span class="stat-value">0</span>
+
+            <span class="stat-title">
+              Harvest
+            </span>
+
+            <span class="stat-value">
+              0
+            </span>
+
           </div>
 
           <div class="stat-card glass">
-            <span class="stat-title">Online</span>
-            <span class="stat-value online">
+
+            <span class="stat-title">
+              Online
+            </span>
+
+            <span
+              class="
+                stat-value
+                online
+              "
+            >
               ● 124
             </span>
+
+          </div>
+
+        </div>
+
+        <!-- INVENTORY -->
+
+        <div
+          class="
+            inventory-panel
+            glass
+          "
+        >
+
+          <div
+            class="
+              inventory-header
+            "
+          >
+
+            <h3>
+              Inventory
+            </h3>
+
+            <span
+              id="inventory-count"
+            >
+              0 Items
+            </span>
+
+          </div>
+
+          <div
+            class="
+              inventory-grid
+            "
+            id="inventory-grid"
+          ></div>
+
+        </div>
+
+        <!-- SEED SHOP -->
+
+        <div
+          class="
+            shop-panel
+            glass
+          "
+        >
+
+          <div
+            class="
+              inventory-header
+            "
+          >
+
+            <h3>
+              Seed Market
+            </h3>
+
+            <span>
+              Premium Farming Supply
+            </span>
+
+          </div>
+
+          <div class="shop-grid">
+
+            <!-- WHEAT -->
+
+            <button
+              class="shop-item"
+              data-seed="wheat"
+            >
+
+              <span>
+                Wheat Seed
+              </span>
+
+              <small>
+                25 Coins
+              </small>
+
+            </button>
+
+            <!-- CORN -->
+
+            <button
+              class="shop-item"
+              data-seed="corn"
+            >
+
+              <span>
+                Corn Seed
+              </span>
+
+              <small>
+                40 Coins
+              </small>
+
+            </button>
+
+            <!-- CARROT -->
+
+            <button
+              class="shop-item"
+              data-seed="carrot"
+            >
+
+              <span>
+                Carrot Seed
+              </span>
+
+              <small>
+                60 Coins
+              </small>
+
+            </button>
+
           </div>
 
         </div>
@@ -110,37 +313,66 @@
 
     </main>
 
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav glass">
+    <!-- BOTTOM NAVIGATION -->
 
-      <button class="nav-btn active">
-        <span>Farm</span>
+    <nav
+      class="
+        bottom-nav
+        glass
+      "
+    >
+
+      <button
+        class="
+          nav-btn
+          active
+        "
+      >
+        <span>
+          Farm
+        </span>
       </button>
 
       <button class="nav-btn">
-        <span>Shop</span>
+        <span>
+          Shop
+        </span>
       </button>
 
       <button class="nav-btn">
-        <span>Inventory</span>
+        <span>
+          Inventory
+        </span>
       </button>
 
       <button class="nav-btn">
-        <span>Clans</span>
+        <span>
+          Clans
+        </span>
       </button>
 
       <button class="nav-btn">
-        <span>Chat</span>
+        <span>
+          Chat
+        </span>
       </button>
 
       <button class="nav-btn">
-        <span>Profile</span>
+        <span>
+          Profile
+        </span>
       </button>
 
     </nav>
 
   </div>
 
-  <script type="module" src="./main.js"></script>
+  <!-- MAIN SCRIPT -->
+
+  <script
+    type="module"
+    src="./main.js"
+  ></script>
+
 </body>
 </html>
