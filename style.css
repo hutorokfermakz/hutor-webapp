@@ -369,3 +369,50 @@ body{
 
   font-weight:700;
 }
+/* CROPS */
+
+.crop-selector{
+
+  display:flex;
+
+  gap:12px;
+
+  margin-bottom:18px;
+
+  overflow-x:auto;
+}
+
+.crop-btn{
+
+  min-width:62px;
+  height:62px;
+
+  border:none;
+
+  border-radius:20px;
+
+  font-size:28px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  color:white;
+
+  transition:0.25s;
+}
+
+.crop-btn.active-crop{
+
+  background:
+  linear-gradient(
+    135deg,
+    #b7ff65,
+    #74ff9f
+  );
+
+  color:#04140c;
+
+  box-shadow:
+  0 0 20px rgba(183,255,101,0.25);
+
+}
