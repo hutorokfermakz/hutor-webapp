@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
   <meta charset="UTF-8" />
 
   <meta
@@ -14,7 +16,11 @@
 
   <title>HUTOROK v7</title>
 
-  <link rel="stylesheet" href="./style.css" />
+  <link
+    rel="stylesheet"
+    href="./style.css"
+  />
+
 </head>
 
 <body>
@@ -46,16 +52,22 @@
         <div class="logo-glow"></div>
 
         <div>
-          <h1>HUTOROK</h1>
+
+          <h1>
+            HUTOROK
+          </h1>
 
           <p>
             Next Gen Farming MMO
           </p>
+
         </div>
 
       </div>
 
       <div class="topbar-right">
+
+        <!-- COINS -->
 
         <div class="currency glass">
 
@@ -69,7 +81,15 @@
 
         </div>
 
-        <div class="currency glass crystals">
+        <!-- CRYSTALS -->
+
+        <div
+          class="
+            currency
+            glass
+            crystals
+          "
+        >
 
           <span class="currency-label">
             Crystals
@@ -92,23 +112,20 @@
       <!-- FARM SCREEN -->
 
       <section
-        class="screen active"
+        class="
+          screen
+          active
+        "
         id="farm-screen"
       >
 
-        <!-- LIVE FARM SCENE -->
+        <!-- LIVE FARM -->
 
         <div class="farm-scene">
 
-          <!-- SKY LIGHT -->
-
           <div class="sky-light"></div>
 
-          <!-- AMBIENT GLOW -->
-
           <div class="ambient-glow"></div>
-
-          <!-- FARM GRID -->
 
           <div
             class="farm-grid"
@@ -119,7 +136,12 @@
 
         <!-- HERO -->
 
-        <div class="hero-card glass">
+        <div
+          class="
+            hero-card
+            glass
+          "
+        >
 
           <div class="hero-overlay"></div>
 
@@ -130,12 +152,15 @@
             </h2>
 
             <p>
-              Build your premium farming
-              world inside Telegram.
+              Build your premium
+              farming world inside
+              Telegram.
             </p>
 
             <button
-              class="primary-button"
+              class="
+                primary-button
+              "
             >
               Enter Farm
             </button>
@@ -148,7 +173,14 @@
 
         <div class="stats-grid">
 
-          <div class="stat-card glass">
+          <!-- LEVEL -->
+
+          <div
+            class="
+              stat-card
+              glass
+            "
+          >
 
             <span class="stat-title">
               Level
@@ -160,7 +192,14 @@
 
           </div>
 
-          <div class="stat-card glass">
+          <!-- HARVEST -->
+
+          <div
+            class="
+              stat-card
+              glass
+            "
+          >
 
             <span class="stat-title">
               Harvest
@@ -172,7 +211,14 @@
 
           </div>
 
-          <div class="stat-card glass">
+          <!-- ONLINE -->
+
+          <div
+            class="
+              stat-card
+              glass
+            "
+          >
 
             <span class="stat-title">
               Online
@@ -191,43 +237,14 @@
 
         </div>
 
-        <!-- INVENTORY -->
+      </section>
 
-        <div
-          class="
-            inventory-panel
-            glass
-          "
-        >
+      <!-- SHOP SCREEN -->
 
-          <div
-            class="
-              inventory-header
-            "
-          >
-
-            <h3>
-              Inventory
-            </h3>
-
-            <span
-              id="inventory-count"
-            >
-              0 Items
-            </span>
-
-          </div>
-
-          <div
-            class="
-              inventory-grid
-            "
-            id="inventory-grid"
-          ></div>
-
-        </div>
-
-        <!-- SEED SHOP -->
+      <section
+        class="screen"
+        id="shop-screen"
+      >
 
         <div
           class="
@@ -311,9 +328,148 @@
 
       </section>
 
+      <!-- INVENTORY SCREEN -->
+
+      <section
+        class="screen"
+        id="inventory-screen"
+      >
+
+        <div
+          class="
+            inventory-panel
+            glass
+          "
+        >
+
+          <div
+            class="
+              inventory-header
+            "
+          >
+
+            <h3>
+              Inventory
+            </h3>
+
+            <span
+              id="inventory-count"
+            >
+              0 Items
+            </span>
+
+          </div>
+
+          <div
+            class="
+              inventory-grid
+            "
+            id="inventory-grid"
+          ></div>
+
+        </div>
+
+      </section>
+
+      <!-- CLANS SCREEN -->
+
+      <section
+        class="screen"
+        id="clans-screen"
+      >
+
+        <div
+          class="
+            hero-card
+            glass
+          "
+        >
+
+          <div class="hero-content">
+
+            <h2>
+              Clans
+            </h2>
+
+            <p>
+              Build alliances,
+              complete missions
+              and dominate rankings.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CHAT SCREEN -->
+
+      <section
+        class="screen"
+        id="chat-screen"
+      >
+
+        <div
+          class="
+            hero-card
+            glass
+          "
+        >
+
+          <div class="hero-content">
+
+            <h2>
+              Global Chat
+            </h2>
+
+            <p>
+              Communicate with
+              players in realtime.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PROFILE SCREEN -->
+
+      <section
+        class="screen"
+        id="profile-screen"
+      >
+
+        <div
+          class="
+            hero-card
+            glass
+          "
+        >
+
+          <div class="hero-content">
+
+            <h2>
+              Your Profile
+            </h2>
+
+            <p>
+              Premium farmer
+              statistics,
+              cosmetics
+              and achievements.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
     </main>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAV -->
 
     <nav
       class="
@@ -322,52 +478,92 @@
       "
     >
 
+      <!-- FARM -->
+
       <button
         class="
           nav-btn
           active
         "
+        data-screen="farm"
       >
+
         <span>
           Farm
         </span>
+
       </button>
 
-      <button class="nav-btn">
+      <!-- SHOP -->
+
+      <button
+        class="nav-btn"
+        data-screen="shop"
+      >
+
         <span>
           Shop
         </span>
+
       </button>
 
-      <button class="nav-btn">
+      <!-- INVENTORY -->
+
+      <button
+        class="nav-btn"
+        data-screen="inventory"
+      >
+
         <span>
           Inventory
         </span>
+
       </button>
 
-      <button class="nav-btn">
+      <!-- CLANS -->
+
+      <button
+        class="nav-btn"
+        data-screen="clans"
+      >
+
         <span>
           Clans
         </span>
+
       </button>
 
-      <button class="nav-btn">
+      <!-- CHAT -->
+
+      <button
+        class="nav-btn"
+        data-screen="chat"
+      >
+
         <span>
           Chat
         </span>
+
       </button>
 
-      <button class="nav-btn">
+      <!-- PROFILE -->
+
+      <button
+        class="nav-btn"
+        data-screen="profile"
+      >
+
         <span>
           Profile
         </span>
+
       </button>
 
     </nav>
 
   </div>
 
-  <!-- MAIN SCRIPT -->
+  <!-- SCRIPT -->
 
   <script
     type="module"
