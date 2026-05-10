@@ -296,3 +296,49 @@ body{
         transform:translateY(0);
     }
 }
+.page{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+/* ФЕРМА */
+#farmPage{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.35),
+    rgba(0,0,0,0.35)),
+    url("assets/images/farm.png");
+}
+
+/* ИНВЕНТАРЬ */
+#inventoryPage{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)),
+    url("assets/images/inventory.png");
+}
+
+/* МАГАЗИН */
+#shopPage{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)),
+    url("assets/images/shop.png");
+}
+
+/* КЛАНЫ */
+#clansPage{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)),
+    url("assets/images/clans.png");
+}
+
+/* ПРОФИЛЬ */
+#profilePage{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)),
+    url("assets/images/profile.png");
+}
