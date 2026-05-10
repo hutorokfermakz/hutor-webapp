@@ -6,7 +6,9 @@ async function startGame(){
 
   await loadPlayer();
 
-  console.log("Игрок загружен");
+  await loadFarm();
+
+  console.log("Игра загружена");
 
 }
 
