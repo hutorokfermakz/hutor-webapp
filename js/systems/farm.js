@@ -1,7 +1,25 @@
+let selectedCrop = "wheat";
+const cropButtons =
+document.querySelectorAll(".crop-btn");
+
+cropButtons.forEach(btn => {
+
+  btn.onclick = () => {
+
+    cropButtons.forEach(b => {
+      b.classList.remove("active-crop");
+    });
+
+    btn.classList.add("active-crop");
+
+    selectedCrop =
+    btn.dataset.crop;
+
+  };
+
+});
 const farmGrid =
 document.getElementById("farmGrid");
-
-const GROW_TIME = 10000;
 
 async function loadFarm(){
 
