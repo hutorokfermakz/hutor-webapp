@@ -7,6 +7,8 @@ async function startGame(){
   await loadPlayer();
 
   await loadFarm();
+  
+  loadShop();
 
   await loadInventory();
 
