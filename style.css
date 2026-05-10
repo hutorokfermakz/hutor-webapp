@@ -1,6 +1,291 @@
-body{
+*{
   margin:0;
-  background:#04140c;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  background:
+  linear-gradient(
+    180deg,
+    #03150d 0%,
+    #062814 45%,
+    #04110b 100%
+  );
+
   color:white;
-  font-family:Arial;
+
+  font-family:
+  -apple-system,
+  BlinkMacSystemFont,
+  sans-serif;
+
+  min-height:100vh;
+
+  overflow-x:hidden;
+}
+
+.app{
+  padding:16px;
+  padding-bottom:120px;
+}
+
+/* GLASS */
+
+.glass{
+
+  background:
+  rgba(255,255,255,0.05);
+
+  backdrop-filter:
+  blur(16px);
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+  0 0 25px rgba(0,0,0,0.3);
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:14px;
+
+  border-radius:22px;
+
+  margin-bottom:16px;
+}
+
+.profile-mini{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+
+  width:56px;
+  height:56px;
+
+  border-radius:50%;
+
+  border:
+  2px solid rgba(255,255,255,0.15);
+
+}
+
+.player-name{
+
+  font-size:18px;
+  font-weight:700;
+
+}
+
+.level-text{
+
+  margin-top:4px;
+
+  opacity:0.8;
+
+  font-size:14px;
+}
+
+.coins-box{
+
+  padding:
+  10px 16px;
+
+  border-radius:16px;
+
+  background:
+  rgba(255,215,0,0.12);
+
+  font-weight:700;
+
+  color:#ffd95e;
+}
+
+/* XP */
+
+.xp-wrapper{
+
+  padding:14px;
+
+  border-radius:20px;
+
+  margin-bottom:18px;
+}
+
+.xp-bar{
+
+  width:100%;
+  height:14px;
+
+  background:
+  rgba(255,255,255,0.08);
+
+  border-radius:999px;
+
+  overflow:hidden;
+}
+
+.xp-fill{
+
+  width:30%;
+
+  height:100%;
+
+  background:
+  linear-gradient(
+    90deg,
+    #b7ff65,
+    #5dff8d
+  );
+
+  border-radius:999px;
+}
+
+.xp-text{
+
+  margin-top:8px;
+
+  font-size:13px;
+
+  opacity:0.85;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* TITLES */
+
+.section-title{
+
+  font-size:24px;
+  font-weight:700;
+
+  margin-bottom:18px;
+}
+
+/* FARM */
+
+.farm-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(3,1fr);
+
+  gap:14px;
+}
+
+.farm-tile{
+
+  aspect-ratio:1/1;
+
+  border-radius:24px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:40px;
+
+  transition:0.25s;
+
+  cursor:pointer;
+}
+
+.farm-tile:active{
+
+  transform:scale(0.95);
+
+}
+
+/* CARD */
+
+.card,
+.profile-card{
+
+  padding:18px;
+
+  border-radius:22px;
+
+  font-size:16px;
+
+  line-height:1.8;
+}
+
+/* NAVIGATION */
+
+.bottom-nav{
+
+  position:fixed;
+
+  left:16px;
+  right:16px;
+  bottom:18px;
+
+  height:76px;
+
+  border-radius:28px;
+
+  display:flex;
+
+  justify-content:space-around;
+
+  align-items:center;
+
+  z-index:999;
+}
+
+.nav-btn{
+
+  width:54px;
+  height:54px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:transparent;
+
+  color:white;
+
+  font-size:24px;
+
+  transition:0.25s;
+}
+
+.nav-btn.active{
+
+  background:
+  rgba(183,255,101,0.18);
+
+  box-shadow:
+  0 0 20px rgba(183,255,101,0.25);
+
+}
+
+.nav-btn:active{
+  transform:scale(0.9);
 }
