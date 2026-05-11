@@ -1,43 +1,28 @@
-export const CONFIG = {
+export const CROPS = {
+  wheat: {
+    id: "wheat",
+    name: "Пшеница",
+    growTime: 8000,
+    reward: 12,
+    xp: 4,
+    seedCost: 2
+  },
 
-  crops: {
+  corn: {
+    id: "corn",
+    name: "Кукуруза",
+    growTime: 14000,
+    reward: 22,
+    xp: 8,
+    seedCost: 4
+  },
 
-    wheat: {
-      id: "wheat",
-      name: "Пшеница",
-
-      seedPrice: 25,
-      reward: 60,
-
-      growTime: 2500,
-
-      rarity: "common"
-    },
-
-    corn: {
-      id: "corn",
-      name: "Кукуруза",
-
-      seedPrice: 40,
-      reward: 90,
-
-      growTime: 3000,
-
-      rarity: "common"
-    },
-
-    carrot: {
-      id: "carrot",
-      name: "Морковь",
-
-      seedPrice: 60,
-      reward: 140,
-
-      growTime: 3500,
-
-      rarity: "rare"
-    }
-
+  carrot: {
+    id: "carrot",
+    name: "Морковь",
+    growTime: 11000,
+    reward: 18,
+    xp: 6,
+    seedCost: 3
   }
-
 };
