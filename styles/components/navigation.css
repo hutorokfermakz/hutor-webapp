@@ -8,19 +8,20 @@
   transform: translateX(-50%);
 
   width: calc(100% - 24px);
-  max-width: 820px;
 
-  padding: 12px;
+  padding: 10px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
-  gap: 8px;
+  gap: 6px;
 
   z-index: 1000;
 
-  border-radius: 32px;
+  border-radius: 28px;
 
 }
 
@@ -28,45 +29,42 @@
 
   flex: 1;
 
-  height: 52px;
+  min-width: 0;
+
+  height: 48px;
 
   border: none;
-  outline: none;
 
-  border-radius: 18px;
+  border-radius: 16px;
 
   background: transparent;
 
   color: rgba(255,255,255,0.72);
 
-  font-size: 17px;
+  font-size: 14px;
+
   font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
 
   transition:
     0.25s ease;
-
-  cursor: pointer;
 
 }
 
 .nav-btn.active {
 
   background:
-    radial-gradient(
-      circle at top,
-      rgba(0,255,170,0.25),
-      rgba(0,255,170,0.08)
-    );
+    rgba(0,255,170,0.12);
 
-  color: #00ffae;
+  color:
+    #00ffae;
 
   box-shadow:
-    0 0 30px rgba(0,255,170,0.25);
-
-}
-
-.nav-btn:active {
-
-  transform: scale(0.96);
+    0 0 24px rgba(0,255,170,0.2);
 
 }
