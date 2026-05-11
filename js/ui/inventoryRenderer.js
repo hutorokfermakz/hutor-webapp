@@ -1,3 +1,5 @@
+// js/ui/inventoryRenderer.js
+
 import { state } from "../core/state.js";
 
 const tabs = [
@@ -16,7 +18,7 @@ let activeTab = "seeds";
 
 export function renderInventory() {
   const screen =
-    document.querySelector("#inventory-screen");
+    document.getElementById("inventory-screen");
 
   if (!screen) return;
 
@@ -29,7 +31,7 @@ export function renderInventory() {
         </div>
 
         <div class="inventory-subtitle">
-          Храни свои ресурсы, урожай и семена.
+          Храни свои ресурсы, урожай и редкие предметы.
         </div>
       </div>
 
@@ -37,9 +39,19 @@ export function renderInventory() {
         ${renderTabs()}
       </div>
 
-      <div class="inventory-grid">
-        ${renderItems()}
-      </div>
+      ${
+        hasItems()
+          ? `
+            <div class="inventory-grid">
+              ${renderItems()}
+            </div>
+          `
+          : `
+            <div class="inventory-empty">
+              В этом разделе пока нет предметов.
+            </div>
+          `
+      }
 
     </div>
   `;
@@ -48,21 +60,26 @@ export function renderInventory() {
 }
 
 function renderTabs() {
-  return tabs.map((tab) => `
-    <button
-      class="
-        inventory-tab
-        ${activeTab === tab.id ? "active" : ""}
-      "
-      data-tab="${tab.id}"
-    >
-      ${tab.label}
-    </button>
-  `).join("");
+  return tabs
+    .map((tab) => {
+      return `
+        <button
+          class="
+            inventory-tab
+            ${activeTab === tab.id ? "active" : ""}
+          "
+          data-tab="${tab.id}"
+        >
+          ${tab.label}
+        </button>
+      `;
+    })
+    .join("");
 }
 
 function renderItems() {
-  const items = state.inventory[activeTab];
+  const items =
+    state.inventory[activeTab];
 
   return Object.entries(items)
     .map(([id, count]) => {
@@ -70,6 +87,7 @@ function renderItems() {
         <div class="inventory-item common">
 
           <div class="inventory-item-top">
+
             <div class="inventory-item-name">
               ${formatName(id)}
             </div>
@@ -77,16 +95,19 @@ function renderItems() {
             <div class="inventory-item-count">
               ×${count}
             </div>
+
           </div>
 
           <div class="inventory-item-info">
+
             <div class="inventory-item-meta">
               ${
                 activeTab === "seeds"
-                  ? "Семена для посадки"
+                  ? "Семена для выращивания культур"
                   : "Собранный урожай"
               }
             </div>
+
           </div>
 
         </div>
@@ -107,6 +128,14 @@ function bindTabEvents() {
       renderInventory();
     });
   });
+}
+
+function hasItems() {
+  const items =
+    state.inventory[activeTab];
+
+  return Object.values(items)
+    .some((count) => count > 0);
 }
 
 function formatName(id) {
