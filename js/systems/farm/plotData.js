@@ -1,45 +1,22 @@
 export const plots = [
-
-  {
-    id: 1,
-    planted: false,
-    stage: 0,
-    ready: false
-  },
-
-  {
-    id: 2,
-    planted: false,
-    stage: 0,
-    ready: false
-  },
-
-  {
-    id: 3,
-    planted: false,
-    stage: 0,
-    ready: false
-  },
-
-  {
-    id: 4,
-    planted: false,
-    stage: 0,
-    ready: false
-  },
-
-  {
-    id: 5,
-    planted: false,
-    stage: 0,
-    ready: false
-  },
-
-  {
-    id: 6,
-    planted: false,
-    stage: 0,
-    ready: false
-  }
-
+  createPlot(1),
+  createPlot(2),
+  createPlot(3),
+  createPlot(4),
+  createPlot(5),
+  createPlot(6)
 ];
+
+function createPlot(id) {
+  return {
+    id,
+
+    planted: false,
+    ready: false,
+    growing: false,
+
+    crop: null,
+
+    stage: 0
+  };
+}
