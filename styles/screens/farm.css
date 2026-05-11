@@ -401,3 +401,35 @@
   }
 
 }
+/* PLANTED */
+
+.farm-plot.planted {
+
+  border:
+    1px solid rgba(0,255,140,0.25);
+
+  box-shadow:
+    0 0 40px rgba(0,255,140,0.15);
+}
+
+/* PLANT */
+
+.plot-plant {
+
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  font-size: 34px;
+
+  opacity: 0.9;
+}
+
+/* HOVER */
+
+.farm-plot:active {
+
+  transform:
+    scale(0.96);
+}
