@@ -10,7 +10,13 @@ import { renderChat } from "./ui/chatRenderer.js";
 import { renderClans } from "./ui/clansRenderer.js";
 import { renderProfile } from "./ui/profileRenderer.js";
 
-function bootGame() {
+import { devLogin } from "./core/devAuth.js";
+
+async function bootGame() {
+
+  const profile = await devLogin();
+
+  console.log("PLAYER:", profile);
 
   initRouter();
 
