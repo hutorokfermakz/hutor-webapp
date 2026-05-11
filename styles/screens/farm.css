@@ -1,1 +1,95 @@
+.farm-scene {
 
+  position: relative;
+
+  width: 100%;
+  min-height: 500px;
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  padding: 20px;
+
+}
+
+#farm-grid {
+
+  margin-top: 30px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 14px;
+
+}
+
+.plot {
+
+  aspect-ratio: 1;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,0.05);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition:
+    0.25s;
+
+}
+
+.plot:active {
+
+  transform:
+    scale(0.96);
+
+}
+
+.crop {
+
+  font-size: 12px;
+
+  text-align: center;
+
+}
+
+.crop.seed {
+
+  opacity: 0.5;
+
+}
+
+.crop.sprout {
+
+  color:
+    #72ffb4;
+
+}
+
+.crop.growing {
+
+  color:
+    #00ffae;
+
+}
+
+.crop.mature {
+
+  color:
+    #ffe082;
+
+  text-shadow:
+    0 0 12px
+    rgba(255,224,130,0.5);
+
+}
