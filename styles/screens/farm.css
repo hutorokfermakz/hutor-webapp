@@ -259,3 +259,145 @@
     font-size: 24px;
   }
 }
+/* FARM GRID */
+
+.farm-grid {
+
+  margin-top: 28px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 18px;
+}
+
+/* PLOT */
+
+.farm-plot {
+
+  position: relative;
+
+  height: 180px;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.02)
+    );
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 30px rgba(0,255,140,0.05);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.farm-plot:active {
+
+  transform: scale(0.97);
+}
+
+.farm-plot:hover {
+
+  box-shadow:
+    0 0 40px rgba(0,255,140,0.12);
+}
+
+/* GLOW */
+
+.plot-glow {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(0,255,140,0.12),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+/* CONTENT */
+
+.plot-content {
+
+  position: relative;
+
+  z-index: 2;
+
+  height: 100%;
+
+  padding: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+}
+
+.plot-title {
+
+  font-size: 22px;
+  font-weight: 700;
+
+  color: white;
+
+  margin-bottom: 10px;
+}
+
+.plot-status {
+
+  font-size: 15px;
+
+  color:
+    rgba(255,255,255,0.65);
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .farm-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 14px;
+  }
+
+  .farm-plot {
+
+    height: 150px;
+
+    border-radius: 24px;
+  }
+
+  .plot-title {
+
+    font-size: 18px;
+  }
+
+  .plot-status {
+
+    font-size: 13px;
+  }
+
+}
