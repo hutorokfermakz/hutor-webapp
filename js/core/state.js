@@ -1,33 +1,23 @@
-export const gameState = {
-
+export const state = {
   player: {
-    coins: 500,
-    crystals: 0,
-
     level: 1,
     xp: 0,
-    xpToNext: 100
-  },
 
-  farm: {
-    weather: "rain",
-    time: "night",
-
-    plots: Array(8).fill(null)
+    coins: 250,
+    crystals: 15
   },
 
   inventory: {
-    selectedSeed: null,
+    seeds: {
+      wheat: 12,
+      corn: 7,
+      carrot: 5
+    },
 
-    items: [
-      {
-        id: "wheat_seed",
-        type: "seed",
-        name: "Пшеница",
-        amount: 5,
-        rarity: "common"
-      }
-    ]
+    crops: {
+      wheat: 0,
+      corn: 0,
+      carrot: 0
+    }
   }
-
 };
