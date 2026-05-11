@@ -20,3 +20,5 @@ function bootGame() {
   );
 
 }
+
+bootGame();
