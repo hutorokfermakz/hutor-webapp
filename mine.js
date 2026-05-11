@@ -7,21 +7,21 @@ console.log("HUTOROK v7 STARTED");
 const SEEDS = {
 
   wheat: {
-    name: "Wheat Seed",
+    name: "Пшеница",
     price: 25,
     growTime: 2500,
     reward: 60
   },
 
   corn: {
-    name: "Corn Seed",
+    name: "Кукуруза",
     price: 40,
     growTime: 3000,
     reward: 90
   },
 
   carrot: {
-    name: "Carrot Seed",
+    name: "Морковь",
     price: 60,
     growTime: 3500,
     reward: 140
@@ -66,7 +66,9 @@ const gameState = {
 /* ---------------- */
 
 const farmGrid =
-  document.getElementById("farm-grid");
+  document.getElementById(
+    "farm-grid"
+  );
 
 const inventoryGrid =
   document.getElementById(
@@ -79,7 +81,71 @@ const inventoryCount =
   );
 
 const coinsElement =
-  document.getElementById("
+  document.getElementById(
+    "coins"
+  );
+
+/* ---------------- */
+/* SCREEN ROUTER */
+/* ---------------- */
+
+const navButtons =
+  document.querySelectorAll(
+    ".nav-btn"
+  );
+
+const screens =
+  document.querySelectorAll(
+    ".screen"
+  );
+
+navButtons.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const target =
+        button.dataset.screen;
+
+      /* NAV ACTIVE */
+
+      navButtons.forEach((btn) => {
+        btn.classList.remove(
+          "active"
+        );
+      });
+
+      button.classList.add(
+        "active"
+      );
+
+      /* SCREEN ACTIVE */
+
+      screens.forEach((screen) => {
+        screen.classList.remove(
+          "active"
+        );
+      });
+
+      const activeScreen =
+        document.getElementById(
+          `${target}-screen`
+        );
+
+      if (activeScreen) {
+
+        activeScreen.classList.add(
+          "active"
+        );
+
+      }
+
+    }
+  );
+
+});
+
 /* ---------------- */
 /* UPDATE UI */
 /* ---------------- */
@@ -90,54 +156,10 @@ function updateUI() {
     gameState.coins;
 
   inventoryCount.innerText =
-    `${gameState.inventory.length} Items`;
+    `${gameState.inventory.length} предметов`;
 
-};
-/* ---------------- */
-/* SCREEN ROUTER */
-/* ---------------- */
+}
 
-const navButtons =
-  document.querySelectorAll(".nav-btn");
-
-const screens =
-  document.querySelectorAll(".screen");
-
-navButtons.forEach((button) => {
-
-  button.addEventListener("click", () => {
-
-    const target =
-      button.dataset.screen;
-
-    /* ACTIVE NAV */
-
-    navButtons.forEach((btn) => {
-      btn.classList.remove("active");
-    });
-
-    button.classList.add("active");
-
-    /* ACTIVE SCREEN */
-
-    screens.forEach((screen) => {
-      screen.classList.remove("active");
-    });
-
-    const activeScreen =
-      document.getElementById(
-        `${target}-screen`
-      );
-
-    if (activeScreen) {
-      activeScreen.classList.add(
-        "active"
-      );
-    }
-
-  });
-
-});
 /* ---------------- */
 /* INVENTORY */
 /* ---------------- */
@@ -152,7 +174,7 @@ function renderInventory() {
 
     inventoryGrid.innerHTML = `
       <div class="inventory-item">
-        <span>Empty</span>
+        <span>Пусто</span>
       </div>
     `;
 
@@ -161,7 +183,7 @@ function renderInventory() {
   }
 
   gameState.inventory.forEach(
-    (item, index) => {
+    (item) => {
 
       const itemElement =
         document.createElement("div");
@@ -186,8 +208,10 @@ function renderInventory() {
               ".inventory-item"
             )
             .forEach((el) => {
+
               el.style.border =
                 "1px solid rgba(255,255,255,0.05)";
+
             });
 
           itemElement.style.border =
@@ -242,7 +266,8 @@ function buySeed(seedType) {
     return;
   }
 
-  gameState.coins -= seed.price;
+  gameState.coins -=
+    seed.price;
 
   const existing =
     gameState.inventory.find(
@@ -257,9 +282,13 @@ function buySeed(seedType) {
   } else {
 
     gameState.inventory.push({
+
       type: seedType,
+
       name: seed.name,
+
       amount: 1
+
     });
 
   }
@@ -282,13 +311,17 @@ function renderFarm() {
     (plotData, index) => {
 
       const plot =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       plot.className = "plot";
 
       if (!plotData) {
 
-        plot.classList.add("empty");
+        plot.classList.add(
+          "empty"
+        );
 
         plot.addEventListener(
           "click",
@@ -300,7 +333,9 @@ function renderFarm() {
       } else {
 
         const crop =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
         crop.className =
           `crop ${plotData.stage}`;
@@ -322,7 +357,9 @@ function renderFarm() {
 
 function plantCrop(plotIndex) {
 
-  if (!gameState.selectedSeed) {
+  if (
+    !gameState.selectedSeed
+  ) {
     return;
   }
 
@@ -342,7 +379,9 @@ function plantCrop(plotIndex) {
 
   inventoryItem.amount--;
 
-  if (inventoryItem.amount <= 0) {
+  if (
+    inventoryItem.amount <= 0
+  ) {
 
     gameState.inventory =
       gameState.inventory.filter(
@@ -392,29 +431,32 @@ function growCrop(plotIndex) {
   const seedData =
     SEEDS[cropData.type];
 
-  const interval = setInterval(() => {
+  const interval =
+    setInterval(() => {
 
-    currentStage++;
+      currentStage++;
 
-    if (
-      currentStage >=
-      stages.length
-    ) {
+      if (
+        currentStage >=
+        stages.length
+      ) {
 
-      clearInterval(interval);
+        clearInterval(interval);
 
-      makeHarvestable(plotIndex);
+        makeHarvestable(
+          plotIndex
+        );
 
-      return;
+        return;
 
-    }
+      }
 
-    cropData.stage =
-      stages[currentStage];
+      cropData.stage =
+        stages[currentStage];
 
-    renderFarm();
+      renderFarm();
 
-  }, seedData.growTime);
+    }, seedData.growTime);
 
 }
 
@@ -446,7 +488,9 @@ function makeHarvestable(
 
 }
 
-function harvestCrop(plotIndex) {
+function harvestCrop(
+  plotIndex
+) {
 
   const crop =
     gameState.plots[plotIndex];
@@ -471,7 +515,9 @@ function harvestCrop(plotIndex) {
 /* ---------------- */
 
 const farmScene =
-  document.querySelector(".farm-scene");
+  document.querySelector(
+    ".farm-scene"
+  );
 
 function applyWeather() {
 
@@ -483,13 +529,21 @@ function applyWeather() {
   if (
     gameState.weather === "rain"
   ) {
-    farmScene.classList.add("rain");
+
+    farmScene.classList.add(
+      "rain"
+    );
+
   }
 
   if (
     gameState.time === "night"
   ) {
-    farmScene.classList.add("night");
+
+    farmScene.classList.add(
+      "night"
+    );
+
   }
 
 }
