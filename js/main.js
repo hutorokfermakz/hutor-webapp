@@ -19,6 +19,9 @@ from "./ui/shopRenderer.js";
 import { renderChat }
 from "./ui/chatRenderer.js";
 
+import { renderClans }
+from "./ui/clansRenderer.js";
+
 function bootGame() {
   initRouter();
 
@@ -31,6 +34,8 @@ function bootGame() {
   renderShop();
 
   renderChat();
+
+  renderClans();
 
   renderApp();
 
