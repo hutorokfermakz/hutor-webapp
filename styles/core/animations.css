@@ -47,3 +47,45 @@
   }
 
 }
+@keyframes cropPulse {
+
+  0% {
+
+    transform:
+      scale(1);
+
+  }
+
+  50% {
+
+    transform:
+      scale(1.08);
+
+  }
+
+  100% {
+
+    transform:
+      scale(1);
+
+  }
+
+}
+
+@keyframes rainFall {
+
+  from {
+
+    transform:
+      translateY(-40px);
+
+  }
+
+  to {
+
+    transform:
+      translateY(40px);
+
+  }
+
+}
