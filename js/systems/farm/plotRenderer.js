@@ -1,6 +1,9 @@
 import { plots }
 from "./plotData.js";
 
+import { growCrop }
+from "./growthSystem.js";
+
 export function renderPlots() {
 
   const farmGrid =
@@ -26,6 +29,42 @@ export function renderPlots() {
 
     }
 
+    if (plot.ready) {
+
+      plotElement.classList.add(
+        "ready"
+      );
+
+    }
+
+    let plantEmoji = "🟫";
+    let plantStatus =
+      "Нажми чтобы посадить";
+
+    if (plot.stage === 1) {
+
+      plantEmoji = "🌱";
+      plantStatus =
+        "Росток развивается";
+
+    }
+
+    if (plot.stage === 2) {
+
+      plantEmoji = "🌿";
+      plantStatus =
+        "Культура растет";
+
+    }
+
+    if (plot.stage === 3) {
+
+      plantEmoji = "🌾";
+      plantStatus =
+        "Урожай готов";
+
+    }
+
     plotElement.innerHTML = `
 
       <div class="plot-glow"></div>
@@ -33,13 +72,7 @@ export function renderPlots() {
       <div class="plot-content">
 
         <div class="plot-plant">
-
-          ${
-            plot.planted
-              ? "🌾"
-              : "🟫"
-          }
-
+          ${plantEmoji}
         </div>
 
         <div class="plot-title">
@@ -47,13 +80,7 @@ export function renderPlots() {
         </div>
 
         <div class="plot-status">
-
-          ${
-            plot.planted
-              ? "Пшеница растет"
-              : "Нажми чтобы посадить"
-          }
-
+          ${plantStatus}
         </div>
 
       </div>
@@ -67,6 +94,18 @@ export function renderPlots() {
         if (!plot.planted) {
 
           plot.planted = true;
+
+          growCrop(plot);
+
+        }
+
+        else if (plot.ready) {
+
+          plot.planted = false;
+
+          plot.ready = false;
+
+          plot.stage = 0;
 
           renderPlots();
 
