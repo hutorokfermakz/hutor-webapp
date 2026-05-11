@@ -15,16 +15,25 @@
     "
   />
 
+  <meta
+    name="theme-color"
+    content="#04110b"
+  />
+
   <title>HUTOROK v7</title>
+
+  <!-- MAIN CSS -->
 
   <link
     rel="stylesheet"
-    href="./styles/main.css?v=900"
+    href="./styles/main.css?v=1000"
   />
 
 </head>
 
 <body>
+
+  <!-- APP -->
 
   <div class="app">
 
@@ -33,76 +42,48 @@
     <div class="background-glow glow-one"></div>
     <div class="background-glow glow-two"></div>
 
-    <!-- FARM SCREEN -->
+    <!-- MAIN -->
 
-    <section
-      id="farm-screen"
-      class="screen active"
-    >
+    <main class="app-main">
 
-      <div class="farm-hero">
+      <!-- =====================================
+           FARM SCREEN
+      ====================================== -->
 
-        <!-- HERO HEADER -->
+      <section
+        id="farm-screen"
+        class="screen active"
+      >
 
-        <div class="hero-header">
+        <!-- HERO -->
 
-          <div class="hero-logo">
+        <div class="farm-hero">
+
+          <div class="hero-label">
+            PREMIUM FARMING MMO
+          </div>
+
+          <h1 class="hero-title">
             HUTOROK
-          </div>
+          </h1>
 
-          <div class="hero-balance">
-
-            <div class="balance-card">
-
-              <span>
-                Монеты
-              </span>
-
-              <strong id="coins-balance">
-                500
-              </strong>
-
-            </div>
-
-            <div class="balance-card">
-
-              <span>
-                Кристаллы
-              </span>
-
-              <strong id="crystals-balance">
-                25
-              </strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- WELCOME -->
-
-        <div class="welcome-card">
-
-          <div class="welcome-title">
-            Добро пожаловать
-          </div>
-
-          <div class="welcome-subtitle">
-            Построй свою premium ферму
-            нового поколения.
-          </div>
+          <p class="hero-subtitle">
+            Построй атмосферную ферму
+            нового поколения с живым
+            миром, экономикой и
+            realtime-системами.
+          </p>
 
         </div>
 
         <!-- STATS -->
 
-        <div class="stats-grid">
+        <div class="farm-stats">
 
-          <div class="stat-card">
+          <div class="farm-stat-card">
 
             <div class="stat-label">
-              Уровень
+              УРОВЕНЬ
             </div>
 
             <div class="stat-value">
@@ -111,10 +92,10 @@
 
           </div>
 
-          <div class="stat-card">
+          <div class="farm-stat-card">
 
             <div class="stat-label">
-              Урожай
+              УРОЖАЙ
             </div>
 
             <div class="stat-value">
@@ -123,10 +104,10 @@
 
           </div>
 
-          <div class="stat-card">
+          <div class="farm-stat-card">
 
             <div class="stat-label">
-              Онлайн
+              ОНЛАЙН
             </div>
 
             <div class="stat-value">
@@ -139,57 +120,333 @@
 
         <!-- FARM GRID -->
 
-        <div class="farm-grid"></div>
+        <div class="farm-grid">
 
-      </div>
+          <!-- SLOT 1 -->
 
-    </section>
+          <div class="farm-slot planted">
 
-    <!-- SHOP SCREEN -->
+            <div class="crop-top">
 
-  <section class="screen" id="shop-screen">
+              <div class="crop-name">
+                Пшеница
+              </div>
 
-    <div class="glass-card">
+              <div class="crop-stage">
+                Рост
+              </div>
 
-      <h2>Магазин</h2>
+            </div>
 
-    </div>
+            <div class="crop-center">
 
-  </section>
+              <div class="crop-icon">
+                🌾
+              </div>
 
-    <!-- INVENTORY SCREEN -->
+            </div>
 
-    <section
-      id="inventory-screen"
-      class="screen"
-    >
-    </section>
+            <div class="crop-progress">
 
-    <!-- CLANS SCREEN -->
+              <div class="progress-label-row">
 
-    <section
-      id="clans-screen"
-      class="screen"
-    >
-    </section>
+                <div class="progress-label">
+                  До урожая
+                </div>
 
-    <!-- CHAT SCREEN -->
+                <div class="progress-time">
+                  2м 14с
+                </div>
 
-    <section
-      id="chat-screen"
-      class="screen"
-    >
-    </section>
+              </div>
 
-    <!-- PROFILE SCREEN -->
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
 
-    <section
-      id="profile-screen"
-      class="screen"
-    >
-    </section>
+            </div>
 
-    <!-- BOTTOM NAVIGATION -->
+            <button class="crop-action">
+              Ускорить
+            </button>
+
+          </div>
+
+          <!-- SLOT 2 -->
+
+          <div class="farm-slot empty">
+
+            <div class="empty-content">
+
+              <div class="empty-plus">
+                +
+              </div>
+
+              <div class="empty-text">
+                Посадить культуру
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- SLOT 3 -->
+
+          <div class="farm-slot planted">
+
+            <div class="crop-top">
+
+              <div class="crop-name">
+                Морковь
+              </div>
+
+              <div class="crop-stage">
+                Рост
+              </div>
+
+            </div>
+
+            <div class="crop-center">
+
+              <div class="crop-icon">
+                🥕
+              </div>
+
+            </div>
+
+            <div class="crop-progress">
+
+              <div class="progress-label-row">
+
+                <div class="progress-label">
+                  До урожая
+                </div>
+
+                <div class="progress-time">
+                  14м
+                </div>
+
+              </div>
+
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  style="width: 35%;"
+                ></div>
+              </div>
+
+            </div>
+
+            <button class="crop-action">
+              Ускорить
+            </button>
+
+          </div>
+
+          <!-- SLOT 4 -->
+
+          <div class="farm-slot planted">
+
+            <div class="crop-top">
+
+              <div class="crop-name">
+                Кукуруза
+              </div>
+
+              <div class="crop-stage">
+                Готово
+              </div>
+
+            </div>
+
+            <div class="crop-center">
+
+              <div class="crop-icon">
+                🌽
+              </div>
+
+            </div>
+
+            <div class="crop-progress">
+
+              <div class="progress-label-row">
+
+                <div class="progress-label">
+                  Урожай готов
+                </div>
+
+                <div class="progress-time">
+                  NOW
+                </div>
+
+              </div>
+
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  style="width: 100%;"
+                ></div>
+              </div>
+
+            </div>
+
+            <button class="crop-action">
+              Собрать урожай
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================
+           SHOP SCREEN
+      ====================================== -->
+
+      <section
+        id="shop-screen"
+        class="screen"
+      >
+
+        <div class="farm-hero">
+
+          <div class="hero-label">
+            MARKETPLACE
+          </div>
+
+          <h1 class="hero-title">
+            Магазин
+          </h1>
+
+          <p class="hero-subtitle">
+            Покупай семена, улучшения,
+            редкие культуры и premium
+            предметы.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================
+           INVENTORY SCREEN
+      ====================================== -->
+
+      <section
+        id="inventory-screen"
+        class="screen"
+      >
+
+        <div class="farm-hero">
+
+          <div class="hero-label">
+            STORAGE
+          </div>
+
+          <h1 class="hero-title">
+            Инвентарь
+          </h1>
+
+          <p class="hero-subtitle">
+            Все предметы, урожай,
+            семена и коллекции игрока.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================
+           CLANS SCREEN
+      ====================================== -->
+
+      <section
+        id="clans-screen"
+        class="screen"
+      >
+
+        <div class="farm-hero">
+
+          <div class="hero-label">
+            SOCIAL SYSTEM
+          </div>
+
+          <h1 class="hero-title">
+            Кланы
+          </h1>
+
+          <p class="hero-subtitle">
+            Создавай сообщества,
+            участвуй в рейтингах и
+            развивай clan empire.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================
+           CHAT SCREEN
+      ====================================== -->
+
+      <section
+        id="chat-screen"
+        class="screen"
+      >
+
+        <div class="farm-hero">
+
+          <div class="hero-label">
+            WORLD CHAT
+          </div>
+
+          <h1 class="hero-title">
+            Чат
+          </h1>
+
+          <p class="hero-subtitle">
+            Общайся с игроками
+            в realtime-режиме.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================
+           PROFILE SCREEN
+      ====================================== -->
+
+      <section
+        id="profile-screen"
+        class="screen"
+      >
+
+        <div class="farm-hero">
+
+          <div class="hero-label">
+            PLAYER PROFILE
+          </div>
+
+          <h1 class="hero-title">
+            Профиль
+          </h1>
+
+          <p class="hero-subtitle">
+            Статистика, достижения,
+            прогресс и MMO-аккаунт.
+          </p>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- =====================================
+         BOTTOM NAVIGATION
+    ====================================== -->
 
     <nav class="bottom-nav">
 
@@ -243,11 +500,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-  <!-- MAIN -->
+  <!-- MAIN JS -->
 
   <script
     type="module"
-    src="./js/main.js?v=900"
+    src="./js/main.js?v=1000"
   ></script>
 
 </body>
