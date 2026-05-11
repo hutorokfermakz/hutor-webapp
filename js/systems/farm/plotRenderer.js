@@ -18,27 +18,62 @@ export function renderPlots() {
     plotElement.className =
       "farm-plot";
 
+    if (plot.planted) {
+
+      plotElement.classList.add(
+        "planted"
+      );
+
+    }
+
     plotElement.innerHTML = `
 
       <div class="plot-glow"></div>
 
       <div class="plot-content">
 
+        <div class="plot-plant">
+
+          ${
+            plot.planted
+              ? "🌾"
+              : "🟫"
+          }
+
+        </div>
+
         <div class="plot-title">
           Грядка #${plot.id}
         </div>
 
         <div class="plot-status">
+
           ${
             plot.planted
-              ? "Растет культура"
-              : "Пустая грядка"
+              ? "Пшеница растет"
+              : "Нажми чтобы посадить"
           }
+
         </div>
 
       </div>
 
     `;
+
+    plotElement.addEventListener(
+      "click",
+      () => {
+
+        if (!plot.planted) {
+
+          plot.planted = true;
+
+          renderPlots();
+
+        }
+
+      }
+    );
 
     farmGrid.appendChild(
       plotElement
