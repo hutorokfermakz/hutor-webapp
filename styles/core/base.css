@@ -297,3 +297,15 @@ body::after {
 .nav-btn:active {
   transform: scale(0.96);
 }
+.app,
+.screen {
+  background: transparent !important;
+}
+
+main {
+  background: transparent !important;
+}
+
+body {
+  background-color: #020302 !important;
+}
