@@ -1,56 +1,49 @@
-import { gameState }
-from "../../core/state.js";
+import { plots }
+from "./plotData.js";
 
 export function renderPlots() {
 
   const farmGrid =
-    document.getElementById(
-      "farm-grid"
-    );
+    document.querySelector(".farm-grid");
 
   if (!farmGrid) return;
 
   farmGrid.innerHTML = "";
 
-  gameState.farm.plots.forEach(
-    (plot, index) => {
+  plots.forEach((plot) => {
 
-      const plotEl =
-        document.createElement("div");
+    const plotElement =
+      document.createElement("div");
 
-      plotEl.className = "plot";
+    plotElement.className =
+      "farm-plot";
 
-      if (plot) {
+    plotElement.innerHTML = `
 
-        const crop =
-          document.createElement("div");
+      <div class="plot-glow"></div>
 
-        crop.className =
-          `crop ${plot.stage}`;
+      <div class="plot-content">
 
-        crop.innerText =
-          plot.name;
+        <div class="plot-title">
+          Грядка #${plot.id}
+        </div>
 
-        plotEl.appendChild(crop);
+        <div class="plot-status">
+          ${
+            plot.planted
+              ? "Растет культура"
+              : "Пустая грядка"
+          }
+        </div>
 
-      }
+      </div>
 
-      plotEl.addEventListener(
-        "click",
-        () => {
+    `;
 
-          window.handlePlotClick(
-            index
-          );
+    farmGrid.appendChild(
+      plotElement
+    );
 
-        }
-      );
-
-      farmGrid.appendChild(
-        plotEl
-      );
-
-    }
-  );
+  });
 
 }
