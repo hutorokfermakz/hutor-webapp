@@ -1,1 +1,39 @@
+#app {
 
+  position: relative;
+
+  width: 100%;
+  max-width: 500px;
+
+  height: 100vh;
+
+  overflow: hidden;
+
+}
+
+main {
+
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+
+  padding:
+    110px 20px 120px;
+
+}
+
+.screen {
+
+  display: none;
+
+  animation:
+    fadeScreen 0.3s ease;
+
+}
+
+.screen.active {
+
+  display: block;
+
+}
