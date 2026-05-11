@@ -10,20 +10,21 @@ from "./systems/farm/farmSystem.js";
 import { renderPlots }
 from "./systems/farm/plotRenderer.js";
 
-function bootGame() {
+import { renderInventory }
+from "./ui/inventoryRenderer.js";
 
+function bootGame() {
   initRouter();
 
   initFarmSystem();
-  
-renderPlots();
-  
+
+  renderPlots();
+
+  renderInventory();
+
   renderApp();
 
-  console.log(
-    "HUTOROK v7 STARTED"
-  );
-
+  console.log("HUTOROK v7 STARTED");
 }
 
 bootGame();
