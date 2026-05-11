@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
@@ -10,12 +11,15 @@
     content="
       width=device-width,
       initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no
+      viewport-fit=cover
     "
   />
 
-  <title>HUTOROK v7</title>
+  <title>
+    HUTOROK v7
+  </title>
+
+  <!-- MAIN CSS -->
 
   <link
     rel="stylesheet"
@@ -26,365 +30,339 @@
 
 <body>
 
-  <div id="app">
+  <!-- BACKGROUND -->
 
-    <!-- TOPBAR -->
+  <div class="background-glow"></div>
 
-    <header class="topbar glass">
+  <!-- APP -->
 
-      <div>
+  <div class="app">
 
-        <h1>HUTOROK</h1>
+    <!-- FARM SCREEN -->
 
-        <p>
-          Next Gen Farming MMO
-        </p>
+    <section
+      id="farm-screen"
+      class="screen active"
+    >
 
-      </div>
+      <div class="farm-screen">
 
-      <div class="balance-group">
+        <div class="farm-hero">
 
-        <div class="balance-card">
+          <!-- HEADER -->
 
-          <span>
-            Монеты
-          </span>
+          <div class="hero-header">
 
-          <strong id="coins">
-            500
-          </strong>
+            <div class="hero-title">
 
-        </div>
+              <h1>HUTOROK</h1>
 
-        <div class="balance-card">
+              <p>
+                Next Gen Farming MMO
+              </p>
 
-          <span>
-            Кристаллы
-          </span>
+            </div>
 
-          <strong id="crystals">
-            0
-          </strong>
+            <div class="hero-balance">
 
-        </div>
+              <div class="balance-card">
 
-      </div>
+                <div class="balance-label">
+                  Монеты
+                </div>
 
-    </header>
+                <div class="balance-value">
+                  500
+                </div>
 
-    <!-- MAIN -->
+              </div>
 
-    <main id="screen-container">
+              <div class="balance-card">
 
-      <!-- FARM -->
+                <div class="balance-label">
+                  Кристаллы
+                </div>
 
-      <section
-        id="farm-screen"
-        class="screen active"
-      >
+                <div class="balance-value">
+                  0
+                </div>
 
-        <div class="farm-scene glass">
+              </div>
 
-          <div class="sky-light"></div>
+            </div>
 
-          <div class="ambient-glow"></div>
+          </div>
 
-          <div class="rain"></div>
+          <!-- WELCOME -->
 
-          <div class="night"></div>
-
-          <!-- HERO -->
-
-          <div class="card">
+          <div class="welcome-card">
 
             <h2>
               Добро пожаловать
             </h2>
 
             <p>
-              Развивай свою
-              атмосферную ферму
-              внутри Telegram.
+              Развивай свою атмосферную
+              ферму внутри Telegram.
             </p>
 
           </div>
 
           <!-- STATS -->
 
-          <div
-            class="stats-grid"
-            style="
-              margin-top:20px;
-              display:grid;
-              grid-template-columns:
-                repeat(3,1fr);
-              gap:12px;
-            "
-          >
+          <div class="stats-grid">
 
-            <div class="card">
+            <div class="stat-card">
 
-              <p>Уровень</p>
+              <div class="stat-label">
+                Уровень
+              </div>
 
-              <strong>
+              <div class="stat-value">
                 1
-              </strong>
+              </div>
 
             </div>
 
-            <div class="card">
+            <div class="stat-card">
 
-              <p>Урожай</p>
+              <div class="stat-label">
+                Урожай
+              </div>
 
-              <strong>
+              <div class="stat-value">
                 0
-              </strong>
+              </div>
 
             </div>
 
-            <div class="card">
+            <div class="stat-card">
 
-              <p>Онлайн</p>
+              <div class="stat-label">
+                Онлайн
+              </div>
 
-              <strong>
+              <div class="stat-value">
                 1
-              </strong>
+              </div>
 
             </div>
 
           </div>
 
-          <!-- GRID -->
+          <!-- FARM GRID -->
 
-          <div id="farm-grid"></div>
-
-        </div>
-
-      </section>
-
-      <!-- SHOP -->
-
-      <section
-        id="shop-screen"
-        class="screen"
-      >
-
-        <div class="card">
-
-          <h2>
-            Магазин семян
-          </h2>
-
-          <p>
-            Покупай культуры
-            и развивай ферму.
-          </p>
+          <div class="farm-grid"></div>
 
         </div>
 
-        <div
-          style="
-            margin-top:20px;
-            display:grid;
-            gap:14px;
-          "
-        >
+      </div>
 
-          <button
-            class="
-              card
-              primary-btn
-              shop-item
-            "
-            data-seed="wheat"
-          >
+    </section>
 
-            Пшеница — 25
+    <!-- SHOP SCREEN -->
 
-          </button>
+    <section
+      id="shop-screen"
+      class="screen"
+    >
 
-          <button
-            class="
-              card
-              primary-btn
-              shop-item
-            "
-            data-seed="corn"
-          >
+      <div class="farm-screen">
 
-            Кукуруза — 40
+        <div class="farm-hero">
 
-          </button>
+          <div class="welcome-card">
 
-          <button
-            class="
-              card
-              primary-btn
-              shop-item
-            "
-            data-seed="carrot"
-          >
+            <h2>
+              Магазин
+            </h2>
 
-            Морковь — 60
+            <p>
+              Покупай семена,
+              бустеры и premium
+              предметы.
+            </p>
 
-          </button>
+          </div>
 
         </div>
 
-      </section>
+      </div>
 
-      <!-- INVENTORY -->
+    </section>
 
-      <section
-        id="inventory-screen"
-        class="screen"
-      >
+    <!-- INVENTORY SCREEN -->
 
-        <div class="card">
+    <section
+      id="inventory-screen"
+      class="screen"
+    >
 
-          <h2>
-            Инвентарь
-          </h2>
+      <div class="farm-screen">
 
-          <p id="inventory-count">
-            0 предметов
-          </p>
+        <div class="farm-hero">
 
-        </div>
+          <div class="welcome-card">
 
-        <div
-          id="inventory-grid"
-          style="
-            margin-top:20px;
-            display:grid;
-            grid-template-columns:
-              repeat(2,1fr);
-            gap:14px;
-          "
-        ></div>
+            <h2>
+              Инвентарь
+            </h2>
 
-      </section>
+            <p>
+              Храни урожай,
+              ресурсы и предметы.
+            </p>
 
-      <!-- CLANS -->
-
-      <section
-        id="clans-screen"
-        class="screen"
-      >
-
-        <div class="card">
-
-          <h2>
-            Кланы
-          </h2>
-
-          <p>
-            Создай клан,
-            приглашай игроков
-            и выполняй миссии.
-          </p>
+          </div>
 
         </div>
 
-      </section>
+      </div>
 
-      <!-- CHAT -->
+    </section>
 
-      <section
-        id="chat-screen"
-        class="screen"
-      >
+    <!-- CLANS SCREEN -->
 
-        <div class="card">
+    <section
+      id="clans-screen"
+      class="screen"
+    >
 
-          <h2>
-            Глобальный чат
-          </h2>
+      <div class="farm-screen">
 
-          <p>
-            Общайся
-            с другими игроками
-            в realtime.
-          </p>
+        <div class="farm-hero">
 
-        </div>
+          <div class="welcome-card">
 
-      </section>
+            <h2>
+              Кланы
+            </h2>
 
-      <!-- PROFILE -->
+            <p>
+              Создавай кланы,
+              выполняй миссии
+              и соревнуйся.
+            </p>
 
-      <section
-        id="profile-screen"
-        class="screen"
-      >
-
-        <div class="card">
-
-          <h2>
-            Профиль
-          </h2>
-
-          <p>
-            Твой игровой профиль,
-            статистика
-            и достижения.
-          </p>
+          </div>
 
         </div>
 
-      </section>
+      </div>
 
-    </main>
+    </section>
 
-    <!-- NAVIGATION -->
+    <!-- CHAT SCREEN -->
 
-    <nav class="bottom-nav glass">
+    <section
+      id="chat-screen"
+      class="screen"
+    >
 
-      <button
-        class="nav-btn active"
-        data-screen="farm"
-      >
-        Ферма
-      </button>
+      <div class="farm-screen">
 
-      <button
-        class="nav-btn"
-        data-screen="shop"
-      >
-        Магазин
-      </button>
+        <div class="farm-hero">
 
-      <button
-        class="nav-btn"
-        data-screen="inventory"
-      >
-        Инвентарь
-      </button>
+          <div class="welcome-card">
 
-      <button
-        class="nav-btn"
-        data-screen="clans"
-      >
-        Кланы
-      </button>
+            <h2>
+              Глобальный чат
+            </h2>
 
-      <button
-        class="nav-btn"
-        data-screen="chat"
-      >
-        Чат
-      </button>
+            <p>
+              Общайся с игроками
+              в realtime режиме.
+            </p>
 
-      <button
-        class="nav-btn"
-        data-screen="profile"
-      >
-        Профиль
-      </button>
+          </div>
 
-    </nav>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PROFILE SCREEN -->
+
+    <section
+      id="profile-screen"
+      class="screen"
+    >
+
+      <div class="farm-screen">
+
+        <div class="farm-hero">
+
+          <div class="welcome-card">
+
+            <h2>
+              Профиль
+            </h2>
+
+            <p>
+              Управляй аккаунтом
+              и настройками.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </div>
+
+  <!-- NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="nav-btn active"
+      data-screen="farm-screen"
+    >
+      Ферма
+    </button>
+
+    <button
+      class="nav-btn"
+      data-screen="shop-screen"
+    >
+      Магазин
+    </button>
+
+    <button
+      class="nav-btn"
+      data-screen="inventory-screen"
+    >
+      Инвентарь
+    </button>
+
+    <button
+      class="nav-btn"
+      data-screen="clans-screen"
+    >
+      Кланы
+    </button>
+
+    <button
+      class="nav-btn"
+      data-screen="chat-screen"
+    >
+      Чат
+    </button>
+
+    <button
+      class="nav-btn"
+      data-screen="profile-screen"
+    >
+      Профиль
+    </button>
+
+  </nav>
+
+  <!-- MAIN JS -->
 
   <script
     type="module"
