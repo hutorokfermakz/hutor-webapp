@@ -182,3 +182,124 @@ actionButtons.forEach(button => {
   });
 
 });
+/* =========================
+   PLANT MODAL SYSTEM
+========================= */
+
+const plantModal =
+  document.getElementById("plant-modal");
+
+const closeModalBtn =
+  document.getElementById("close-modal");
+
+const seedCards =
+  document.querySelectorAll(".seed-card");
+
+let selectedFarmSlot = null;
+
+/* OPEN MODAL */
+
+emptySlots.forEach(slot => {
+
+  slot.addEventListener("click", () => {
+
+    selectedFarmSlot = slot;
+
+    plantModal.classList.add("active");
+
+  });
+
+});
+
+/* CLOSE MODAL */
+
+if (closeModalBtn) {
+
+  closeModalBtn.addEventListener("click", () => {
+
+    plantModal.classList.remove("active");
+
+  });
+
+}
+
+/* CLICK OUTSIDE */
+
+plantModal.addEventListener("click", (event) => {
+
+  if (event.target === plantModal) {
+
+    plantModal.classList.remove("active");
+
+  }
+
+});
+
+/* =========================
+   PLANT SEED
+========================= */
+
+seedCards.forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    if (!selectedFarmSlot) return;
+
+    const seedName =
+      card.dataset.seed;
+
+    const seedEmoji =
+      card.dataset.emoji;
+
+    selectedFarmSlot.classList.remove("empty");
+
+    selectedFarmSlot.classList.add("growing");
+
+    selectedFarmSlot.innerHTML = `
+      <div class="slot-top">
+
+        <h4>${seedName}</h4>
+
+        <span class="slot-badge">
+          РОСТ
+        </span>
+
+      </div>
+
+      <div class="crop-stage">
+        ${seedEmoji}
+      </div>
+
+      <div class="slot-progress-info">
+
+        <span>
+          До урожая
+        </span>
+
+        <span>
+          05м 00с
+        </span>
+
+      </div>
+
+      <div class="progress-bar">
+
+        <div
+          class="progress-fill"
+          style="width: 12%"
+        ></div>
+
+      </div>
+
+      <button class="farm-action-btn">
+        Полить
+      </button>
+    `;
+
+    plantModal.classList.remove("active");
+
+    selectedFarmSlot = null;
+
+  });
+
+});
