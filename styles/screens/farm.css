@@ -1,113 +1,59 @@
-/* styles/screens/farm.css */
+/* =========================================
+   HUTOROK v7 — FARM SCREEN
+   styles/screens/farm.css
+========================================= */
 
-.farm-screen {
-  padding-bottom: 140px;
+#farm-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding:
+    calc(var(--topbar-height) + 24px)
+    20px
+    calc(var(--nav-height) + 32px);
+  overflow-x: hidden;
 }
+
+/* =========================================
+   HERO
+========================================= */
 
 .farm-hero {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* HERO */
-
-.hero-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
-}
-
-.hero-title {
-  font-size: 34px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-
-  color: #ffffff;
-}
-
-/* BALANCE */
-
-.balance-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.balance-card {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  min-width: 84px;
-
-  padding: 12px 14px;
-  border-radius: 18px;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  backdrop-filter: blur(16px);
-
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-.balance-label {
-  font-size: 10px;
-  font-weight: 600;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
-  color: rgba(255, 255, 255, 0.46);
-}
-
-.coins-value,
-.crystals-value,
-.level-value {
-  font-size: 17px;
-  font-weight: 700;
-
-  color: #ffffff;
-}
-
-/* WELCOME */
-
-.welcome-card {
   position: relative;
-
   overflow: hidden;
 
-  padding: 26px;
-  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 28px;
+  margin-bottom: 24px;
+
+  border-radius: 32px;
 
   background:
     linear-gradient(
-      135deg,
-      rgba(17, 24, 21, 0.94),
-      rgba(9, 12, 11, 0.88)
+      145deg,
+      rgba(0, 0, 0, 0.82),
+      rgba(7, 18, 14, 0.88)
     );
 
-  border: 1px solid rgba(70, 255, 170, 0.12);
-
-  backdrop-filter: blur(24px);
+  border: 1px solid rgba(80, 255, 170, 0.08);
 
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    0 0 40px rgba(0, 255, 140, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
 }
 
-.welcome-card::before {
+.farm-hero::before {
   content: "";
 
   position: absolute;
-
   top: -120px;
-  right: -120px;
+  left: -80px;
 
   width: 260px;
   height: 260px;
@@ -117,277 +63,478 @@
   background:
     radial-gradient(
       circle,
-      rgba(70, 255, 170, 0.16),
+      rgba(0,255,140,0.25),
       transparent 70%
+    );
+
+  filter: blur(10px);
+
+  pointer-events: none;
+}
+
+.farm-hero::after {
+  content: "";
+
+  position: absolute;
+  right: -140px;
+  bottom: -140px;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,255,170,0.18),
+      transparent 70%
+    );
+
+  filter: blur(12px);
+
+  pointer-events: none;
+}
+
+.hero-label {
+  position: relative;
+  z-index: 2;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: rgba(180,255,220,0.62);
+}
+
+.hero-title {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+
+  color: #ffffff;
+}
+
+.hero-subtitle {
+  position: relative;
+  z-index: 2;
+
+  max-width: 540px;
+
+  margin: 0;
+
+  font-size: 17px;
+  line-height: 1.6;
+
+  color: rgba(220,230,225,0.78);
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.farm-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+
+  margin-bottom: 28px;
+}
+
+.farm-stat-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 20px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10,10,10,0.88),
+      rgba(20,24,20,0.74)
+    );
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 12px 30px rgba(0,0,0,0.35);
+}
+
+.farm-stat-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,255,140,0.05),
+      transparent
     );
 
   pointer-events: none;
 }
 
-.welcome-content {
+.stat-label {
   position: relative;
   z-index: 2;
-}
 
-.welcome-title {
   margin-bottom: 10px;
 
-  font-size: 24px;
+  font-size: 11px;
   font-weight: 700;
-
-  color: #ffffff;
-}
-
-.welcome-text {
-  font-size: 15px;
-  line-height: 1.6;
-
-  color: rgba(255, 255, 255, 0.66);
-}
-
-/* STATS */
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.stat-card {
-  padding: 18px;
-  border-radius: 24px;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-  backdrop-filter: blur(16px);
-
-  box-shadow:
-    0 6px 22px rgba(0, 0, 0, 0.26),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-.stat-label {
-  margin-bottom: 8px;
-
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 
-  color: rgba(255, 255, 255, 0.46);
+  color: rgba(180,190,185,0.62);
 }
 
 .stat-value {
-  font-size: 24px;
-  font-weight: 700;
+  position: relative;
+  z-index: 2;
+
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
 
   color: #ffffff;
 }
 
-/* FARM GRID */
+/* =========================================
+   FARM GRID
+========================================= */
 
 .farm-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: 16px;
 }
 
-/* PLOT */
+/* =========================================
+   FARM SLOT
+========================================= */
 
-.farm-plot {
+.farm-slot {
   position: relative;
-
   overflow: hidden;
 
-  min-height: 230px;
+  min-height: 190px;
 
   border-radius: 28px;
 
   background:
     linear-gradient(
-      180deg,
-      rgba(17, 24, 21, 0.92),
-      rgba(10, 14, 12, 0.88)
+      145deg,
+      rgba(10,10,10,0.92),
+      rgba(18,22,18,0.82)
     );
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.05);
 
-  backdrop-filter: blur(22px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    0 16px 40px rgba(0,0,0,0.34),
+    inset 0 1px 0 rgba(255,255,255,0.04);
 
   transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.farm-plot:active {
-  transform: scale(0.985);
+.farm-slot:active {
+  transform: scale(0.98);
 }
 
-.farm-plot.planted {
-  border-color: rgba(70, 255, 170, 0.12);
-}
+.farm-slot::before {
+  content: "";
 
-.farm-plot.ready {
-  border-color: rgba(70, 255, 170, 0.34);
-
-  box-shadow:
-    0 0 30px rgba(70, 255, 170, 0.14),
-    0 0 70px rgba(70, 255, 170, 0.08);
-
-  animation: readyPulse 2.2s infinite;
-}
-
-/* PLOT GLOW */
-
-.plot-glow {
   position: absolute;
   inset: 0;
 
   background:
     radial-gradient(
-      circle at top,
-      rgba(70, 255, 170, 0.12),
-      transparent 72%
+      circle at top left,
+      rgba(0,255,140,0.08),
+      transparent 60%
     );
-
-  opacity: 0.8;
 
   pointer-events: none;
 }
 
-/* CONTENT */
+/* =========================================
+   EMPTY SLOT
+========================================= */
 
-.plot-content {
-  position: relative;
-  z-index: 2;
+.farm-slot.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  border-style: dashed;
+  border-color: rgba(255,255,255,0.08);
+}
+
+.empty-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.empty-plus {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0,255,140,0.12),
+      rgba(0,255,170,0.04)
+    );
+
+  border: 1px solid rgba(0,255,140,0.16);
+
+  font-size: 30px;
+  font-weight: 300;
+
+  color: #00ff99;
+
+  box-shadow:
+    0 0 30px rgba(0,255,140,0.16);
+}
+
+.empty-text {
+  font-size: 14px;
+  font-weight: 600;
+
+  color: rgba(210,220,215,0.7);
+}
+
+/* =========================================
+   PLANTED SLOT
+========================================= */
+
+.farm-slot.planted {
+  padding: 18px;
+}
+
+.crop-top {
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
 
-  height: 100%;
-
-  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.plot-header {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.plot-title {
-  font-size: 17px;
+.crop-name {
+  font-size: 22px;
   font-weight: 700;
 
   color: #ffffff;
 }
 
-.plot-status {
-  font-size: 13px;
+.crop-stage {
+  padding: 8px 12px;
 
-  color: rgba(255, 255, 255, 0.56);
-}
-
-/* CENTER */
-
-.plot-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex: 1;
-}
-
-/* PLANT */
-
-.plot-plant {
   border-radius: 999px;
 
   background:
-    radial-gradient(
-      circle at center,
-      rgba(70, 255, 170, 0.95),
-      rgba(16, 120, 70, 0.4)
-    );
+    rgba(0,255,140,0.12);
 
-  box-shadow:
-    0 0 24px rgba(70, 255, 170, 0.24),
-    0 0 50px rgba(70, 255, 170, 0.14);
+  border: 1px solid rgba(0,255,140,0.18);
 
-  transition: all 0.4s ease;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: #00ff99;
 }
 
-.plot-plant.stage-1 {
-  width: 24px;
-  height: 24px;
-
-  opacity: 0.7;
-}
-
-.plot-plant.stage-2 {
-  width: 42px;
-  height: 42px;
-}
-
-.plot-plant.stage-3 {
-  width: 58px;
-  height: 58px;
-}
-
-.plot-plant.stage-4 {
-  width: 72px;
-  height: 72px;
-
-  animation: readyPulse 2s infinite;
-}
-
-/* FOOTER */
-
-.plot-footer {
-  display: flex;
-}
-
-.plot-action {
-  width: 100%;
-}
-
-/* PLACEHOLDER */
-
-.screen-placeholder {
+.crop-center {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  min-height: 60vh;
+  height: 72px;
 
-  font-size: 28px;
-  font-weight: 700;
-
-  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 18px;
 }
 
-/* ANIMATIONS */
+.crop-icon {
+  font-size: 52px;
 
-@keyframes readyPulse {
+  filter:
+    drop-shadow(0 0 18px rgba(0,255,140,0.24));
+
+  animation: cropFloat 3s ease-in-out infinite;
+}
+
+@keyframes cropFloat {
   0% {
-    transform: scale(1);
-    filter: brightness(1);
+    transform: translateY(0px);
   }
 
   50% {
-    transform: scale(1.06);
-    filter: brightness(1.15);
+    transform: translateY(-6px);
   }
 
   100% {
-    transform: scale(1);
-    filter: brightness(1);
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.crop-progress {
+  margin-bottom: 18px;
+}
+
+.progress-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.progress-label {
+  font-size: 12px;
+  font-weight: 600;
+
+  color: rgba(200,210,205,0.68);
+}
+
+.progress-time {
+  font-size: 12px;
+  font-weight: 700;
+
+  color: #00ff99;
+}
+
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  height: 10px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,0.06);
+}
+
+.progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+
+  width: 65%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00ff99,
+      #00d47d
+    );
+
+  box-shadow:
+    0 0 16px rgba(0,255,140,0.34);
+}
+
+/* =========================================
+   ACTION BUTTON
+========================================= */
+
+.crop-action {
+  width: 100%;
+  height: 52px;
+
+  border: none;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,255,140,0.18),
+      rgba(0,255,170,0.08)
+    );
+
+  border: 1px solid rgba(0,255,140,0.18);
+
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 0 24px rgba(0,255,140,0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.crop-action:active {
+  transform: scale(0.98);
+}
+
+.crop-action:hover {
+  border-color: rgba(0,255,140,0.3);
+
+  box-shadow:
+    0 0 32px rgba(0,255,140,0.2);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .farm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .farm-slot {
+    min-height: 180px;
   }
 }
