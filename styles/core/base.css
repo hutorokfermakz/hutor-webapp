@@ -1,40 +1,6 @@
 /* =========================================
-   ROOT
-========================================= */
-
-:root {
-
-  --bg-primary: #03110b;
-  --bg-secondary: #071d14;
-  --bg-card: rgba(5, 20, 14, 0.78);
-
-  --emerald: #00ffae;
-  --emerald-soft: #00d68f;
-  --emerald-dark: #008f63;
-
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255,255,255,0.72);
-  --text-muted: rgba(255,255,255,0.42);
-
-  --border: rgba(0,255,174,0.14);
-
-  --shadow:
-    0 10px 40px rgba(0,0,0,0.45);
-
-  --blur: blur(22px);
-
-  --radius-xl: 34px;
-  --radius-lg: 26px;
-  --radius-md: 20px;
-
-  --transition:
-    0.25s ease;
-
-  --nav-height: 92px;
-}
-
-/* =========================================
-   RESET
+   HUTOROK v7
+   CORE BASE
 ========================================= */
 
 * {
@@ -43,25 +9,28 @@
   box-sizing: border-box;
 }
 
-/* =========================================
-   HTML / BODY
-========================================= */
+html {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
-html,
 body {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
+
+  overflow-x: hidden;
 
   background:
     radial-gradient(
       circle at top,
-      #06351f 0%,
-      #03110b 45%,
-      #010805 100%
+      #003b20 0%,
+      #00140b 45%,
+      #000000 100%
     );
 
-  color: var(--text-primary);
+  color: #ffffff;
 
   font-family:
     -apple-system,
@@ -70,12 +39,7 @@ body {
     sans-serif;
 
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-body {
-  position: fixed;
-  inset: 0;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* =========================================
@@ -86,9 +50,9 @@ body {
   position: relative;
 
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* =========================================
@@ -98,33 +62,34 @@ body {
 .background-glow {
   position: fixed;
 
-  border-radius: 50%;
-
+  border-radius: 999px;
   filter: blur(120px);
 
-  opacity: 0.16;
-
   pointer-events: none;
+
+  z-index: 0;
 }
 
 .glow-1 {
   top: -120px;
-  left: -100px;
+  left: -120px;
 
   width: 320px;
   height: 320px;
 
-  background: #00ffae;
+  background:
+    rgba(0, 255, 140, 0.14);
 }
 
 .glow-2 {
-  right: -120px;
-  bottom: -120px;
+  right: -140px;
+  bottom: -140px;
 
-  width: 340px;
-  height: 340px;
+  width: 360px;
+  height: 360px;
 
-  background: #00c27d;
+  background:
+    rgba(0, 180, 120, 0.12);
 }
 
 /* =========================================
@@ -135,30 +100,24 @@ body {
   position: relative;
 
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 
-  overflow: hidden;
+  z-index: 2;
 }
 
 /* =========================================
-   SCREEN
+   SCREENS
 ========================================= */
 
 .screen {
   display: none;
 
   width: 100%;
-  height: 100%;
-
-  overflow-y: auto;
-  overflow-x: hidden;
+  min-height: 100vh;
 
   padding:
-    110px
-    24px
-    140px;
-
-  -webkit-overflow-scrolling: touch;
+    120px 28px
+    180px;
 }
 
 .screen.active {
@@ -170,71 +129,440 @@ body {
 ========================================= */
 
 h1 {
-  font-size: 58px;
+  font-size: 72px;
+  line-height: .95;
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -2px;
+  letter-spacing: -3px;
 }
 
 h2 {
-  font-size: 38px;
-  font-weight: 700;
+  font-size: 52px;
+  font-weight: 800;
 }
 
 h3 {
-  font-size: 26px;
+  font-size: 34px;
   font-weight: 700;
 }
 
 p {
-  color: var(--text-secondary);
   line-height: 1.5;
 }
 
 /* =========================================
-   SCROLLBAR
+   HERO
 ========================================= */
 
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+.hero-card {
+  position: relative;
+
+  margin-bottom: 48px;
+}
+
+.hero-label {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  color:
+    rgba(255,255,255,.82);
+
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: .5px;
+}
+
+.hero-card p {
+  margin-top: 18px;
+
+  max-width: 720px;
+
+  color:
+    rgba(255,255,255,.82);
+
+  font-size: 22px;
+  line-height: 1.45;
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 52px;
+}
+
+.stat-card {
+  padding: 22px;
+
+  border-radius: 28px;
+
+  background:
+    rgba(0, 0, 0, .26);
+
+  border:
+    1px solid rgba(0,255,140,.08);
+
+  backdrop-filter:
+    blur(24px);
+
+  box-shadow:
+    0 0 30px rgba(0,255,120,.04);
+}
+
+.stat-card span {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color:
+    rgba(255,255,255,.62);
+
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.stat-card h2 {
+  font-size: 44px;
+}
+
+/* =========================================
+   SECTION
+========================================= */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+}
+
+.section-header span {
+  color:
+    rgba(255,255,255,.45);
+
+  font-size: 20px;
+}
+
+/* =========================================
+   FARM GRID
+========================================= */
+
+.farm-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+/* =========================================
+   FARM SLOT
+========================================= */
+
+.farm-slot {
+  position: relative;
+
+  min-height: 420px;
+
+  padding: 28px;
+
+  border-radius: 36px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,20,10,.92) 0%,
+      rgba(0,0,0,.96) 100%
+    );
+
+  border:
+    1px solid rgba(0,255,140,.08);
+
+  box-shadow:
+    0 0 40px rgba(0,255,120,.05);
+
+  backdrop-filter:
+    blur(24px);
+}
+
+/* =========================================
+   SLOT TOP
+========================================= */
+
+.slot-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 40px;
+}
+
+.slot-top h4 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* =========================================
+   BADGES
+========================================= */
+
+.slot-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 132px;
+  height: 64px;
+
+  padding: 0 24px;
+
+  border-radius: 999px;
+
+  color: #00ffb3;
+
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 6px;
+
+  background:
+    rgba(0,255,140,.08);
+
+  border:
+    1px solid rgba(0,255,140,.22);
+}
+
+.ready-badge {
+  color: #ffd54a;
+
+  background:
+    rgba(255,210,0,.10);
+
+  border:
+    1px solid rgba(255,210,0,.20);
+}
+
+/* =========================================
+   CROP
+========================================= */
+
+.crop-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 150px;
+
+  margin-bottom: 40px;
+
+  font-size: 88px;
+}
+
+.ready-crop {
+  animation:
+    cropGlow 2s ease-in-out infinite;
+}
+
+@keyframes cropGlow {
+
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(255,255,255,0));
+  }
+
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 24px rgba(255,220,100,.4));
+  }
+
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(255,255,255,0));
+  }
+}
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.slot-progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+
+  color:
+    rgba(255,255,255,.78);
+
+  font-size: 18px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 18px;
+
+  margin-bottom: 28px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,.06);
+}
+
+.progress-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00ff99 0%,
+      #00d47a 100%
+    );
+
+  box-shadow:
+    0 0 20px rgba(0,255,140,.35);
+}
+
+.wheat-fill {
+  width: 52%;
+}
+
+.carrot-fill {
+  width: 24%;
 }
 
 /* =========================================
    BUTTONS
 ========================================= */
 
-button {
+.farm-action-btn,
+.harvest-btn {
+  width: 100%;
+  height: 76px;
+
   border: none;
-  outline: none;
+  border-radius: 26px;
+
+  font-size: 24px;
+  font-weight: 700;
 
   cursor: pointer;
 
-  font-family: inherit;
+  transition:
+    .25s ease;
+}
 
-  transition: var(--transition);
+.farm-action-btn {
+  color: #ffffff;
+
+  background:
+    rgba(0,255,120,.12);
+
+  border:
+    1px solid rgba(0,255,120,.18);
+}
+
+.harvest-btn {
+  color: #000000;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffd54a 0%,
+      #ffbf00 100%
+    );
+
+  box-shadow:
+    0 0 30px rgba(255,200,0,.25);
+}
+
+.farm-action-btn:active,
+.harvest-btn:active {
+  transform: scale(.98);
 }
 
 /* =========================================
-   LINKS
+   EMPTY
 ========================================= */
 
-a {
-  text-decoration: none;
-  color: inherit;
+.empty {
+  border:
+    2px dashed rgba(255,255,255,.08);
+}
+
+.empty-content,
+.locked-content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+
+  gap: 24px;
+
+  text-align: center;
+}
+
+.empty-plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 120px;
+  height: 120px;
+
+  border-radius: 32px;
+
+  color: #00ffb3;
+
+  font-size: 72px;
+  font-weight: 300;
+
+  background:
+    rgba(0,255,140,.06);
+
+  border:
+    1px solid rgba(0,255,140,.12);
+}
+
+.empty-content span,
+.locked-content span {
+  color:
+    rgba(255,255,255,.42);
+
+  font-size: 22px;
 }
 
 /* =========================================
-   IMAGES
+   LOCKED
 ========================================= */
 
-img {
-  display: block;
-  max-width: 100%;
+.lock-icon {
+  font-size: 88px;
+
+  opacity: .45;
 }
 
 /* =========================================
-   NAVBAR
+   BOTTOM NAV
 ========================================= */
 
 .bottom-nav {
@@ -244,94 +572,100 @@ img {
   right: 24px;
   bottom: 18px;
 
-  height: var(--nav-height);
+  height: 92px;
 
   display: flex;
   align-items: center;
   justify-content: space-around;
 
-  padding: 0 10px;
+  padding: 0 12px;
+
+  border-radius: 32px;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(0, 35, 22, 0.88),
-      rgba(0, 18, 12, 0.94)
-    );
+    rgba(0, 20, 10, 0.72);
+
+  backdrop-filter:
+    blur(24px);
 
   border:
-    1px solid rgba(0,255,174,0.12);
-
-  border-radius: 34px;
-
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+    1px solid rgba(0,255,140,.12);
 
   box-shadow:
-    0 10px 50px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.03);
+    0 0 40px rgba(0,255,120,.08);
 
   z-index: 9999;
 }
 
 /* =========================================
-   NAV BUTTON
+   NAV BUTTONS
 ========================================= */
 
 .nav-btn {
   position: relative;
 
-  flex: 1;
+  height: 58px;
+  min-width: 58px;
 
-  height: 72px;
+  padding: 0 18px;
 
-  border-radius: 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--text-secondary);
-
-  font-size: 17px;
-  font-weight: 600;
+  border: none;
+  border-radius: 20px;
 
   background: transparent;
+
+  color:
+    rgba(255,255,255,.72);
+
+  font-size: 18px;
+  font-weight: 600;
+
+  transition:
+    .25s ease;
+
+  cursor: pointer;
 }
 
 .nav-btn.active {
-
-  color: var(--emerald);
+  color: #00ff9d;
 
   background:
-    radial-gradient(
-      circle,
-      rgba(0,255,174,0.18),
-      rgba(0,255,174,0.04)
-    );
+    rgba(0,255,140,.12);
 
   box-shadow:
-    inset 0 0 24px rgba(0,255,174,0.08),
-    0 0 18px rgba(0,255,174,0.10);
+    0 0 24px rgba(0,255,140,.22);
 }
 
 /* =========================================
-   SAFE AREA
+   MOBILE
 ========================================= */
 
-@supports (padding: max(0px)) {
+@media (max-width: 768px) {
 
-  .screen {
-    padding-bottom:
-      calc(
-        140px + env(safe-area-inset-bottom)
-      );
+  h1 {
+    font-size: 58px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-slot {
+    min-height: 380px;
   }
 
   .bottom-nav {
-    bottom:
-      calc(
-        18px + env(safe-area-inset-bottom)
-      );
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .nav-btn {
+    padding: 0 10px;
+    font-size: 16px;
   }
 }
