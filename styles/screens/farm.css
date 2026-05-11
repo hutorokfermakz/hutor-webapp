@@ -1,108 +1,76 @@
+/* styles/screens/farm.css */
+
 .farm-screen {
-  width: 100%;
-  min-height: 100vh;
-  padding:
-    24px
-    20px
-    180px;
-    
-  position: relative;
-  overflow: hidden;
+  padding-bottom: 140px;
+}
+
+.farm-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* HERO */
 
-.farm-hero {
-  width: 100%;
-  
-  padding: 28px;
-  
-  border-radius: 34px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(18, 18, 18, 0.92),
-      rgba(10, 10, 10, 0.88)
-    );
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
-  backdrop-filter: blur(24px);
-
-  box-shadow:
-    0 0 40px rgba(0,255,140,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.04);
-
-  position: relative;
-}
-
-/* HEADER */
-
 .hero-header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
-
-  margin-bottom: 26px;
+  justify-content: space-between;
+  gap: 18px;
 }
 
-.hero-title h1 {
-  font-size: 58px;
-  font-weight: 900;
-  letter-spacing: 2px;
+.hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
 
   color: #ffffff;
-
-  line-height: 0.95;
-
-  margin-bottom: 10px;
-}
-
-.hero-title p {
-  font-size: 18px;
-  line-height: 1.4;
-
-  color: rgba(255,255,255,0.72);
-
-  max-width: 220px;
 }
 
 /* BALANCE */
 
-.hero-balance {
+.balance-group {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
 }
 
 .balance-card {
-  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 
-  padding: 14px 16px;
+  min-width: 84px;
 
-  border-radius: 24px;
+  padding: 12px 14px;
+  border-radius: 18px;
 
-  background:
-    rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.05);
 
-  border:
-    1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .balance-label {
-  font-size: 14px;
-  color: rgba(255,255,255,0.55);
+  font-size: 10px;
+  font-weight: 600;
 
-  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.46);
 }
 
-.balance-value {
-  font-size: 22px;
-  font-weight: 800;
+.coins-value,
+.crystals-value,
+.level-value {
+  font-size: 17px;
+  font-weight: 700;
 
   color: #ffffff;
 }
@@ -110,226 +78,185 @@
 /* WELCOME */
 
 .welcome-card {
-  width: 100%;
+  position: relative;
 
-  padding: 28px;
+  overflow: hidden;
 
+  padding: 26px;
   border-radius: 30px;
 
   background:
     linear-gradient(
-      180deg,
-      rgba(0,255,140,0.10),
-      rgba(255,255,255,0.02)
+      135deg,
+      rgba(17, 24, 21, 0.94),
+      rgba(9, 12, 11, 0.88)
     );
 
-  border:
-    1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(70, 255, 170, 0.12);
 
-  margin-bottom: 26px;
+  backdrop-filter: blur(24px);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.welcome-card h2 {
-  font-size: 28px;
-  font-weight: 800;
+.welcome-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -120px;
+  right: -120px;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(70, 255, 170, 0.16),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-title {
+  margin-bottom: 10px;
+
+  font-size: 24px;
+  font-weight: 700;
 
   color: #ffffff;
-
-  margin-bottom: 16px;
 }
 
-.welcome-card p {
-  font-size: 18px;
-  line-height: 1.5;
+.welcome-text {
+  font-size: 15px;
+  line-height: 1.6;
 
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.66);
 }
 
 /* STATS */
 
 .stats-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
 
 .stat-card {
-  padding: 22px;
+  padding: 18px;
+  border-radius: 24px;
 
-  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.05);
 
-  background:
-    rgba(255,255,255,0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 
-  border:
-    1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
 
-  backdrop-filter: blur(18px);
+  box-shadow:
+    0 6px 22px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .stat-label {
-  font-size: 15px;
+  margin-bottom: 8px;
 
-  color: rgba(255,255,255,0.55);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 
-  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.46);
 }
 
 .stat-value {
-  font-size: 34px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: 700;
 
   color: #ffffff;
 }
 
-/* MOBILE */
-
-@media (max-width: 700px) {
-
-  .farm-screen {
-    padding:
-      18px
-      14px
-      160px;
-  }
-
-  .farm-hero {
-    padding: 20px;
-    border-radius: 28px;
-  }
-
-  .hero-header {
-    flex-direction: column;
-  }
-
-  .hero-title h1 {
-    font-size: 42px;
-  }
-
-  .hero-title p {
-    font-size: 16px;
-    max-width: 100%;
-  }
-
-  .hero-balance {
-    width: 100%;
-  }
-
-  .balance-card {
-    flex: 1;
-    min-width: auto;
-  }
-
-  .balance-value {
-    font-size: 20px;
-  }
-
-  .welcome-card {
-    padding: 22px;
-  }
-
-  .welcome-card h2 {
-    font-size: 22px;
-  }
-
-  .welcome-card p {
-    font-size: 16px;
-  }
-
-  .stats-grid {
-    grid-template-columns:
-      repeat(3, 1fr);
-
-    gap: 10px;
-  }
-
-  .stat-card {
-    padding: 18px 14px;
-    border-radius: 22px;
-  }
-
-  .stat-label {
-    font-size: 13px;
-  }
-
-  .stat-value {
-    font-size: 24px;
-  }
-}
 /* FARM GRID */
 
 .farm-grid {
-
-  margin-top: 28px;
-
   display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
+  grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
 
 /* PLOT */
 
 .farm-plot {
-
   position: relative;
 
-  height: 180px;
-
-  border-radius: 30px;
-
   overflow: hidden;
+
+  min-height: 230px;
+
+  border-radius: 28px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(255,255,255,0.05),
-      rgba(255,255,255,0.02)
+      rgba(17, 24, 21, 0.92),
+      rgba(10, 14, 12, 0.88)
     );
 
-  border:
-    1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(22px);
 
   box-shadow:
-    0 0 30px rgba(0,255,140,0.05);
+    0 10px 30px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .farm-plot:active {
-
-  transform: scale(0.97);
+  transform: scale(0.985);
 }
 
-.farm-plot:hover {
+.farm-plot.planted {
+  border-color: rgba(70, 255, 170, 0.12);
+}
+
+.farm-plot.ready {
+  border-color: rgba(70, 255, 170, 0.34);
 
   box-shadow:
-    0 0 40px rgba(0,255,140,0.12);
+    0 0 30px rgba(70, 255, 170, 0.14),
+    0 0 70px rgba(70, 255, 170, 0.08);
+
+  animation: readyPulse 2.2s infinite;
 }
 
-/* GLOW */
+/* PLOT GLOW */
 
 .plot-glow {
-
   position: absolute;
-
   inset: 0;
 
   background:
     radial-gradient(
       circle at top,
-      rgba(0,255,140,0.12),
-      transparent 70%
+      rgba(70, 255, 170, 0.12),
+      transparent 72%
     );
+
+  opacity: 0.8;
 
   pointer-events: none;
 }
@@ -337,139 +264,130 @@
 /* CONTENT */
 
 .plot-content {
-
   position: relative;
-
   z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   height: 100%;
 
   padding: 20px;
+}
 
+.plot-header {
   display: flex;
-
   flex-direction: column;
-
-  justify-content: flex-end;
+  gap: 8px;
 }
 
 .plot-title {
-
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 700;
 
-  color: white;
-
-  margin-bottom: 10px;
+  color: #ffffff;
 }
 
 .plot-status {
+  font-size: 13px;
 
-  font-size: 15px;
-
-  color:
-    rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.56);
 }
 
-/* MOBILE */
+/* CENTER */
 
-@media (max-width: 700px) {
+.plot-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .farm-grid {
-
-    grid-template-columns:
-      repeat(2, 1fr);
-
-    gap: 14px;
-  }
-
-  .farm-plot {
-
-    height: 150px;
-
-    border-radius: 24px;
-  }
-
-  .plot-title {
-
-    font-size: 18px;
-  }
-
-  .plot-status {
-
-    font-size: 13px;
-  }
-
-}
-/* PLANTED */
-
-.farm-plot.planted {
-
-  border:
-    1px solid rgba(0,255,140,0.25);
-
-  box-shadow:
-    0 0 40px rgba(0,255,140,0.15);
+  flex: 1;
 }
 
 /* PLANT */
 
 .plot-plant {
+  border-radius: 999px;
 
-  position: absolute;
-
-  top: 18px;
-  right: 18px;
-
-  font-size: 34px;
-
-  opacity: 0.9;
-}
-
-/* HOVER */
-
-.farm-plot:active {
-
-  transform:
-    scale(0.96);
-}
-/* READY */
-
-.farm-plot.ready {
-
-  border:
-    1px solid rgba(255,220,120,0.4);
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(70, 255, 170, 0.95),
+      rgba(16, 120, 70, 0.4)
+    );
 
   box-shadow:
-    0 0 50px rgba(255,220,120,0.22);
+    0 0 24px rgba(70, 255, 170, 0.24),
+    0 0 50px rgba(70, 255, 170, 0.14);
 
-  animation:
-    readyPulse 2s ease infinite;
+  transition: all 0.4s ease;
 }
 
-/* ANIMATION */
+.plot-plant.stage-1 {
+  width: 24px;
+  height: 24px;
+
+  opacity: 0.7;
+}
+
+.plot-plant.stage-2 {
+  width: 42px;
+  height: 42px;
+}
+
+.plot-plant.stage-3 {
+  width: 58px;
+  height: 58px;
+}
+
+.plot-plant.stage-4 {
+  width: 72px;
+  height: 72px;
+
+  animation: readyPulse 2s infinite;
+}
+
+/* FOOTER */
+
+.plot-footer {
+  display: flex;
+}
+
+.plot-action {
+  width: 100%;
+}
+
+/* PLACEHOLDER */
+
+.screen-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 60vh;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ANIMATIONS */
 
 @keyframes readyPulse {
-
   0% {
-
-    transform:
-      scale(1);
-
+    transform: scale(1);
+    filter: brightness(1);
   }
 
   50% {
-
-    transform:
-      scale(1.02);
-
+    transform: scale(1.06);
+    filter: brightness(1.15);
   }
 
   100% {
-
-    transform:
-      scale(1);
-
+    transform: scale(1);
+    filter: brightness(1);
   }
-
 }
