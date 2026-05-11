@@ -3,69 +3,177 @@
   position: relative;
 
   width: 100%;
-  min-height: 500px;
+  min-height: 620px;
 
-  border-radius: 32px;
+  border-radius: 36px;
 
   overflow: hidden;
 
-  padding: 20px;
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,255,174,0.05),
+      rgba(255,255,255,0.02)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  backdrop-filter:
+    blur(20px);
+
+}
+
+.sky-light {
+
+  position: absolute;
+
+  top: -120px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  width: 320px;
+  height: 320px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(0,255,174,0.18);
+
+  filter:
+    blur(90px);
+
+  pointer-events: none;
+
+}
+
+.ambient-glow {
+
+  position: absolute;
+
+  bottom: -80px;
+  right: -80px;
+
+  width: 240px;
+  height: 240px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(0,255,174,0.12);
+
+  filter:
+    blur(80px);
 
 }
 
 #farm-grid {
 
-  margin-top: 30px;
+  position: relative;
+
+  z-index: 2;
+
+  margin-top: 40px;
 
   display: grid;
 
   grid-template-columns:
     repeat(4, 1fr);
 
-  gap: 14px;
+  gap: 16px;
 
 }
 
 .plot {
 
+  position: relative;
+
   aspect-ratio: 1;
 
-  border-radius: 20px;
+  border-radius: 24px;
+
+  overflow: hidden;
 
   background:
-    rgba(255,255,255,0.05);
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.08),
+      rgba(255,255,255,0.03)
+    );
 
   border:
     1px solid
     rgba(255,255,255,0.08);
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,0.06),
+
+    0 10px 30px
+    rgba(0,0,0,0.35);
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   transition:
-    0.25s;
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
 
 }
 
 .plot:active {
 
   transform:
-    scale(0.96);
+    scale(0.95);
+
+}
+
+.plot::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.04),
+      transparent
+    );
 
 }
 
 .crop {
 
-  font-size: 12px;
+  position: relative;
+
+  z-index: 2;
+
+  font-size: 11px;
 
   text-align: center;
+
+  font-weight: 600;
+
+  transition:
+    0.3s ease;
 
 }
 
 .crop.seed {
 
-  opacity: 0.5;
+  opacity: 0.45;
+
+  transform:
+    scale(0.8);
 
 }
 
@@ -74,12 +182,23 @@
   color:
     #72ffb4;
 
+  text-shadow:
+    0 0 12px
+    rgba(114,255,180,0.4);
+
 }
 
 .crop.growing {
 
   color:
     #00ffae;
+
+  text-shadow:
+    0 0 18px
+    rgba(0,255,174,0.5);
+
+  transform:
+    scale(1.05);
 
 }
 
@@ -89,7 +208,59 @@
     #ffe082;
 
   text-shadow:
-    0 0 12px
-    rgba(255,224,130,0.5);
+    0 0 22px
+    rgba(255,224,130,0.7);
+
+  animation:
+    cropPulse 2s ease-in-out infinite;
+
+}
+
+.rain {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+}
+
+.rain::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -100px;
+
+  background-image:
+    linear-gradient(
+      transparent 0%,
+      rgba(255,255,255,0.12) 100%
+    );
+
+  background-size:
+    2px 24px;
+
+  animation:
+    rainFall 0.7s linear infinite;
+
+  opacity: 0.3;
+
+}
+
+.night {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    rgba(0,0,0,0.28);
+
+  pointer-events: none;
 
 }
