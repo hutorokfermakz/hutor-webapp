@@ -91,3 +91,32 @@ body::after {
   z-index: -1;
 
 }
+body {
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(0,255,140,0.14),
+      transparent 40%
+    ),
+    #050505;
+
+  overflow-x: hidden;
+
+  min-height: 100vh;
+
+}
+
+#app {
+
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding:
+    20px
+    16px
+    120px;
+
+}
