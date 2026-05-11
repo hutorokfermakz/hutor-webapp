@@ -1,10 +1,15 @@
-const navButtons =
-  document.querySelectorAll(".nav-btn");
-
-const screens =
-  document.querySelectorAll(".screen");
-
 export function initRouter() {
+
+  const navButtons =
+    document.querySelectorAll(".nav-btn");
+
+  const screens =
+    document.querySelectorAll(".screen");
+
+  if (!navButtons.length) {
+    console.log("NAV NOT FOUND");
+    return;
+  }
 
   navButtons.forEach((button) => {
 
@@ -23,14 +28,22 @@ export function initRouter() {
         screen.classList.remove("active");
       });
 
-      const activeScreen =
+      const targetScreen =
         document.getElementById(
           `${target}-screen`
         );
 
-      if (activeScreen) {
-        activeScreen.classList.add("active");
+      if (targetScreen) {
+
+        targetScreen.classList.add(
+          "active"
+        );
+
       }
+
+      console.log(
+        `SCREEN: ${target}`
+      );
 
     });
 
