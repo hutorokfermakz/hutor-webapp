@@ -3,43 +3,43 @@ export const plots = [
   {
     id: 1,
     planted: false,
-    crop: null,
-    stage: 0
+    stage: 0,
+    ready: false
   },
 
   {
     id: 2,
     planted: false,
-    crop: null,
-    stage: 0
+    stage: 0,
+    ready: false
   },
 
   {
     id: 3,
     planted: false,
-    crop: null,
-    stage: 0
+    stage: 0,
+    ready: false
   },
 
   {
     id: 4,
     planted: false,
-    crop: null,
-    stage: 0
+    stage: 0,
+    ready: false
   },
 
   {
     id: 5,
     planted: false,
-    crop: null,
-    stage: 0
+    stage: 0,
+    ready: false
   },
 
   {
     id: 6,
     planted: false,
-    crop: null,
-    stage: 0
+    stage: 0,
+    ready: false
   }
 
 ];
