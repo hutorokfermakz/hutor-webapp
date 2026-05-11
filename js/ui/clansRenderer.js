@@ -1,38 +1,5 @@
-const clans = [
-  {
-    id: 1,
-    name: "Emerald Syndicate",
-    level: 18,
-    members: 42,
-    bonus: "+12% урожай",
-    description:
-      "Элитный клан фермеров с высокой активностью."
-  },
-
-  {
-    id: 2,
-    name: "Black Harvest",
-    level: 12,
-    members: 31,
-    bonus: "+8% рост",
-    description:
-      "Крупное farming-сообщество с торговым уклоном."
-  },
-
-  {
-    id: 3,
-    name: "Nova Farmers",
-    level: 9,
-    members: 18,
-    bonus: "+5% монеты",
-    description:
-      "Новый клан для активных игроков."
-  }
-];
-
-let joinedClan = null;
-
 export function renderClans() {
+
   const screen =
     document.getElementById("clans-screen");
 
@@ -53,99 +20,113 @@ export function renderClans() {
 
       </div>
 
-      <div class="clans-topbar">
-
-        <div class="clans-count">
-          Кланов: ${clans.length}
-        </div>
-
-        <div class="clans-season">
-          Season Alpha
-        </div>
-
+      <div class="clans-season">
+        Season Alpha
       </div>
 
-      <div class="clans-list">
-        ${renderClanCards()}
+      <div class="clans-grid">
+
+        <div class="clan-card">
+
+          <div class="clan-rank">
+            TOP #1
+          </div>
+
+          <div class="clan-name">
+            Emerald Syndicate
+          </div>
+
+          <div class="clan-level">
+            LVL 18
+          </div>
+
+          <div class="clan-members">
+            42 участников
+          </div>
+
+          <div class="clan-bonus">
+            +12% урожай
+          </div>
+
+          <div class="clan-description">
+            Элитный клан фермеров
+            с высокой активностью.
+          </div>
+
+          <button class="clan-join-btn">
+            Вступить
+          </button>
+
+        </div>
+
+        <div class="clan-card">
+
+          <div class="clan-rank">
+            TOP #2
+          </div>
+
+          <div class="clan-name">
+            Black Harvest
+          </div>
+
+          <div class="clan-level">
+            LVL 12
+          </div>
+
+          <div class="clan-members">
+            31 участников
+          </div>
+
+          <div class="clan-bonus">
+            +8% рост
+          </div>
+
+          <div class="clan-description">
+            Крупное farming-сообщество
+            с торговым уклоном.
+          </div>
+
+          <button class="clan-join-btn">
+            Вступить
+          </button>
+
+        </div>
+
+        <div class="clan-card">
+
+          <div class="clan-rank">
+            TOP #3
+          </div>
+
+          <div class="clan-name">
+            Nova Farmers
+          </div>
+
+          <div class="clan-level">
+            LVL 9
+          </div>
+
+          <div class="clan-members">
+            18 участников
+          </div>
+
+          <div class="clan-bonus">
+            +5% монеты
+          </div>
+
+          <div class="clan-description">
+            Новый клан
+            для активных игроков.
+          </div>
+
+          <button class="clan-join-btn">
+            Вступить
+          </button>
+
+        </div>
+
       </div>
 
     </div>
   `;
-
-  bindClanEvents();
-}
-
-function renderClanCards() {
-  return clans.map((clan, index) => `
-    <div class="clan-card">
-
-      <div class="clan-top">
-
-        <div>
-
-          <div class="clan-name">
-            ${clan.name}
-          </div>
-
-          <div class="clan-rank">
-            TOP #${index + 1}
-          </div>
-
-        </div>
-
-        <div class="clan-level">
-          LVL ${clan.level}
-        </div>
-
-      </div>
-
-      <div class="clan-stats">
-
-        <div class="clan-stat">
-          ${clan.members} участников
-        </div>
-
-        <div class="clan-stat">
-          ${clan.bonus}
-        </div>
-
-      </div>
-
-      <div class="clan-description">
-        ${clan.description}
-      </div>
-
-      <button
-        class="
-          glass-btn
-          emerald
-          clan-action
-        "
-        data-id="${clan.id}"
-      >
-        ${
-          joinedClan === clan.id
-            ? "Вы участник"
-            : "Вступить"
-        }
-      </button>
-
-    </div>
-  `).join("");
-}
-
-function bindClanEvents() {
-  const buttons =
-    document.querySelectorAll(".clan-action");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const clanId =
-        Number(button.dataset.id);
-
-      joinedClan = clanId;
-
-      renderClans();
-    });
-  });
 }
