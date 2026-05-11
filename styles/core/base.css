@@ -1,122 +1,242 @@
-html,
+:root {
+  --bg-primary: #050505;
+  --bg-secondary: #0b0b0b;
+
+  --emerald: #00ff99;
+  --emerald-soft: rgba(0, 255, 153, 0.14);
+  --emerald-glow: rgba(0, 255, 153, 0.35);
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.72);
+  --text-muted: rgba(255,255,255,0.45);
+
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+
+  --shadow-main:
+    0 0 60px rgba(0,255,140,0.10);
+
+  --blur-main: blur(24px);
+
+  --nav-height: 88px;
+}
+
+/* GLOBAL */
+
+html {
+  width: 100%;
+  min-height: 100%;
+}
+
 body {
+  margin: 0;
+  padding: 0;
 
   width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  background:
-    #050505;
-
-  color:
-    white;
-
-  font-family:
-    Inter,
-    sans-serif;
-
-}
-
-body {
-
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-
-}
-
-* {
-
-  -webkit-tap-highlight-color:
-    transparent;
-
-  user-select: none;
-
-}
-
-button {
-
-  border: none;
-  outline: none;
-
-  background: none;
-
-  font: inherit;
-  color: inherit;
-
-}
-body::before {
-
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(0,255,174,0.15),
-      transparent 60%
-    );
-
-  pointer-events: none;
-
-  z-index: -2;
-
-}
-
-body::after {
-
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.02),
-      transparent
-    );
-
-  animation:
-    backgroundFloat 8s ease-in-out infinite;
-
-  pointer-events: none;
-
-  z-index: -1;
-
-}
-body {
+  min-height: 100vh;
 
   background:
     radial-gradient(
       circle at top,
       rgba(0,255,140,0.14),
-      transparent 40%
+      transparent 30%
     ),
-    #050505;
+    linear-gradient(
+      180deg,
+      #06110d 0%,
+      #040404 35%,
+      #000000 100%
+    );
+
+  color: var(--text-primary);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    sans-serif;
 
   overflow-x: hidden;
 
-  min-height: 100vh;
-
+  position: relative;
 }
 
-#app {
+/* APP */
 
-  position: relative;
-
+.app {
   width: 100%;
   min-height: 100vh;
 
-  padding:
-    20px
-    16px
-    120px;
+  position: relative;
+}
 
+/* BACKGROUND */
+
+.background-glow {
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: -1;
+}
+
+.background-glow::before {
+  content: "";
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  top: -120px;
+  left: -120px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,255,140,0.22),
+      transparent 70%
+    );
+
+  filter: blur(60px);
+
+  animation:
+    glowMoveOne 12s ease-in-out infinite;
+}
+
+.background-glow::after {
+  content: "";
+
+  position: absolute;
+
+  width: 340px;
+  height: 340px;
+
+  bottom: -100px;
+  right: -100px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,255,140,0.16),
+      transparent 70%
+    );
+
+  filter: blur(70px);
+
+  animation:
+    glowMoveTwo 16s ease-in-out infinite;
+}
+
+/* SCREEN */
+
+.screen {
+  width: 100%;
+  min-height: 100vh;
+
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* GLASS */
+
+.glass-panel {
+  background: var(--glass-bg);
+
+  border:
+    1px solid var(--glass-border);
+
+  backdrop-filter: var(--blur-main);
+
+  box-shadow: var(--shadow-main);
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* SAFE AREA */
+
+.safe-bottom {
+  padding-bottom:
+    calc(
+      env(safe-area-inset-bottom) + 120px
+    );
+}
+
+/* ANIMATIONS */
+
+@keyframes glowMoveOne {
+
+  0% {
+    transform:
+      translate(0px, 0px)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(40px, 30px)
+      scale(1.1);
+  }
+
+  100% {
+    transform:
+      translate(0px, 0px)
+      scale(1);
+  }
+}
+
+@keyframes glowMoveTwo {
+
+  0% {
+    transform:
+      translate(0px, 0px)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(-30px, -20px)
+      scale(1.12);
+  }
+
+  100% {
+    transform:
+      translate(0px, 0px)
+      scale(1);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  .background-glow::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .background-glow::after {
+    width: 240px;
+    height: 240px;
+  }
 }
