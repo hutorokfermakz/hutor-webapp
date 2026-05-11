@@ -1,71 +1,78 @@
-import { gameState }
-from "../../core/state.js";
+import { plots } from "./plotData.js";
+import { growCrop } from "./growthSystem.js";
+import { renderPlots } from "./plotRenderer.js";
 
-import { CONFIG }
-from "../../core/config.js";
-
-import { renderPlots }
-from "./plotRenderer.js";
-
-import { startCropGrowth }
-from "./cropGrowth.js";
-
-import { harvestCrop }
-from "./harvestSystem.js";
+import { state } from "../../core/state.js";
+import { CROPS } from "../../core/config.js";
 
 export function initFarmSystem() {
+  renderPlots();
+}
+
+export function plantCrop(plotId, cropId = "wheat") {
+  const plot = plots.find((item) => item.id === plotId);
+
+  if (!plot) return;
+  if (plot.planted) return;
+
+  const crop = CROPS[cropId];
+
+  if (!crop) return;
+
+  const seeds = state.inventory.seeds[cropId];
+
+  if (seeds <= 0) {
+    alert("Недостаточно семян");
+    return;
+  }
+
+  state.inventory.seeds[cropId]--;
+
+  plot.planted = true;
+  plot.ready = false;
+  plot.crop = cropId;
+  plot.stage = 1;
 
   renderPlots();
 
-  window.handlePlotClick =
-    (plotIndex) => {
+  growCrop(plot, crop);
+}
 
-      const plot =
-        gameState.farm.plots[
-          plotIndex
-        ];
+export function harvestCrop(plotId) {
+  const plot = plots.find((item) => item.id === plotId);
 
-      if (
-        plot &&
-        plot.stage === "mature"
-      ) {
+  if (!plot) return;
+  if (!plot.ready) return;
 
-        harvestCrop(plotIndex);
+  const crop = CROPS[plot.crop];
 
-        return;
-      }
+  if (!crop) return;
 
-      if (
-        gameState.inventory
-          .selectedSeed === null
-      ) return;
+  state.player.coins += crop.reward;
+  state.player.xp += crop.xp;
 
-      const cropData =
-        CONFIG.crops[
-          gameState.inventory
-            .selectedSeed
-        ];
+  state.inventory.crops[plot.crop]++;
 
-      gameState.farm.plots[
-        plotIndex
-      ] = {
+  checkLevelUp();
 
-        cropId: cropData.id,
+  plot.planted = false;
+  plot.ready = false;
+  plot.growing = false;
 
-        name: cropData.name,
+  plot.crop = null;
+  plot.stage = 0;
 
-        stage: "seed",
+  renderPlots();
+}
 
-        growTime:
-          cropData.growTime
-      };
+function checkLevelUp() {
+  const neededXP = state.player.level * 100;
 
-      renderPlots();
+  if (state.player.xp >= neededXP) {
+    state.player.level++;
 
-      startCropGrowth(
-        plotIndex
-      );
+    state.player.xp = 0;
 
-    };
-
+    alert(`Новый уровень: ${state.player.level}`);
+  }
 }
