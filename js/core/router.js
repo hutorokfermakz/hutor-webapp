@@ -1,7 +1,10 @@
-export function initRouter() {
+const navButtons =
+  document.querySelectorAll(".nav-btn");
 
-  const navButtons =
-    document.querySelectorAll(".nav-btn");
+const screens =
+  document.querySelectorAll(".screen");
+
+export function initRouter() {
 
   navButtons.forEach((button) => {
 
@@ -10,30 +13,27 @@ export function initRouter() {
       const target =
         button.dataset.screen;
 
-      switchScreen(target);
+      navButtons.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      screens.forEach((screen) => {
+        screen.classList.remove("active");
+      });
+
+      const activeScreen =
+        document.getElementById(
+          `${target}-screen`
+        );
+
+      if (activeScreen) {
+        activeScreen.classList.add("active");
+      }
 
     });
 
   });
-
-}
-
-export function switchScreen(screen) {
-
-  document
-    .querySelectorAll(".screen")
-    .forEach((screenEl) => {
-
-      screenEl.classList.remove(
-        "active"
-      );
-
-    });
-
-  document
-    .getElementById(
-      `${screen}-screen`
-    )
-    .classList.add("active");
 
 }
