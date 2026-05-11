@@ -504,3 +504,135 @@
 
   font-size: 14px;
 }
+/* =========================
+   FIXED FARM LAYOUT
+========================= */
+
+.farm-screen {
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: hidden;
+}
+
+.farm-section {
+  width: 100%;
+}
+
+.farm-grid {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 24px;
+
+  width: 100%;
+}
+
+.farm-slot {
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+.crop-stage {
+  width: 100%;
+
+  text-align: center;
+}
+
+.slot-progress-info {
+  width: 100%;
+}
+
+.progress-bar {
+  width: 100%;
+}
+
+.progress-fill {
+  width: var(--progress, 50%);
+}
+
+.farm-action-btn,
+.harvest-btn {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-content,
+.locked-content {
+  width: 100%;
+}
+
+.seed-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.seed-card {
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .farm-section {
+    padding-bottom: 180px;
+  }
+
+  .farm-slot {
+    padding: 22px;
+
+    border-radius: 30px;
+  }
+
+  .slot-top h4 {
+    font-size: 18px;
+  }
+
+  .crop-stage {
+    height: 120px;
+
+    font-size: 62px;
+  }
+
+  .farm-action-btn,
+  .harvest-btn {
+    padding: 18px;
+
+    font-size: 16px;
+
+    border-radius: 20px;
+  }
+
+  .seed-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plant-modal-content {
+    padding: 24px;
+  }
+}
+
+/* =========================
+   SAFE GLOBAL FIXES
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+body {
+  overflow-x: hidden;
+}
