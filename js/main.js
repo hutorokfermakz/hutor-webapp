@@ -11,8 +11,10 @@ function openScreen(screenId) {
     button.classList.remove("active");
   });
 
-  const targetScreen = document.getElementById(screenId);
-
+  const targetScreen = document.getElementById(
+  `${screenId}-screen`
+)
+  
   if (targetScreen) {
     targetScreen.classList.add("active");
   }
