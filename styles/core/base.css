@@ -435,3 +435,64 @@ img {
     font-size: 15px;
   }
 }
+/* =========================================
+   APP HEIGHT FIX
+========================================= */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+}
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================================
+   SCREEN
+========================================= */
+
+.screen {
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  padding:
+    110px
+    24px
+    140px;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* =========================================
+   NAVBAR FIX
+========================================= */
+
+.bottom-nav {
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  bottom: 18px;
+
+  z-index: 9999;
+}
