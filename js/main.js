@@ -1,42 +1,39 @@
-import { initRouter } from "./core/router.js";
-import { renderApp } from "./core/renderer.js";
+const navButtons = document.querySelectorAll(".nav-btn");
+const screens = document.querySelectorAll(".screen");
 
-import { initFarmSystem } from "./systems/farm/farmSystem.js";
-import { renderPlots } from "./systems/farm/plotRenderer.js";
+function openScreen(screenId) {
 
-import { renderInventory } from "./ui/inventoryRenderer.js";
-import { renderShop } from "./ui/shopRenderer.js";
-import { renderChat } from "./ui/chatRenderer.js";
-import { renderClans } from "./ui/clansRenderer.js";
-import { renderProfile } from "./ui/profileRenderer.js";
+  screens.forEach(screen => {
+    screen.classList.remove("active");
+  });
 
-import { devLogin } from "./core/devAuth.js";
+  navButtons.forEach(button => {
+    button.classList.remove("active");
+  });
 
-async function bootGame() {
+  const targetScreen = document.getElementById(screenId);
 
-  const profile = await devLogin();
+  if (targetScreen) {
+    targetScreen.classList.add("active");
+  }
 
-  console.log("PLAYER:", profile);
+  const activeButton = document.querySelector(
+    `.nav-btn[data-screen="${screenId}"]`
+  );
 
-  initRouter();
-
-  initFarmSystem();
-
-  renderPlots();
-
-  renderInventory();
-
-  renderShop();
-
-  renderChat();
-
-  renderClans();
-
-  renderProfile();
-
-  renderApp();
-
-  console.log("HUTOROK v7 STARTED");
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
 }
 
-bootGame();
+navButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const screenId = button.dataset.screen;
+
+    openScreen(screenId);
+
+  });
+
+});
