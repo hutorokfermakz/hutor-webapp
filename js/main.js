@@ -16,6 +16,9 @@ from "./ui/inventoryRenderer.js";
 import { renderShop }
 from "./ui/shopRenderer.js";
 
+import { renderChat }
+from "./ui/chatRenderer.js";
+
 function bootGame() {
   initRouter();
 
@@ -26,6 +29,8 @@ function bootGame() {
   renderInventory();
 
   renderShop();
+
+  renderChat();
 
   renderApp();
 
