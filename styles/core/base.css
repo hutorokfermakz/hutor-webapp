@@ -1,6 +1,39 @@
 /* =========================================
-   HUTOROK v7
-   CORE BASE
+   HUTOROK v7 — BASE
+========================================= */
+
+:root {
+
+  --bg: #04110b;
+
+  --panel:
+    rgba(10, 25, 18, 0.62);
+
+  --panel-strong:
+    rgba(6, 18, 12, 0.88);
+
+  --stroke:
+    rgba(120, 255, 180, 0.12);
+
+  --text: #f4f4f4;
+
+  --muted:
+    rgba(255,255,255,0.56);
+
+  --emerald: #00ff9c;
+
+  --emerald-soft: #00c97b;
+
+  --shadow:
+    0 10px 40px rgba(0,0,0,0.45);
+
+  --blur: blur(24px);
+
+  --nav-height: 110px;
+}
+
+/* =========================================
+   RESET
 ========================================= */
 
 * {
@@ -11,35 +44,46 @@
 
 html {
   width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body {
-  width: 100%;
-  min-height: 100vh;
 
-  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 
   background:
     radial-gradient(
       circle at top,
-      #003b20 0%,
-      #00140b 45%,
-      #000000 100%
+      rgba(0,255,140,0.18),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #021109 0%,
+      #020806 100%
     );
 
-  color: #ffffff;
-
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    sans-serif;
+  color: var(--text);
 
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+  position: fixed;
+  inset: 0;
+
+  touch-action: pan-y;
+
+  overscroll-behavior-y: none;
 }
 
 /* =========================================
@@ -47,49 +91,16 @@ body {
 ========================================= */
 
 .app {
-  position: relative;
+
+  position: fixed;
+  inset: 0;
+
+  overflow: hidden;
 
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
 
-  overflow-x: hidden;
-}
-
-/* =========================================
-   BACKGROUND
-========================================= */
-
-.background-glow {
-  position: fixed;
-
-  border-radius: 999px;
-  filter: blur(120px);
-
-  pointer-events: none;
-
-  z-index: 0;
-}
-
-.glow-1 {
-  top: -120px;
-  left: -120px;
-
-  width: 320px;
-  height: 320px;
-
-  background:
-    rgba(0, 255, 140, 0.14);
-}
-
-.glow-2 {
-  right: -140px;
-  bottom: -140px;
-
-  width: 360px;
-  height: 360px;
-
-  background:
-    rgba(0, 180, 120, 0.12);
+  background: transparent;
 }
 
 /* =========================================
@@ -97,12 +108,15 @@ body {
 ========================================= */
 
 .app-main {
-  position: relative;
+
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
 
   width: 100%;
-  min-height: 100vh;
-
-  z-index: 2;
+  height: 100%;
 }
 
 /* =========================================
@@ -110,14 +124,31 @@ body {
 ========================================= */
 
 .screen {
-  display: none;
+
+  position: absolute;
+
+  inset: 0;
 
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
+
+  display: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
 
   padding:
-    120px 28px
-    180px;
+    42px
+    24px
+    calc(var(--nav-height) + 36px);
+
+  scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar {
+  display: none;
 }
 
 .screen.active {
@@ -129,472 +160,141 @@ body {
 ========================================= */
 
 h1 {
-  font-size: 72px;
-  line-height: .95;
+  font-size: 58px;
+  line-height: 0.92;
   font-weight: 800;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
 }
 
 h2 {
-  font-size: 52px;
-  font-weight: 800;
+  font-size: 42px;
+  font-weight: 700;
 }
 
 h3 {
-  font-size: 34px;
+  font-size: 24px;
   font-weight: 700;
 }
 
 p {
-  line-height: 1.5;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
 /* =========================================
-   HERO
+   GLASS
 ========================================= */
 
-.hero-card {
-  position: relative;
+.glass {
 
-  margin-bottom: 48px;
-}
-
-.hero-label {
-  display: inline-block;
-
-  margin-bottom: 18px;
-
-  color:
-    rgba(255,255,255,.82);
-
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: .5px;
-}
-
-.hero-card p {
-  margin-top: 18px;
-
-  max-width: 720px;
-
-  color:
-    rgba(255,255,255,.82);
-
-  font-size: 22px;
-  line-height: 1.45;
-}
-
-/* =========================================
-   STATS
-========================================= */
-
-.stats-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: 18px;
-
-  margin-bottom: 52px;
-}
-
-.stat-card {
-  padding: 22px;
-
-  border-radius: 28px;
-
-  background:
-    rgba(0, 0, 0, .26);
+  background: var(--panel);
 
   border:
-    1px solid rgba(0,255,140,.08);
+    1px solid var(--stroke);
 
-  backdrop-filter:
-    blur(24px);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 
-  box-shadow:
-    0 0 30px rgba(0,255,120,.04);
-}
-
-.stat-card span {
-  display: block;
-
-  margin-bottom: 10px;
-
-  color:
-    rgba(255,255,255,.62);
-
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.stat-card h2 {
-  font-size: 44px;
-}
-
-/* =========================================
-   SECTION
-========================================= */
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 28px;
-}
-
-.section-header span {
-  color:
-    rgba(255,255,255,.45);
-
-  font-size: 20px;
-}
-
-/* =========================================
-   FARM GRID
-========================================= */
-
-.farm-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
-
-  gap: 24px;
-}
-
-/* =========================================
-   FARM SLOT
-========================================= */
-
-.farm-slot {
-  position: relative;
-
-  min-height: 420px;
-
-  padding: 28px;
-
-  border-radius: 36px;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,20,10,.92) 0%,
-      rgba(0,0,0,.96) 100%
-    );
-
-  border:
-    1px solid rgba(0,255,140,.08);
-
-  box-shadow:
-    0 0 40px rgba(0,255,120,.05);
-
-  backdrop-filter:
-    blur(24px);
-}
-
-/* =========================================
-   SLOT TOP
-========================================= */
-
-.slot-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 40px;
-}
-
-.slot-top h4 {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-/* =========================================
-   BADGES
-========================================= */
-
-.slot-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  min-width: 132px;
-  height: 64px;
-
-  padding: 0 24px;
-
-  border-radius: 999px;
-
-  color: #00ffb3;
-
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 6px;
-
-  background:
-    rgba(0,255,140,.08);
-
-  border:
-    1px solid rgba(0,255,140,.22);
-}
-
-.ready-badge {
-  color: #ffd54a;
-
-  background:
-    rgba(255,210,0,.10);
-
-  border:
-    1px solid rgba(255,210,0,.20);
-}
-
-/* =========================================
-   CROP
-========================================= */
-
-.crop-stage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 150px;
-
-  margin-bottom: 40px;
-
-  font-size: 88px;
-}
-
-.ready-crop {
-  animation:
-    cropGlow 2s ease-in-out infinite;
-}
-
-@keyframes cropGlow {
-
-  0% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 rgba(255,255,255,0));
-  }
-
-  50% {
-    transform: scale(1.06);
-    filter: drop-shadow(0 0 24px rgba(255,220,100,.4));
-  }
-
-  100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 0 rgba(255,255,255,0));
-  }
-}
-
-/* =========================================
-   PROGRESS
-========================================= */
-
-.slot-progress-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 18px;
-
-  color:
-    rgba(255,255,255,.78);
-
-  font-size: 18px;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 18px;
-
-  margin-bottom: 28px;
-
-  overflow: hidden;
-
-  border-radius: 999px;
-
-  background:
-    rgba(255,255,255,.06);
-}
-
-.progress-fill {
-  height: 100%;
-
-  border-radius: inherit;
-
-  background:
-    linear-gradient(
-      90deg,
-      #00ff99 0%,
-      #00d47a 100%
-    );
-
-  box-shadow:
-    0 0 20px rgba(0,255,140,.35);
-}
-
-.wheat-fill {
-  width: 52%;
-}
-
-.carrot-fill {
-  width: 24%;
+  box-shadow: var(--shadow);
 }
 
 /* =========================================
    BUTTONS
 ========================================= */
 
-.farm-action-btn,
-.harvest-btn {
-  width: 100%;
-  height: 76px;
+button {
 
   border: none;
-  border-radius: 26px;
+  outline: none;
 
-  font-size: 24px;
-  font-weight: 700;
+  background: transparent;
+
+  color: var(--text);
+
+  font: inherit;
 
   cursor: pointer;
 
-  transition:
-    .25s ease;
-}
-
-.farm-action-btn {
-  color: #ffffff;
-
-  background:
-    rgba(0,255,120,.12);
-
-  border:
-    1px solid rgba(0,255,120,.18);
-}
-
-.harvest-btn {
-  color: #000000;
-
-  background:
-    linear-gradient(
-      180deg,
-      #ffd54a 0%,
-      #ffbf00 100%
-    );
-
-  box-shadow:
-    0 0 30px rgba(255,200,0,.25);
-}
-
-.farm-action-btn:active,
-.harvest-btn:active {
-  transform: scale(.98);
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* =========================================
-   EMPTY
+   BACKGROUND GLOW
 ========================================= */
 
-.empty {
-  border:
-    2px dashed rgba(255,255,255,.08);
+.background-glow {
+
+  position: fixed;
+
+  border-radius: 50%;
+
+  filter: blur(120px);
+
+  pointer-events: none;
+
+  z-index: 0;
 }
 
-.empty-content,
-.locked-content {
-  display: flex;
-  flex-direction: column;
+.glow-1 {
 
-  align-items: center;
-  justify-content: center;
-
-  height: 100%;
-
-  gap: 24px;
-
-  text-align: center;
-}
-
-.empty-plus {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 120px;
-  height: 120px;
-
-  border-radius: 32px;
-
-  color: #00ffb3;
-
-  font-size: 72px;
-  font-weight: 300;
+  width: 320px;
+  height: 320px;
 
   background:
-    rgba(0,255,140,.06);
+    rgba(0,255,120,0.12);
 
-  border:
-    1px solid rgba(0,255,140,.12);
+  top: -120px;
+  left: -100px;
 }
 
-.empty-content span,
-.locked-content span {
-  color:
-    rgba(255,255,255,.42);
+.glow-2 {
 
-  font-size: 22px;
-}
+  width: 260px;
+  height: 260px;
 
-/* =========================================
-   LOCKED
-========================================= */
+  background:
+    rgba(0,180,120,0.08);
 
-.lock-icon {
-  font-size: 88px;
-
-  opacity: .45;
+  bottom: -100px;
+  right: -80px;
 }
 
 /* =========================================
-   BOTTOM NAV
+   BOTTOM NAVIGATION
 ========================================= */
 
 .bottom-nav {
+
   position: fixed;
 
-  left: 24px;
-  right: 24px;
+  left: 20px;
+  right: 20px;
   bottom: 18px;
 
-  height: 92px;
+  height: 86px;
 
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 
-  padding: 0 12px;
+  padding: 10px;
 
   border-radius: 32px;
 
-  background:
-    rgba(0, 20, 10, 0.72);
+  z-index: 9999;
 
-  backdrop-filter:
-    blur(24px);
+  background:
+    rgba(3, 18, 11, 0.84);
+
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
 
   border:
-    1px solid rgba(0,255,140,.12);
+    1px solid rgba(0,255,140,0.10);
 
   box-shadow:
-    0 0 40px rgba(0,255,120,.08);
-
-  z-index: 9999;
+    0 0 40px rgba(0,255,120,0.10),
+    0 12px 40px rgba(0,0,0,0.55);
 }
 
 /* =========================================
@@ -602,70 +302,93 @@ p {
 ========================================= */
 
 .nav-btn {
+
   position: relative;
 
-  height: 58px;
-  min-width: 58px;
+  flex: 1;
 
-  padding: 0 18px;
+  height: 66px;
 
-  border: none;
-  border-radius: 20px;
+  border-radius: 22px;
 
-  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  color:
-    rgba(255,255,255,.72);
-
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 
+  color:
+    rgba(255,255,255,0.72);
+
   transition:
-    .25s ease;
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 
-  cursor: pointer;
-}
+  overflow: hidden;
 
-.nav-btn.active {
-  color: #00ff9d;
-
-  background:
-    rgba(0,255,140,.12);
-
-  box-shadow:
-    0 0 24px rgba(0,255,140,.22);
+  white-space: nowrap;
 }
 
 /* =========================================
-   MOBILE
+   ACTIVE NAV
 ========================================= */
 
-@media (max-width: 768px) {
+.nav-btn.active {
 
-  h1 {
-    font-size: 58px;
-  }
+  color: var(--emerald);
 
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
+  background:
+    rgba(0,255,140,0.10);
 
-  .farm-grid {
-    grid-template-columns: 1fr;
-  }
+  box-shadow:
+    inset 0 0 24px rgba(0,255,140,0.08),
+    0 0 24px rgba(0,255,140,0.14);
+}
 
-  .farm-slot {
-    min-height: 380px;
-  }
+.nav-btn.active::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 8px;
+
+  border-radius: 18px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,255,140,0.16),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================
+   SAFE AREA
+========================================= */
+
+@supports (padding: max(0px)) {
 
   .bottom-nav {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+
+    padding-bottom:
+      max(10px, env(safe-area-inset-bottom));
+
+    bottom:
+      max(18px, env(safe-area-inset-bottom));
   }
 
-  .nav-btn {
-    padding: 0 10px;
-    font-size: 16px;
+  .screen {
+
+    padding-bottom:
+      calc(
+        var(--nav-height)
+        + env(safe-area-inset-bottom)
+        + 40px
+      );
   }
 }
