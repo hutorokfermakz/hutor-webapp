@@ -13,6 +13,9 @@ from "./systems/farm/plotRenderer.js";
 import { renderInventory }
 from "./ui/inventoryRenderer.js";
 
+import { renderShop }
+from "./ui/shopRenderer.js";
+
 function bootGame() {
   initRouter();
 
@@ -21,6 +24,8 @@ function bootGame() {
   renderPlots();
 
   renderInventory();
+
+  renderShop();
 
   renderApp();
 
