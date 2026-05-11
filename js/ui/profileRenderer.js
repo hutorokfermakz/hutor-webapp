@@ -1,5 +1,4 @@
-import { state }
-from "../core/state.js";
+import { state } from "../core/state.js";
 
 export function renderProfile() {
 
