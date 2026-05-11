@@ -17,3 +17,11 @@
 @import "./screens/clans.css";
 @import "./screens/chat.css";
 @import "./screens/profile.css";
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
