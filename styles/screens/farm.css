@@ -1,269 +1,261 @@
-.farm-scene {
-
-  position: relative;
-
+.farm-screen {
   width: 100%;
-  min-height: 620px;
-
-  border-radius: 36px;
-
+  min-height: 100vh;
+  padding:
+    24px
+    20px
+    180px;
+    
+  position: relative;
   overflow: hidden;
+}
 
-  padding: 24px;
+/* HERO */
+
+.farm-hero {
+  width: 100%;
+  
+  padding: 28px;
+  
+  border-radius: 34px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(0,255,174,0.05),
+      rgba(18, 18, 18, 0.92),
+      rgba(10, 10, 10, 0.88)
+    );
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(24px);
+
+  box-shadow:
+    0 0 40px rgba(0,255,140,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
+  position: relative;
+}
+
+/* HEADER */
+
+.hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+
+  margin-bottom: 26px;
+}
+
+.hero-title h1 {
+  font-size: 58px;
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  color: #ffffff;
+
+  line-height: 0.95;
+
+  margin-bottom: 10px;
+}
+
+.hero-title p {
+  font-size: 18px;
+  line-height: 1.4;
+
+  color: rgba(255,255,255,0.72);
+
+  max-width: 220px;
+}
+
+/* BALANCE */
+
+.hero-balance {
+  display: flex;
+  gap: 12px;
+}
+
+.balance-card {
+  min-width: 120px;
+
+  padding: 14px 16px;
+
+  border-radius: 24px;
+
+  background:
+    rgba(255,255,255,0.04);
+
+  border:
+    1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(16px);
+}
+
+.balance-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+
+  margin-bottom: 8px;
+}
+
+.balance-value {
+  font-size: 22px;
+  font-weight: 800;
+
+  color: #ffffff;
+}
+
+/* WELCOME */
+
+.welcome-card {
+  width: 100%;
+
+  padding: 28px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,255,140,0.10),
       rgba(255,255,255,0.02)
     );
 
   border:
-    1px solid
-    rgba(255,255,255,0.08);
+    1px solid rgba(255,255,255,0.06);
 
-  backdrop-filter:
-    blur(20px);
-
+  margin-bottom: 26px;
 }
 
-.sky-light {
+.welcome-card h2 {
+  font-size: 28px;
+  font-weight: 800;
 
-  position: absolute;
+  color: #ffffff;
 
-  top: -120px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  width: 320px;
-  height: 320px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(0,255,174,0.18);
-
-  filter:
-    blur(90px);
-
-  pointer-events: none;
-
+  margin-bottom: 16px;
 }
 
-.ambient-glow {
+.welcome-card p {
+  font-size: 18px;
+  line-height: 1.5;
 
-  position: absolute;
-
-  bottom: -80px;
-  right: -80px;
-
-  width: 240px;
-  height: 240px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(0,255,174,0.12);
-
-  filter:
-    blur(80px);
-
+  color: rgba(255,255,255,0.72);
 }
 
-#farm-grid {
+/* STATS */
 
-  position: relative;
-
-  z-index: 2;
-
-  margin-top: 40px;
-
+.stats-grid {
   display: grid;
 
   grid-template-columns:
-    repeat(4, 1fr);
+    repeat(3, 1fr);
 
-  gap: 16px;
-
+  gap: 14px;
 }
 
-.plot {
+.stat-card {
+  padding: 22px;
 
-  position: relative;
-
-  aspect-ratio: 1;
-
-  border-radius: 24px;
-
-  overflow: hidden;
+  border-radius: 28px;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.08),
-      rgba(255,255,255,0.03)
-    );
+    rgba(255,255,255,0.03);
 
   border:
-    1px solid
-    rgba(255,255,255,0.08);
+    1px solid rgba(255,255,255,0.06);
 
-  box-shadow:
-    inset 0 1px 0
-    rgba(255,255,255,0.06),
-
-    0 10px 30px
-    rgba(0,0,0,0.35);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.3s ease;
-
+  backdrop-filter: blur(18px);
 }
 
-.plot:active {
+.stat-label {
+  font-size: 15px;
 
-  transform:
-    scale(0.95);
+  color: rgba(255,255,255,0.55);
 
+  margin-bottom: 12px;
 }
 
-.plot::before {
+.stat-value {
+  font-size: 34px;
+  font-weight: 800;
 
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.04),
-      transparent
-    );
-
+  color: #ffffff;
 }
 
-.crop {
+/* MOBILE */
 
-  position: relative;
+@media (max-width: 700px) {
 
-  z-index: 2;
+  .farm-screen {
+    padding:
+      18px
+      14px
+      160px;
+  }
 
-  font-size: 11px;
+  .farm-hero {
+    padding: 20px;
+    border-radius: 28px;
+  }
 
-  text-align: center;
+  .hero-header {
+    flex-direction: column;
+  }
 
-  font-weight: 600;
+  .hero-title h1 {
+    font-size: 42px;
+  }
 
-  transition:
-    0.3s ease;
+  .hero-title p {
+    font-size: 16px;
+    max-width: 100%;
+  }
 
-}
+  .hero-balance {
+    width: 100%;
+  }
 
-.crop.seed {
+  .balance-card {
+    flex: 1;
+    min-width: auto;
+  }
 
-  opacity: 0.45;
+  .balance-value {
+    font-size: 20px;
+  }
 
-  transform:
-    scale(0.8);
+  .welcome-card {
+    padding: 22px;
+  }
 
-}
+  .welcome-card h2 {
+    font-size: 22px;
+  }
 
-.crop.sprout {
+  .welcome-card p {
+    font-size: 16px;
+  }
 
-  color:
-    #72ffb4;
+  .stats-grid {
+    grid-template-columns:
+      repeat(3, 1fr);
 
-  text-shadow:
-    0 0 12px
-    rgba(114,255,180,0.4);
+    gap: 10px;
+  }
 
-}
+  .stat-card {
+    padding: 18px 14px;
+    border-radius: 22px;
+  }
 
-.crop.growing {
+  .stat-label {
+    font-size: 13px;
+  }
 
-  color:
-    #00ffae;
-
-  text-shadow:
-    0 0 18px
-    rgba(0,255,174,0.5);
-
-  transform:
-    scale(1.05);
-
-}
-
-.crop.mature {
-
-  color:
-    #ffe082;
-
-  text-shadow:
-    0 0 22px
-    rgba(255,224,130,0.7);
-
-  animation:
-    cropPulse 2s ease-in-out infinite;
-
-}
-
-.rain {
-
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  overflow: hidden;
-
-}
-
-.rain::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: -100px;
-
-  background-image:
-    linear-gradient(
-      transparent 0%,
-      rgba(255,255,255,0.12) 100%
-    );
-
-  background-size:
-    2px 24px;
-
-  animation:
-    rainFall 0.7s linear infinite;
-
-  opacity: 0.3;
-
-}
-
-.night {
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    rgba(0,0,0,0.28);
-
-  pointer-events: none;
-
-}
-none;
-
+  .stat-value {
+    font-size: 24px;
+  }
 }
