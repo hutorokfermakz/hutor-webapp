@@ -106,41 +106,21 @@
 
       <!-- SLOT 1 -->
 
-      <div class="farm-slot growing">
+      <div class="farm-slot empty">
 
-        <div class="slot-top">
+  <div class="empty-content">
 
-          <h4>Пшеница</h4>
+    <div class="empty-plus">
+      +
+    </div>
 
-          <span class="slot-badge">
-            РОСТ
-          </span>
+    <span>
+      Посадить культуру
+    </span>
 
-        </div>
+  </div>
 
-        <div class="crop-stage">
-          🌾
-        </div>
-
-        <div class="slot-progress-info">
-
-          <span>До урожая</span>
-
-          <span id="timer-wheat">
-            2м 14с
-          </span>
-
-        </div>
-
-        <div class="progress-bar">
-          <div class="progress-fill wheat-fill"></div>
-        </div>
-
-        <button class="farm-action-btn">
-          Ускорить
-        </button>
-
-      </div>
+</div>
 
       <!-- SLOT 2 -->
 
@@ -162,92 +142,57 @@
 
       <!-- SLOT 3 -->
 
-      <div class="farm-slot growing">
+    <div class="farm-slot empty">
 
-        <div class="slot-top">
+  <div class="empty-content">
 
-          <h4>Морковь</h4>
+    <div class="empty-plus">
+      +
+    </div>
 
-          <span class="slot-badge">
-            РОСТ
-          </span>
+    <span>
+      Посадить культуру
+    </span>
 
-        </div>
+  </div>
 
-        <div class="crop-stage">
-          🥕
-        </div>
-
-        <div class="slot-progress-info">
-
-          <span>До урожая</span>
-
-          <span id="timer-carrot">
-            5м 41с
-          </span>
-
-        </div>
-
-        <div class="progress-bar">
-          <div class="progress-fill carrot-fill"></div>
-        </div>
-
-        <button class="farm-action-btn">
-          Полить
-        </button>
-
-      </div>
-
+</div>
+      
       <!-- SLOT 4 -->
 
-      <div class="farm-slot ready">
+      <div class="farm-slot empty">
 
-        <div class="slot-top">
+  <div class="empty-content">
 
-          <h4>Клубника</h4>
+    <div class="empty-plus">
+      +
+    </div>
 
-          <span class="slot-badge ready-badge">
-            ГОТОВО
-          </span>
+    <span>
+      Посадить культуру
+    </span>
 
-        </div>
+  </div>
 
-        <div class="crop-stage ready-crop">
-          🍓
-        </div>
-
-        <div class="slot-progress-info">
-
-          <span>Урожай созрел</span>
-
-          <span>+24</span>
-
-        </div>
-
-        <button class="harvest-btn">
-          Собрать урожай
-        </button>
-
-      </div>
-
+</div>
+      
       <!-- SLOT 5 -->
 
-      <div class="farm-slot locked">
+     <div class="farm-slot empty">
 
-        <div class="locked-content">
+  <div class="empty-content">
 
-          <div class="lock-icon">
-            🔒
-          </div>
+    <div class="empty-plus">
+      +
+    </div>
 
-          <span>
-            Откроется на 5 уровне
-          </span>
+    <span>
+      Посадить культуру
+    </span>
 
-        </div>
+  </div>
 
-      </div>
-
+</div>
       <!-- SLOT 6 -->
 
       <div class="farm-slot empty">
@@ -527,6 +472,75 @@
   </div>
 
 </div>
-  
+  <!-- =========================================
+     PLANT MODAL
+========================================= -->
+
+<div class="plant-modal" id="plant-modal">
+
+  <div class="plant-modal-content">
+
+    <div class="modal-top">
+
+      <h3>Выберите культуру</h3>
+
+      <button id="close-modal">
+        ✕
+      </button>
+
+    </div>
+
+    <div class="seed-grid">
+
+      <div
+        class="seed-card"
+        data-crop="wheat"
+      >
+        <div class="seed-emoji">🌾</div>
+
+        <h4>Пшеница</h4>
+
+        <span>Рост: 2 мин</span>
+      </div>
+
+      <div
+        class="seed-card"
+        data-crop="carrot"
+      >
+        <div class="seed-emoji">🥕</div>
+
+        <h4>Морковь</h4>
+
+        <span>Рост: 5 мин</span>
+      </div>
+
+      <div
+        class="seed-card"
+        data-crop="strawberry"
+      >
+        <div class="seed-emoji">🍓</div>
+
+        <h4>Клубника</h4>
+
+        <span>Рост: 8 мин</span>
+      </div>
+
+      <div
+        class="seed-card"
+        data-crop="corn"
+      >
+        <div class="seed-emoji">🌽</div>
+
+        <h4>Кукуруза</h4>
+
+        <span>Рост: 12 мин</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+    
 </body>
 </html>
