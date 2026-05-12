@@ -68,6 +68,39 @@ navButtons.forEach(button => {
 });
 
 /* =========================================
+   MODALS
+========================================= */
+
+const plantModal =
+    document.getElementById("plant-modal");
+
+const closeModalBtn =
+    document.getElementById("close-modal");
+
+if (closeModalBtn) {
+
+    closeModalBtn.addEventListener("click", () => {
+
+        plantModal.classList.remove("active");
+
+    });
+
+}
+
+if (plantModal) {
+
+    plantModal.addEventListener("click", e => {
+
+        if (e.target === plantModal) {
+
+            plantModal.classList.remove("active");
+
+        }
+
+    });
+
+}
+/* =========================================
    CROPS
 ========================================= */
 
