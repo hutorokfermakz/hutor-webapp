@@ -1,6 +1,6 @@
 /* =========================================
    HUTOROK v7
-   SCREEN NAVIGATION
+   APP
 ========================================= */
 
 const navButtons =
@@ -27,7 +27,11 @@ function switchScreen(screenId) {
     document.getElementById(screenId);
 
   if (targetScreen) {
+
     targetScreen.classList.add("active");
+
+    targetScreen.scrollTop = 0;
+
   }
 
   const activeButton =
@@ -38,10 +42,11 @@ function switchScreen(screenId) {
   if (activeButton) {
     activeButton.classList.add("active");
   }
+
 }
 
 /* =========================================
-   NAVIGATION EVENTS
+   NAVIGATION
 ========================================= */
 
 navButtons.forEach(button => {
@@ -67,80 +72,28 @@ switchScreen("farm-screen");
    PLANT MODAL
 ========================================= */
 
-const emptySlots =
-  document.querySelectorAll(".farm-slot.empty");
-
-const plantModal =
-  document.getElementById("plant-modal");
-
-const closeModal =
-  document.getElementById("close-modal");
-
-/* =========================================
-   OPEN MODAL
-========================================= */
-
-emptySlots.forEach(slot => {
-
-  slot.addEventListener("click", () => {
-
-    plantModal.classList.add("active");
-
-  });
-
-});
-
-/* =========================================
-   CLOSE MODAL
-========================================= */
-
-closeModal.addEventListener("click", () => {
-
-  plantModal.classList.remove("active");
-
-});
-
-plantModal.addEventListener("click", (e) => {
-
-  if (e.target === plantModal) {
-
-    plantModal.classList.remove("active");
-
-  }
-
-});
-
-/* =========================================
-   PLANT SYSTEM
-========================================= */
-
 const plantModal =
   document.getElementById("plant-modal");
 
 const closeModalBtn =
   document.getElementById("close-modal");
 
-const seedCards =
-  document.querySelectorAll(".seed-card");
-
-const emptySlots =
-  document.querySelectorAll(".farm-slot.empty");
-
 let currentSlot = null;
 
 /* =========================================
-   OPEN MODAL
+   OPEN EMPTY SLOT
 ========================================= */
 
-emptySlots.forEach(slot => {
+document.addEventListener("click", (event) => {
 
-  slot.addEventListener("click", () => {
+  const emptySlot =
+    event.target.closest(".farm-slot.empty");
 
-    currentSlot = slot;
+  if (!emptySlot) return;
 
-    plantModal.classList.add("active");
+  currentSlot = emptySlot;
 
-  });
+  plantModal.classList.add("active");
 
 });
 
@@ -165,7 +118,7 @@ plantModal.addEventListener("click", (event) => {
 });
 
 /* =========================================
-   SEED DATA
+   CROPS
 ========================================= */
 
 const crops = {
@@ -191,8 +144,11 @@ const crops = {
 };
 
 /* =========================================
-   PLANT CROP
+   PLANTING
 ========================================= */
+
+const seedCards =
+  document.querySelectorAll(".seed-card");
 
 seedCards.forEach(card => {
 
