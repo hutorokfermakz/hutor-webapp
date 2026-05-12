@@ -133,27 +133,39 @@ function updateInventoryUI() {
 const crops = {
 
     wheat: {
+
         name: "Пшеница",
+
         emoji: "🌾",
+
         growTime: 120,
-        reward: 12,
-        coins: 24
+
+        reward: 12
+
     },
 
     carrot: {
+
         name: "Морковь",
+
         emoji: "🥕",
+
         growTime: 300,
-        reward: 18,
-        coins: 40
+
+        reward: 28
+
     },
 
     strawberry: {
+
         name: "Клубника",
+
         emoji: "🍓",
+
         growTime: 480,
-        reward: 25,
-        coins: 70
+
+        reward: 55
+
     }
 
 };
