@@ -1,115 +1,70 @@
-/* =========================================
-   HUTOROK v7
+/* =========================
    APP
-========================================= */
+========================= */
 
-const navButtons =
-  document.querySelectorAll(".nav-btn");
+const app = document.getElementById("app");
 
-const screens =
-  document.querySelectorAll(".screen");
-
-/* =========================================
-   SWITCH SCREEN
-========================================= */
-
-function switchScreen(screenId) {
-
-  screens.forEach(screen => {
-    screen.classList.remove("active");
-  });
-
-  navButtons.forEach(button => {
-    button.classList.remove("active");
-  });
-
-  const targetScreen =
-    document.getElementById(screenId);
-
-  if (targetScreen) {
-
-    targetScreen.classList.add("active");
-
-    targetScreen.scrollTop = 0;
-
-  }
-
-  const activeButton =
-    document.querySelector(
-      `.nav-btn[data-screen="${screenId}"]`
-    );
-
-  if (activeButton) {
-    activeButton.classList.add("active");
-  }
-
-}
-
-/* =========================================
+/* =========================
    NAVIGATION
-========================================= */
+========================= */
 
-navButtons.forEach(button => {
+const navButtons = document.querySelectorAll(".nav-btn");
+const screens = document.querySelectorAll(".screen");
+
+navButtons.forEach((button) => {
 
   button.addEventListener("click", () => {
 
-    const screenId =
-      button.dataset.screen;
+    const target = button.dataset.screen;
 
-    switchScreen(screenId);
+    navButtons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+
+    screens.forEach((screen) => {
+      screen.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    document.getElementById(target).classList.add("active");
 
   });
 
 });
 
-/* =========================================
-   DEFAULT SCREEN
-========================================= */
+/* =========================
+   MODAL
+========================= */
 
-switchScreen("farm-screen");
+const plantModal = document.getElementById("plant-modal");
+const closeModal = document.getElementById("close-modal");
 
-/* =========================================
-   PLANT MODAL
-========================================= */
+/* OPEN MODAL */
 
-const plantModal =
-  document.getElementById("plant-modal");
+document.querySelectorAll(".farm-slot.empty").forEach((slot) => {
 
-const closeModalBtn =
-  document.getElementById("close-modal");
+  slot.addEventListener("click", () => {
 
-let currentSlot = null;
+    currentSlot = slot;
 
-/* =========================================
-   OPEN EMPTY SLOT
-========================================= */
+    plantModal.classList.add("active");
 
-document.addEventListener("click", (event) => {
-
-  const emptySlot =
-    event.target.closest(".farm-slot.empty");
-
-  if (!emptySlot) return;
-
-  currentSlot = emptySlot;
-
-  plantModal.classList.add("active");
+  });
 
 });
 
-/* =========================================
-   CLOSE MODAL
-========================================= */
+/* CLOSE MODAL */
 
-closeModalBtn.addEventListener("click", () => {
+closeModal.addEventListener("click", () => {
 
   plantModal.classList.remove("active");
 
 });
 
-plantModal.addEventListener("click", (event) => {
+plantModal.addEventListener("click", (e) => {
 
-  if (event.target === plantModal) {
+  if (e.target === plantModal) {
 
     plantModal.classList.remove("active");
 
@@ -117,9 +72,9 @@ plantModal.addEventListener("click", (event) => {
 
 });
 
-/* =========================================
+/* =========================
    CROPS
-========================================= */
+========================= */
 
 const crops = {
 
@@ -142,6 +97,7 @@ const crops = {
   }
 
 };
+
 /* =========================
    PLANTING
 ========================= */
@@ -150,7 +106,7 @@ const seedCards = document.querySelectorAll(".seed-card");
 
 let currentSlot = null;
 
-/* OPEN MODAL */
+/* OPEN EMPTY SLOTS */
 
 document.querySelectorAll(".farm-slot.empty").forEach((slot) => {
 
@@ -176,17 +132,17 @@ seedCards.forEach((card) => {
 
     const crop = crops[cropKey];
 
-    currentSlot.classList.remove("empty");
-
-    currentSlot.classList.add("growing");
+    currentSlot.className = "farm-slot growing";
 
     currentSlot.innerHTML = `
       <div class="slot-top">
+
         <h4>${crop.name}</h4>
 
         <span class="slot-badge">
           РОСТ
         </span>
+
       </div>
 
       <div class="crop-stage">
@@ -194,12 +150,17 @@ seedCards.forEach((card) => {
       </div>
 
       <div class="slot-progress-info">
+
         <span>До урожая</span>
+
         <span>${crop.time}</span>
+
       </div>
 
       <div class="slot-progress">
+
         <div class="slot-progress-bar"></div>
+
       </div>
 
       <button class="slot-action">
