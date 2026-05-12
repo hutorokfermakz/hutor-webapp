@@ -636,3 +636,191 @@ button {
 body {
   overflow-x: hidden;
 }
+/* =========================================
+   PLANT MODAL
+========================================= */
+
+.plant-modal {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    rgba(0,0,0,0.72);
+
+  backdrop-filter: blur(18px);
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.35s ease;
+}
+
+.plant-modal.active {
+
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.plant-modal-content {
+
+  width: 100%;
+  max-width: 700px;
+
+  border-radius: 34px 34px 0 0;
+
+  padding: 30px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(0,255,140,0.14),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(0,255,140,0.08),
+      transparent 40%
+    ),
+    rgba(5,10,8,0.96);
+
+  border:
+    1px solid rgba(0,255,140,0.14);
+
+  box-shadow:
+    0 -20px 60px rgba(0,0,0,0.55),
+    0 0 60px rgba(0,255,140,0.08);
+
+  transform:
+    translateY(80px);
+
+  transition:
+    transform 0.35s ease;
+}
+
+.plant-modal.active
+.plant-modal-content {
+
+  transform:
+    translateY(0);
+}
+
+.modal-top {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 26px;
+}
+
+.modal-top h3 {
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #ffffff;
+}
+
+#close-modal {
+
+  width: 52px;
+  height: 52px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background:
+    rgba(255,255,255,0.06);
+
+  color:
+    rgba(255,255,255,0.8);
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+.seed-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 18px;
+}
+
+.seed-card {
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 28px;
+
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0,255,140,0.08),
+      rgba(0,0,0,0.35)
+    );
+
+  border:
+    1px solid rgba(0,255,140,0.12);
+
+  cursor: pointer;
+
+  transition:
+    0.3s ease;
+}
+
+.seed-card:hover {
+
+  border-color:
+    rgba(0,255,140,0.3);
+
+  box-shadow:
+    0 0 30px rgba(0,255,140,0.14);
+}
+
+.seed-card:active {
+  transform: scale(0.97);
+}
+
+.seed-emoji {
+
+  font-size: 54px;
+
+  margin-bottom: 18px;
+}
+
+.seed-card h4 {
+
+  color: #ffffff;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  margin-bottom: 10px;
+}
+
+.seed-card span {
+
+  color:
+    rgba(255,255,255,0.55);
+
+  font-size: 14px;
+}
