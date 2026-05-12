@@ -1,7 +1,6 @@
 /* ======================================================
    HUTOROK v7
-   MAIN.JS
-   FULL WORKING VERSION
+   FULL MAIN.JS
 ====================================================== */
 
 /* ======================================================
@@ -19,14 +18,30 @@ if (tg) {
    NAVIGATION
 ====================================================== */
 
-const navButtons = document.querySelectorAll(".nav-btn");
-const screens = document.querySelectorAll(".screen");
+const navButtons =
+    document.querySelectorAll(".nav-btn");
+
+const screens =
+    document.querySelectorAll(".screen");
+
+function openScreen(screenId) {
+
+    screens.forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    const targetScreen =
+        document.getElementById(screenId);
+
+    if (targetScreen) {
+        targetScreen.classList.add("active");
+    }
+
+}
 
 navButtons.forEach(button => {
 
     button.addEventListener("click", () => {
-
-        const target = button.dataset.screen;
 
         navButtons.forEach(btn => {
             btn.classList.remove("active");
@@ -34,47 +49,99 @@ navButtons.forEach(button => {
 
         button.classList.add("active");
 
-        screens.forEach(screen => {
+        const screenId =
+            button.dataset.screen;
 
-            if (screen.id === target) {
-                screen.classList.add("active");
-            } else {
-                screen.classList.remove("active");
-            }
-
-        });
+        openScreen(screenId);
 
     });
 
 });
 
 /* ======================================================
-   FARM SYSTEM
+   MODAL
 ====================================================== */
 
-const farmSlots = document.querySelectorAll(".farm-slot.empty");
-const plantModal = document.getElementById("plant-modal");
-const closeModal = document.getElementById("close-modal");
+const plantModal =
+    document.getElementById("plant-modal");
+
+const closeModal =
+    document.getElementById("close-modal");
 
 let currentSlot = null;
 
-/* ---------- OPEN MODAL ---------- */
+/* ======================================================
+   CROPS
+====================================================== */
 
-farmSlots.forEach(slot => {
+const crops = {
 
-    slot.addEventListener("click", () => {
+    wheat: {
+        name: "Пшеница",
+        emoji: "🌾",
+        growTime: 120
+    },
 
-        currentSlot = slot;
+    carrot: {
+        name: "Морковь",
+        emoji: "🥕",
+        growTime: 300
+    },
 
-        if (plantModal) {
-            plantModal.classList.add("active");
-        }
+    strawberry: {
+        name: "Клубника",
+        emoji: "🍓",
+        growTime: 480
+    }
+
+};
+
+/* ======================================================
+   FORMAT TIME
+====================================================== */
+
+function formatTime(seconds) {
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secs =
+        seconds % 60;
+
+    return `${minutes}м ${secs}с`;
+
+}
+
+/* ======================================================
+   OPEN MODAL
+====================================================== */
+
+function bindFarmSlots() {
+
+    const emptySlots =
+        document.querySelectorAll(".farm-slot.empty");
+
+    emptySlots.forEach(slot => {
+
+        slot.onclick = () => {
+
+            currentSlot = slot;
+
+            if (plantModal) {
+                plantModal.classList.add("active");
+            }
+
+        };
 
     });
 
-});
+}
 
-/* ---------- CLOSE MODAL ---------- */
+bindFarmSlots();
+
+/* ======================================================
+   CLOSE MODAL
+====================================================== */
 
 if (closeModal) {
 
@@ -86,14 +153,14 @@ if (closeModal) {
 
 }
 
-/* ---------- CLOSE ON BACKDROP ---------- */
-
 if (plantModal) {
 
     plantModal.addEventListener("click", (e) => {
 
         if (e.target === plantModal) {
+
             plantModal.classList.remove("active");
+
         }
 
     });
@@ -101,39 +168,11 @@ if (plantModal) {
 }
 
 /* ======================================================
-   CROPS
+   PLANTING SYSTEM
 ====================================================== */
 
-const crops = {
-
-    wheat: {
-        name: "Пшеница",
-        emoji: "🌾",
-        time: "2 мин",
-        badge: "РОСТ"
-    },
-
-    carrot: {
-        name: "Морковь",
-        emoji: "🥕",
-        time: "5 мин",
-        badge: "РОСТ"
-    },
-
-    strawberry: {
-        name: "Клубника",
-        emoji: "🍓",
-        time: "8 мин",
-        badge: "РОСТ"
-    }
-
-};
-
-/* ======================================================
-   SEED CARDS
-====================================================== */
-
-const seedCards = document.querySelectorAll(".seed-card");
+const seedCards =
+    document.querySelectorAll(".seed-card");
 
 seedCards.forEach(card => {
 
@@ -141,12 +180,20 @@ seedCards.forEach(card => {
 
         if (!currentSlot) return;
 
-        const cropKey = card.dataset.crop;
-        const crop = crops[cropKey];
+        const cropKey =
+            card.dataset.crop;
+
+        const crop =
+            crops[cropKey];
 
         if (!crop) return;
 
+        let remaining =
+            crop.growTime;
+
         currentSlot.classList.remove("empty");
+
+        currentSlot.classList.add("growing");
 
         currentSlot.innerHTML = `
 
@@ -155,7 +202,7 @@ seedCards.forEach(card => {
                 <h4>${crop.name}</h4>
 
                 <span class="slot-badge">
-                    ${crop.badge}
+                    РОСТ
                 </span>
 
             </div>
@@ -166,23 +213,126 @@ seedCards.forEach(card => {
 
             <div class="slot-progress-info">
 
-                <span>До урожая</span>
+                <span>
+                    До урожая
+                </span>
 
-                <span>${crop.time}</span>
-
-            </div>
-
-            <div class="slot-progress">
-
-                <div class="slot-progress-fill"></div>
+                <span class="grow-timer">
+                    ${formatTime(remaining)}
+                </span>
 
             </div>
 
-            <button class="slot-action-btn">
-                Ускорить
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: 0%"
+                ></div>
+
+            </div>
+
+            <button class="farm-action-btn">
+                Полить
             </button>
 
         `;
+
+        const timerElement =
+            currentSlot.querySelector(".grow-timer");
+
+        const progressFill =
+            currentSlot.querySelector(".progress-fill");
+
+        const interval = setInterval(() => {
+
+            remaining--;
+
+            const progress =
+                (
+                    (crop.growTime - remaining)
+                    / crop.growTime
+                ) * 100;
+
+            progressFill.style.width =
+                `${progress}%`;
+
+            timerElement.textContent =
+                formatTime(remaining);
+
+            if (remaining <= 0) {
+
+                clearInterval(interval);
+
+                currentSlot.classList.remove("growing");
+
+                currentSlot.classList.add("ready");
+
+                currentSlot.innerHTML = `
+
+                    <div class="slot-top">
+
+                        <h4>${crop.name}</h4>
+
+                        <span class="slot-badge ready-badge">
+                            ГОТОВО
+                        </span>
+
+                    </div>
+
+                    <div class="crop-stage ready-crop">
+                        ${crop.emoji}
+                    </div>
+
+                    <div class="slot-progress-info">
+
+                        <span>
+                            Урожай созрел
+                        </span>
+
+                        <span>
+                            +12
+                        </span>
+
+                    </div>
+
+                    <button class="harvest-btn">
+                        Собрать урожай
+                    </button>
+
+                `;
+
+                const harvestBtn =
+                    currentSlot.querySelector(".harvest-btn");
+
+                harvestBtn.addEventListener("click", () => {
+
+                    currentSlot.className =
+                        "farm-slot empty";
+
+                    currentSlot.innerHTML = `
+
+                        <div class="empty-content">
+
+                            <div class="empty-plus">
+                                +
+                            </div>
+
+                            <span>
+                                Посадить культуру
+                            </span>
+
+                        </div>
+
+                    `;
+
+                    bindFarmSlots();
+
+                });
+
+            }
+
+        }, 1000);
 
         plantModal.classList.remove("active");
 
@@ -193,59 +343,37 @@ seedCards.forEach(card => {
 });
 
 /* ======================================================
-   COUNTER ANIMATION
+   SIMPLE ANIMATIONS
 ====================================================== */
 
-const statNumbers = document.querySelectorAll(".stat-value");
-
-statNumbers.forEach(stat => {
-
-    const target = parseInt(stat.dataset.target || stat.textContent);
-
-    let current = 0;
-
-    const increment = Math.max(1, Math.floor(target / 40));
-
-    const updateCounter = () => {
-
-        current += increment;
-
-        if (current >= target) {
-            stat.textContent = target;
-            return;
-        }
-
-        stat.textContent = current;
-
-        requestAnimationFrame(updateCounter);
-
-    };
-
-    updateCounter();
-
-});
-
-/* ======================================================
-   SIMPLE FADE-IN
-====================================================== */
-
-const animatedCards = document.querySelectorAll(
-    ".glass-card, .farm-slot, .seed-card"
-);
+const animatedCards =
+    document.querySelectorAll(
+        ".farm-slot, .seed-card, .stat-card"
+    );
 
 animatedCards.forEach((card, index) => {
 
     card.style.opacity = "0";
-    card.style.transform = "translateY(20px)";
+
+    card.style.transform =
+        "translateY(20px)";
 
     setTimeout(() => {
 
         card.style.transition =
-            "opacity 0.5s ease, transform 0.5s ease";
+            "0.45s ease";
 
         card.style.opacity = "1";
-        card.style.transform = "translateY(0)";
 
-    }, index * 80);
+        card.style.transform =
+            "translateY(0px)";
+
+    }, index * 60);
 
 });
+
+/* ======================================================
+   START SCREEN
+====================================================== */
+
+openScreen("farm-screen");
