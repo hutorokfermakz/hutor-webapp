@@ -39,7 +39,10 @@ function openScreen(screenId) {
 
         button.classList.remove("active");
 
-        if (button.dataset.screen === screenId) {
+        if (
+            button.getAttribute("data-screen")
+            === screenId
+        ) {
 
             button.classList.add("active");
 
@@ -54,47 +57,15 @@ navButtons.forEach(button => {
     button.addEventListener("click", () => {
 
         const screenId =
-            button.dataset.screen;
+            button.getAttribute("data-screen");
+
+        if (!screenId) return;
 
         openScreen(screenId);
 
     });
 
 });
-
-/* =========================================
-   MODALS
-========================================= */
-
-const plantModal =
-    document.getElementById("plant-modal");
-
-const closeModalBtn =
-    document.getElementById("close-plant-modal");
-
-if (closeModalBtn) {
-
-    closeModalBtn.addEventListener("click", () => {
-
-        plantModal.classList.remove("active");
-
-    });
-
-}
-
-if (plantModal) {
-
-    plantModal.addEventListener("click", e => {
-
-        if (e.target === plantModal) {
-
-            plantModal.classList.remove("active");
-
-        }
-
-    });
-
-}
 
 /* =========================================
    CROPS
