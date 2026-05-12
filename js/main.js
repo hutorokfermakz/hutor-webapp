@@ -1,45 +1,32 @@
-/* =========================================================
+/* ======================================================
    HUTOROK v7
-   FULL WORKING MAIN.JS
-========================================================= */
+   MAIN.JS
+   FULL WORKING VERSION
+====================================================== */
 
-/* =========================================================
+/* ======================================================
    TELEGRAM
-========================================================= */
+====================================================== */
 
-const tg = window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp;
 
-tg.expand();
-
-/* =========================================================
-   SCREENS
-========================================================= */
-
-const screens = document.querySelectorAll(".screen");
-
-function openScreen(screenId) {
-
-    screens.forEach(screen => {
-        screen.classList.remove("active");
-    });
-
-    const targetScreen = document.getElementById(screenId);
-
-    if (targetScreen) {
-        targetScreen.classList.add("active");
-    }
-
+if (tg) {
+    tg.expand();
+    tg.ready();
 }
 
-/* =========================================================
+/* ======================================================
    NAVIGATION
-========================================================= */
+====================================================== */
 
 const navButtons = document.querySelectorAll(".nav-btn");
+const screens = document.querySelectorAll(".screen");
 
 navButtons.forEach(button => {
 
     button.addEventListener("click", () => {
+
+        const target = button.dataset.screen;
 
         navButtons.forEach(btn => {
             btn.classList.remove("active");
@@ -47,51 +34,47 @@ navButtons.forEach(button => {
 
         button.classList.add("active");
 
-        const screenId = button.dataset.screen;
+        screens.forEach(screen => {
 
-        openScreen(screenId);
+            if (screen.id === target) {
+                screen.classList.add("active");
+            } else {
+                screen.classList.remove("active");
+            }
+
+        });
 
     });
 
 });
 
-/* =========================================================
-   PLANT MODAL
-========================================================= */
+/* ======================================================
+   FARM SYSTEM
+====================================================== */
 
+const farmSlots = document.querySelectorAll(".farm-slot.empty");
 const plantModal = document.getElementById("plant-modal");
-
 const closeModal = document.getElementById("close-modal");
 
 let currentSlot = null;
 
-/* =========================================================
-   OPEN MODAL
-========================================================= */
+/* ---------- OPEN MODAL ---------- */
 
-function bindEmptySlots() {
+farmSlots.forEach(slot => {
 
-    const emptySlots = document.querySelectorAll(".farm-slot.empty");
+    slot.addEventListener("click", () => {
 
-    emptySlots.forEach(slot => {
+        currentSlot = slot;
 
-        slot.onclick = () => {
-
-            currentSlot = slot;
-
+        if (plantModal) {
             plantModal.classList.add("active");
-
-        };
+        }
 
     });
 
-}
+});
 
-bindEmptySlots();
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
+/* ---------- CLOSE MODAL ---------- */
 
 if (closeModal) {
 
@@ -103,61 +86,52 @@ if (closeModal) {
 
 }
 
+/* ---------- CLOSE ON BACKDROP ---------- */
+
 if (plantModal) {
 
-    plantModal.addEventListener("click", e => {
+    plantModal.addEventListener("click", (e) => {
 
         if (e.target === plantModal) {
-
             plantModal.classList.remove("active");
-
         }
 
     });
 
 }
 
-/* =========================================================
+/* ======================================================
    CROPS
-========================================================= */
+====================================================== */
 
 const crops = {
 
     wheat: {
-
         name: "Пшеница",
-
         emoji: "🌾",
-
-        time: "2м 14с"
-
+        time: "2 мин",
+        badge: "РОСТ"
     },
 
     carrot: {
-
         name: "Морковь",
-
         emoji: "🥕",
-
-        time: "5м 10с"
-
+        time: "5 мин",
+        badge: "РОСТ"
     },
 
     strawberry: {
-
         name: "Клубника",
-
         emoji: "🍓",
-
-        time: "8м 42с"
-
+        time: "8 мин",
+        badge: "РОСТ"
     }
 
 };
 
-/* =========================================================
-   PLANTING SYSTEM
-========================================================= */
+/* ======================================================
+   SEED CARDS
+====================================================== */
 
 const seedCards = document.querySelectorAll(".seed-card");
 
@@ -168,14 +142,11 @@ seedCards.forEach(card => {
         if (!currentSlot) return;
 
         const cropKey = card.dataset.crop;
-
         const crop = crops[cropKey];
 
         if (!crop) return;
 
         currentSlot.classList.remove("empty");
-
-        currentSlot.classList.add("growing");
 
         currentSlot.innerHTML = `
 
@@ -184,7 +155,7 @@ seedCards.forEach(card => {
                 <h4>${crop.name}</h4>
 
                 <span class="slot-badge">
-                    РОСТ
+                    ${crop.badge}
                 </span>
 
             </div>
@@ -202,10 +173,12 @@ seedCards.forEach(card => {
             </div>
 
             <div class="slot-progress">
-                <div class="slot-progress-bar"></div>
+
+                <div class="slot-progress-fill"></div>
+
             </div>
 
-            <button class="slot-action">
+            <button class="slot-action-btn">
                 Ускорить
             </button>
 
@@ -219,31 +192,60 @@ seedCards.forEach(card => {
 
 });
 
-/* =========================================================
-   PROFILE
-========================================================= */
+/* ======================================================
+   COUNTER ANIMATION
+====================================================== */
 
-const profileName = document.getElementById("profile-name");
+const statNumbers = document.querySelectorAll(".stat-value");
 
-if (profileName && tg.initDataUnsafe.user) {
+statNumbers.forEach(stat => {
 
-    profileName.textContent =
-        tg.initDataUnsafe.user.first_name || "Player";
+    const target = parseInt(stat.dataset.target || stat.textContent);
 
-}
+    let current = 0;
 
-/* =========================================================
-   SAFE TOUCH SUPPORT
-========================================================= */
+    const increment = Math.max(1, Math.floor(target / 40));
 
-document.addEventListener(
-    "touchstart",
-    () => {},
-    { passive: true }
+    const updateCounter = () => {
+
+        current += increment;
+
+        if (current >= target) {
+            stat.textContent = target;
+            return;
+        }
+
+        stat.textContent = current;
+
+        requestAnimationFrame(updateCounter);
+
+    };
+
+    updateCounter();
+
+});
+
+/* ======================================================
+   SIMPLE FADE-IN
+====================================================== */
+
+const animatedCards = document.querySelectorAll(
+    ".glass-card, .farm-slot, .seed-card"
 );
 
-/* =========================================================
-   START SCREEN
-========================================================= */
+animatedCards.forEach((card, index) => {
 
-openScreen("farm-screen");
+    card.style.opacity = "0";
+    card.style.transform = "translateY(20px)";
+
+    setTimeout(() => {
+
+        card.style.transition =
+            "opacity 0.5s ease, transform 0.5s ease";
+
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+
+    }, index * 80);
+
+});
