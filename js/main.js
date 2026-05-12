@@ -1,6 +1,6 @@
 /* =========================================================
    HUTOROK v7
-   MAIN.JS
+   FULL WORKING MAIN.JS
 ========================================================= */
 
 /* =========================================================
@@ -12,18 +12,34 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 
 /* =========================================================
+   SCREENS
+========================================================= */
+
+const screens = document.querySelectorAll(".screen");
+
+function openScreen(screenId) {
+
+    screens.forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    const targetScreen = document.getElementById(screenId);
+
+    if (targetScreen) {
+        targetScreen.classList.add("active");
+    }
+
+}
+
+/* =========================================================
    NAVIGATION
 ========================================================= */
 
 const navButtons = document.querySelectorAll(".nav-btn");
 
-const screens = document.querySelectorAll(".screen");
-
 navButtons.forEach(button => {
 
     button.addEventListener("click", () => {
-
-        const target = button.dataset.screen;
 
         navButtons.forEach(btn => {
             btn.classList.remove("active");
@@ -31,15 +47,9 @@ navButtons.forEach(button => {
 
         button.classList.add("active");
 
-        screens.forEach(screen => {
+        const screenId = button.dataset.screen;
 
-            screen.classList.remove("active");
-
-            if (screen.id === target) {
-                screen.classList.add("active");
-            }
-
-        });
+        openScreen(screenId);
 
     });
 
@@ -53,37 +63,59 @@ const plantModal = document.getElementById("plant-modal");
 
 const closeModal = document.getElementById("close-modal");
 
-const emptySlots = document.querySelectorAll(".farm-slot.empty");
-
 let currentSlot = null;
 
-emptySlots.forEach(slot => {
+/* =========================================================
+   OPEN MODAL
+========================================================= */
 
-    slot.addEventListener("click", () => {
+function bindEmptySlots() {
 
-        currentSlot = slot;
+    const emptySlots = document.querySelectorAll(".farm-slot.empty");
 
-        plantModal.classList.add("active");
+    emptySlots.forEach(slot => {
+
+        slot.onclick = () => {
+
+            currentSlot = slot;
+
+            plantModal.classList.add("active");
+
+        };
 
     });
 
-});
+}
 
-closeModal.addEventListener("click", () => {
+bindEmptySlots();
 
-    plantModal.classList.remove("active");
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
 
-});
+if (closeModal) {
 
-plantModal.addEventListener("click", e => {
-
-    if (e.target === plantModal) {
+    closeModal.addEventListener("click", () => {
 
         plantModal.classList.remove("active");
 
-    }
+    });
 
-});
+}
+
+if (plantModal) {
+
+    plantModal.addEventListener("click", e => {
+
+        if (e.target === plantModal) {
+
+            plantModal.classList.remove("active");
+
+        }
+
+    });
+
+}
 
 /* =========================================================
    CROPS
@@ -124,7 +156,7 @@ const crops = {
 };
 
 /* =========================================================
-   PLANTING
+   PLANTING SYSTEM
 ========================================================= */
 
 const seedCards = document.querySelectorAll(".seed-card");
@@ -138,6 +170,12 @@ seedCards.forEach(card => {
         const cropKey = card.dataset.crop;
 
         const crop = crops[cropKey];
+
+        if (!crop) return;
+
+        currentSlot.classList.remove("empty");
+
+        currentSlot.classList.add("growing");
 
         currentSlot.innerHTML = `
 
@@ -173,10 +211,6 @@ seedCards.forEach(card => {
 
         `;
 
-        currentSlot.classList.remove("empty");
-
-        currentSlot.classList.add("growing");
-
         plantModal.classList.remove("active");
 
         currentSlot = null;
@@ -199,9 +233,17 @@ if (profileName && tg.initDataUnsafe.user) {
 }
 
 /* =========================================================
-   PREMIUM ANIMATIONS
+   SAFE TOUCH SUPPORT
 ========================================================= */
 
-document.addEventListener("touchstart", () => {}, {
-    passive: true
-});
+document.addEventListener(
+    "touchstart",
+    () => {},
+    { passive: true }
+);
+
+/* =========================================================
+   START SCREEN
+========================================================= */
+
+openScreen("farm-screen");
