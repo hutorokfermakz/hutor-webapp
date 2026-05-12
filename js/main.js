@@ -152,7 +152,7 @@ let currentSlot = null;
 
 /* OPEN MODAL */
 
-document.querySelectorAll(".farm-slot.empty").forEach(slot => {
+document.querySelectorAll(".farm-slot.empty").forEach((slot) => {
 
   slot.addEventListener("click", () => {
 
@@ -166,7 +166,7 @@ document.querySelectorAll(".farm-slot.empty").forEach(slot => {
 
 /* PLANT SEED */
 
-seedCards.forEach(card => {
+seedCards.forEach((card) => {
 
   card.addEventListener("click", () => {
 
@@ -178,16 +178,15 @@ seedCards.forEach(card => {
 
     currentSlot.classList.remove("empty");
 
+    currentSlot.classList.add("growing");
+
     currentSlot.innerHTML = `
-
       <div class="slot-top">
-
         <h4>${crop.name}</h4>
 
         <span class="slot-badge">
           РОСТ
         </span>
-
       </div>
 
       <div class="crop-stage">
@@ -195,26 +194,18 @@ seedCards.forEach(card => {
       </div>
 
       <div class="slot-progress-info">
-
         <span>До урожая</span>
-
         <span>${crop.time}</span>
-
       </div>
 
       <div class="slot-progress">
-
         <div class="slot-progress-bar"></div>
-
       </div>
 
       <button class="slot-action">
         Ускорить
       </button>
-
     `;
-
-    currentSlot.classList.add("growing");
 
     plantModal.classList.remove("active");
 
