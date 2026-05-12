@@ -142,12 +142,29 @@ const crops = {
   }
 
 };
-/* =========================================
+/* =========================
    PLANTING
-========================================= */
+========================= */
 
-const seedCards =
-  document.querySelectorAll(".seed-card");
+const seedCards = document.querySelectorAll(".seed-card");
+
+let currentSlot = null;
+
+/* OPEN MODAL */
+
+document.querySelectorAll(".farm-slot.empty").forEach(slot => {
+
+  slot.addEventListener("click", () => {
+
+    currentSlot = slot;
+
+    plantModal.classList.add("active");
+
+  });
+
+});
+
+/* PLANT SEED */
 
 seedCards.forEach(card => {
 
@@ -155,11 +172,9 @@ seedCards.forEach(card => {
 
     if (!currentSlot) return;
 
-    const cropKey =
-      card.dataset.crop;
+    const cropKey = card.dataset.crop;
 
-    const crop =
-      crops[cropKey];
+    const crop = crops[cropKey];
 
     currentSlot.classList.remove("empty");
 
@@ -187,17 +202,19 @@ seedCards.forEach(card => {
 
       </div>
 
-      <div class="progress-bar">
+      <div class="slot-progress">
 
-        <div class="progress-fill"></div>
+        <div class="slot-progress-bar"></div>
 
       </div>
 
-      <button class="primary-btn">
+      <button class="slot-action">
         Ускорить
       </button>
 
     `;
+
+    currentSlot.classList.add("growing");
 
     plantModal.classList.remove("active");
 
