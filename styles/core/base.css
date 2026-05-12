@@ -790,3 +790,208 @@ p {
   }
 
 }
+/* ======================================================
+   INVENTORY
+====================================================== */
+
+.coins-box {
+
+    margin-top: 24px;
+
+    width: 180px;
+
+    padding: 20px;
+
+    border-radius: 24px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.06);
+
+    backdrop-filter: blur(20px);
+
+}
+
+.coins-box span {
+
+    font-size: 14px;
+
+    color:
+        rgba(255,255,255,0.55);
+
+}
+
+.coins-box h3 {
+
+    margin-top: 10px;
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    color: #ffffff;
+
+}
+
+.inventory-grid {
+
+    margin-top: 34px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+
+    padding-bottom: 140px;
+
+}
+
+.inventory-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 22px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,40,20,0.72),
+            rgba(0,0,0,0.92)
+        );
+
+    border:
+        1px solid rgba(0,255,140,0.12);
+
+    backdrop-filter: blur(24px);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.45),
+        inset 0 0 40px rgba(0,255,140,0.04);
+
+}
+
+.inventory-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+}
+
+.inventory-icon {
+
+    width: 72px;
+
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 22px;
+
+    font-size: 42px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,255,140,0.18),
+            rgba(0,0,0,0)
+        );
+
+}
+
+.inventory-rarity {
+
+    padding:
+        8px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+}
+
+.inventory-rarity.common {
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color:
+        rgba(255,255,255,0.75);
+
+}
+
+.inventory-rarity.rare {
+
+    background:
+        rgba(0,140,255,0.12);
+
+    color:
+        #59b7ff;
+
+}
+
+.inventory-rarity.epic {
+
+    background:
+        rgba(180,0,255,0.14);
+
+    color:
+        #d27dff;
+
+}
+
+.inventory-card h3 {
+
+    margin-top: 18px;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    color: #ffffff;
+
+}
+
+.inventory-card p {
+
+    margin-top: 8px;
+
+    line-height: 1.5;
+
+    font-size: 15px;
+
+    color:
+        rgba(255,255,255,0.58);
+
+}
+
+.inventory-count {
+
+    margin-top: 22px;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    color:
+        #00ff99;
+
+}
