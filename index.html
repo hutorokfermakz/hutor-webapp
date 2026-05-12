@@ -248,31 +248,127 @@
       <!-- =====================================
            INVENTORY SCREEN
       ====================================== -->
+<section
+    id="inventory-screen"
+    class="screen"
+>
 
-      <section
-        id="inventory-screen"
-        class="screen"
-      >
+    <div class="screen-header">
 
-        <div class="farm-hero">
-
-          <div class="hero-label">
-            STORAGE
-          </div>
-
-          <h1 class="hero-title">
+        <h2>
             Инвентарь
-          </h1>
+        </h2>
 
-          <p class="hero-subtitle">
-            Все предметы, урожай,
-            семена и коллекции игрока.
-          </p>
+        <div class="coins-box">
+
+            <span>
+                Монеты
+            </span>
+
+            <h3 id="coins-value">
+                250
+            </h3>
 
         </div>
 
-      </section>
+    </div>
 
+    <div class="inventory-grid">
+
+        <!-- WHEAT -->
+
+        <div class="inventory-card">
+
+            <div class="inventory-top">
+
+                <div class="inventory-icon">
+                    🌾
+                </div>
+
+                <div class="inventory-rarity common">
+                    COMMON
+                </div>
+
+            </div>
+
+            <h3>
+                Пшеница
+            </h3>
+
+            <p>
+                Базовая культура
+            </p>
+
+            <div class="inventory-count">
+                x<span id="inv-wheat">0</span>
+            </div>
+
+        </div>
+
+        <!-- CARROT -->
+
+        <div class="inventory-card">
+
+            <div class="inventory-top">
+
+                <div class="inventory-icon">
+                    🥕
+                </div>
+
+                <div class="inventory-rarity rare">
+                    RARE
+                </div>
+
+            </div>
+
+            <h3>
+                Морковь
+            </h3>
+
+            <p>
+                Сочная культура
+            </p>
+
+            <div class="inventory-count">
+                x<span id="inv-carrot">0</span>
+            </div>
+
+        </div>
+
+        <!-- STRAWBERRY -->
+
+        <div class="inventory-card">
+
+            <div class="inventory-top">
+
+                <div class="inventory-icon">
+                    🍓
+                </div>
+
+                <div class="inventory-rarity epic">
+                    EPIC
+                </div>
+
+            </div>
+
+            <h3>
+                Клубника
+            </h3>
+
+            <p>
+                Премиальный урожай
+            </p>
+
+            <div class="inventory-count">
+                x<span id="inv-strawberry">0</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+      
       <!-- =====================================
            CLANS SCREEN
       ====================================== -->
