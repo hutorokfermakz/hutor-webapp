@@ -1,177 +1,207 @@
-/* =========================
-   APP
-========================= */
+/* =========================================================
+   HUTOROK v7
+   MAIN.JS
+========================================================= */
 
-const app = document.getElementById("app");
+/* =========================================================
+   TELEGRAM
+========================================================= */
 
-/* =========================
+const tg = window.Telegram.WebApp;
+
+tg.expand();
+
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
 const navButtons = document.querySelectorAll(".nav-btn");
+
 const screens = document.querySelectorAll(".screen");
 
-navButtons.forEach((button) => {
+navButtons.forEach(button => {
 
-  button.addEventListener("click", () => {
+    button.addEventListener("click", () => {
 
-    const target = button.dataset.screen;
+        const target = button.dataset.screen;
 
-    navButtons.forEach((btn) => {
-      btn.classList.remove("active");
+        navButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        screens.forEach(screen => {
+
+            screen.classList.remove("active");
+
+            if (screen.id === target) {
+                screen.classList.add("active");
+            }
+
+        });
+
     });
-
-    screens.forEach((screen) => {
-      screen.classList.remove("active");
-    });
-
-    button.classList.add("active");
-
-    document.getElementById(target).classList.add("active");
-
-  });
 
 });
 
-/* =========================
-   MODAL
-========================= */
+/* =========================================================
+   PLANT MODAL
+========================================================= */
 
 const plantModal = document.getElementById("plant-modal");
+
 const closeModal = document.getElementById("close-modal");
 
-/* OPEN MODAL */
-
-document.querySelectorAll(".farm-slot.empty").forEach((slot) => {
-
-  slot.addEventListener("click", () => {
-
-    currentSlot = slot;
-
-    plantModal.classList.add("active");
-
-  });
-
-});
-
-/* CLOSE MODAL */
-
-closeModal.addEventListener("click", () => {
-
-  plantModal.classList.remove("active");
-
-});
-
-plantModal.addEventListener("click", (e) => {
-
-  if (e.target === plantModal) {
-
-    plantModal.classList.remove("active");
-
-  }
-
-});
-
-/* =========================
-   CROPS
-========================= */
-
-const crops = {
-
-  wheat: {
-    name: "Пшеница",
-    emoji: "🌾",
-    time: "2м 14с"
-  },
-
-  carrot: {
-    name: "Морковь",
-    emoji: "🥕",
-    time: "4м 10с"
-  },
-
-  strawberry: {
-    name: "Клубника",
-    emoji: "🍓",
-    time: "6м 52с"
-  }
-
-};
-
-/* =========================
-   PLANTING
-========================= */
-
-const seedCards = document.querySelectorAll(".seed-card");
+const emptySlots = document.querySelectorAll(".farm-slot.empty");
 
 let currentSlot = null;
 
-/* OPEN EMPTY SLOTS */
+emptySlots.forEach(slot => {
 
-document.querySelectorAll(".farm-slot.empty").forEach((slot) => {
+    slot.addEventListener("click", () => {
 
-  slot.addEventListener("click", () => {
+        currentSlot = slot;
 
-    currentSlot = slot;
+        plantModal.classList.add("active");
 
-    plantModal.classList.add("active");
-
-  });
+    });
 
 });
 
-/* PLANT SEED */
-
-seedCards.forEach((card) => {
-
-  card.addEventListener("click", () => {
-
-    if (!currentSlot) return;
-
-    const cropKey = card.dataset.crop;
-
-    const crop = crops[cropKey];
-
-    currentSlot.className = "farm-slot growing";
-
-    currentSlot.innerHTML = `
-      <div class="slot-top">
-
-        <h4>${crop.name}</h4>
-
-        <span class="slot-badge">
-          РОСТ
-        </span>
-
-      </div>
-
-      <div class="crop-stage">
-        ${crop.emoji}
-      </div>
-
-      <div class="slot-progress-info">
-
-        <span>До урожая</span>
-
-        <span>${crop.time}</span>
-
-      </div>
-
-      <div class="slot-progress">
-
-        <div class="slot-progress-bar"></div>
-
-      </div>
-
-      <button class="slot-action">
-        Ускорить
-      </button>
-    `;
+closeModal.addEventListener("click", () => {
 
     plantModal.classList.remove("active");
 
-    currentSlot = null;
+});
 
-  });
+plantModal.addEventListener("click", e => {
 
+    if (e.target === plantModal) {
+
+        plantModal.classList.remove("active");
+
+    }
+
+});
+
+/* =========================================================
+   CROPS
+========================================================= */
+
+const crops = {
+
+    wheat: {
+
+        name: "Пшеница",
+
+        emoji: "🌾",
+
+        time: "2м 14с"
+
+    },
+
+    carrot: {
+
+        name: "Морковь",
+
+        emoji: "🥕",
+
+        time: "5м 10с"
+
+    },
+
+    strawberry: {
+
+        name: "Клубника",
+
+        emoji: "🍓",
+
+        time: "8м 42с"
+
+    }
+
+};
+
+/* =========================================================
+   PLANTING
+========================================================= */
+
+const seedCards = document.querySelectorAll(".seed-card");
+
+seedCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        if (!currentSlot) return;
+
+        const cropKey = card.dataset.crop;
+
+        const crop = crops[cropKey];
+
+        currentSlot.innerHTML = `
+
+            <div class="slot-top">
+
+                <h4>${crop.name}</h4>
+
+                <span class="slot-badge">
+                    РОСТ
+                </span>
+
+            </div>
+
+            <div class="crop-stage">
+                ${crop.emoji}
+            </div>
+
+            <div class="slot-progress-info">
+
+                <span>До урожая</span>
+
+                <span>${crop.time}</span>
+
+            </div>
+
+            <div class="slot-progress">
+                <div class="slot-progress-bar"></div>
+            </div>
+
+            <button class="slot-action">
+                Ускорить
+            </button>
+
+        `;
+
+        currentSlot.classList.remove("empty");
+
+        currentSlot.classList.add("growing");
+
+        plantModal.classList.remove("active");
+
+        currentSlot = null;
+
+    });
+
+});
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+const profileName = document.getElementById("profile-name");
+
+if (profileName && tg.initDataUnsafe.user) {
+
+    profileName.textContent =
+        tg.initDataUnsafe.user.first_name || "Player";
+
+}
+
+/* =========================================================
+   PREMIUM ANIMATIONS
+========================================================= */
+
+document.addEventListener("touchstart", () => {}, {
+    passive: true
 });
