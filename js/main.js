@@ -71,6 +71,62 @@ const closeModal =
 let currentSlot = null;
 
 /* ======================================================
+   INVENTORY
+====================================================== */
+
+const inventory = {
+
+    wheat: 0,
+
+    carrot: 0,
+
+    strawberry: 0
+
+};
+
+let coins = 250;
+
+/* ======================================================
+   UPDATE INVENTORY UI
+====================================================== */
+
+function updateInventoryUI() {
+
+    const wheatCount =
+        document.getElementById("inv-wheat");
+
+    const carrotCount =
+        document.getElementById("inv-carrot");
+
+    const strawberryCount =
+        document.getElementById("inv-strawberry");
+
+    const coinsValue =
+        document.getElementById("coins-value");
+
+    if (wheatCount) {
+        wheatCount.textContent =
+            inventory.wheat;
+    }
+
+    if (carrotCount) {
+        carrotCount.textContent =
+            inventory.carrot;
+    }
+
+    if (strawberryCount) {
+        strawberryCount.textContent =
+            inventory.strawberry;
+    }
+
+    if (coinsValue) {
+        coinsValue.textContent =
+            coins;
+    }
+
+}
+
+/* ======================================================
    CROPS
 ====================================================== */
 
@@ -79,19 +135,25 @@ const crops = {
     wheat: {
         name: "Пшеница",
         emoji: "🌾",
-        growTime: 120
+        growTime: 120,
+        reward: 12,
+        coins: 24
     },
 
     carrot: {
         name: "Морковь",
         emoji: "🥕",
-        growTime: 300
+        growTime: 300,
+        reward: 18,
+        coins: 40
     },
 
     strawberry: {
         name: "Клубника",
         emoji: "🍓",
-        growTime: 480
+        growTime: 480,
+        reward: 25,
+        coins: 70
     }
 
 };
@@ -113,7 +175,7 @@ function formatTime(seconds) {
 }
 
 /* ======================================================
-   OPEN MODAL
+   BIND FARM SLOTS
 ====================================================== */
 
 function bindFarmSlots() {
@@ -291,7 +353,7 @@ seedCards.forEach(card => {
                         </span>
 
                         <span>
-                            +12
+                            +${crop.reward}
                         </span>
 
                     </div>
@@ -306,6 +368,13 @@ seedCards.forEach(card => {
                     currentSlot.querySelector(".harvest-btn");
 
                 harvestBtn.addEventListener("click", () => {
+
+                    inventory[cropKey] +=
+                        crop.reward;
+
+                    coins += crop.coins;
+
+                    updateInventoryUI();
 
                     currentSlot.className =
                         "farm-slot empty";
@@ -373,7 +442,9 @@ animatedCards.forEach((card, index) => {
 });
 
 /* ======================================================
-   START SCREEN
+   START
 ====================================================== */
+
+updateInventoryUI();
 
 openScreen("farm-screen");
