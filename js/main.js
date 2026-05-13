@@ -106,6 +106,8 @@ const plantModal =
 const closeModalBtn =
     document.getElementById("close-modal");
 
+let currentSlot = null;
+
 if (closeModalBtn && plantModal) {
 
     closeModalBtn.addEventListener("click", () => {
@@ -174,7 +176,7 @@ const inventory =
     gameState.inventory;
 
 /* =========================================
-   INVENTORY UI
+   UI UPDATE
 ========================================= */
 
 function updateInventoryUI() {
@@ -190,6 +192,15 @@ function updateInventoryUI() {
 
     const coinsEl =
         document.getElementById("coins-value");
+
+    const levelEl =
+        document.getElementById("level-value");
+
+    const xpEl =
+        document.getElementById("xp-value");
+
+    const coinsStatEl =
+        document.getElementById("coins-stat");
 
     if (wheatEl) {
 
@@ -218,6 +229,54 @@ function updateInventoryUI() {
             gameState.coins;
 
     }
+
+    if (levelEl) {
+
+        levelEl.textContent =
+            gameState.level;
+
+    }
+
+    if (xpEl) {
+
+        xpEl.textContent =
+            gameState.xp;
+
+    }
+
+    if (coinsStatEl) {
+
+        coinsStatEl.textContent =
+            gameState.coins;
+
+    }
+
+}
+
+/* =========================================
+   XP SYSTEM
+========================================= */
+
+function addXP(amount) {
+
+    gameState.xp += amount;
+
+    const nextLevelXP =
+        gameState.level * 100;
+
+    if (
+        gameState.xp >= nextLevelXP
+    ) {
+
+        gameState.xp = 0;
+
+        gameState.level++;
+
+    }
+
+    updateInventoryUI();
+
+    saveGame(gameState);
 
 }
 
@@ -326,6 +385,68 @@ function createGrowingSlot(
     const timer =
         slot.querySelector(".grow-timer");
 
+    /* =========================================
+       READY STATE
+    ========================================= */
+
+    if (seconds <= 0) {
+
+        slot.innerHTML = `
+            <div class="harvest-content">
+
+                <div class="growing-emoji">
+                    ${crop.emoji}
+                </div>
+
+                <h3>
+                    ${crop.name}
+                </h3>
+
+                <button
+                    class="harvest-btn"
+                >
+                    Собрать
+                </button>
+
+            </div>
+        `;
+
+        const harvestBtn =
+            slot.querySelector(".harvest-btn");
+
+        if (harvestBtn) {
+
+            harvestBtn.onclick = () => {
+
+                inventory[cropKey]++;
+
+                addXP(25);
+
+                gameState.coins += 25;
+
+                gameState.farmSlots[
+                    slotIndex
+                ] = null;
+
+                updateInventoryUI();
+
+                saveGame(gameState);
+
+                const emptySlot =
+                    createEmptySlot();
+
+                slot.replaceWith(
+                    emptySlot
+                );
+
+            };
+
+        }
+
+        return slot;
+
+    }
+
     if (
         slotIndex !== null &&
         !savedFinishTime
@@ -341,65 +462,7 @@ function createGrowingSlot(
         saveGame(gameState);
 
     }
-/* =========================================
-   READY STATE
-========================================= */
 
-if (seconds <= 0) {
-
-    slot.innerHTML = `
-        <div class="harvest-content">
-
-            <div class="growing-emoji">
-                ${crop.emoji}
-            </div>
-
-            <h3>
-                ${crop.name}
-            </h3>
-
-            <button
-                class="harvest-btn"
-            >
-                Собрать
-            </button>
-
-        </div>
-    `;
-
-    const harvestBtn =
-        slot.querySelector(".harvest-btn");
-
-    if (harvestBtn) {
-
-        harvestBtn.onclick = () => {
-
-            inventory[cropKey]++;
-
-            gameState.coins += 25;
-
-            gameState.farmSlots[
-                slotIndex
-            ] = null;
-
-            updateInventoryUI();
-
-            saveGame(gameState);
-
-            const emptySlot =
-                createEmptySlot();
-
-            slot.replaceWith(
-                emptySlot
-            );
-
-        };
-
-    }
-
-    return slot;
-
-}
     const interval =
         setInterval(() => {
 
@@ -437,6 +500,8 @@ if (seconds <= 0) {
                     harvestBtn.onclick = () => {
 
                         inventory[cropKey]++;
+
+                        addXP(25);
 
                         gameState.coins += 25;
 
@@ -480,8 +545,6 @@ if (seconds <= 0) {
    PLANTING SYSTEM
 ========================================= */
 
-let currentSlot = null;
-
 function attachAddButton(slot) {
 
     const button =
@@ -503,6 +566,10 @@ function attachAddButton(slot) {
 
 }
 
+/* =========================================
+   RESTORE FARM
+========================================= */
+
 const farmGrid =
     document.querySelector(".farm-grid");
 
@@ -515,8 +582,6 @@ allSlots.forEach((slot, index) => {
 
     const savedSlot =
         gameState.farmSlots[index];
-
-    /* RESTORE SLOT */
 
     if (savedSlot) {
 
@@ -544,6 +609,10 @@ allSlots.forEach((slot, index) => {
 
 });
 
+/* =========================================
+   SEED CARDS
+========================================= */
+
 const seedCards =
     document.querySelectorAll(".seed-card");
 
@@ -559,19 +628,19 @@ seedCards.forEach(card => {
         if (!cropKey) return;
 
         const slotIndex =
-    Array.from(
-        document.querySelectorAll(".farm-slot")
-    ).indexOf(currentSlot);
+            Array.from(
+                document.querySelectorAll(".farm-slot")
+            ).indexOf(currentSlot);
 
-const growingSlot =
-    createGrowingSlot(
-        cropKey,
-        slotIndex
-    );
+        const growingSlot =
+            createGrowingSlot(
+                cropKey,
+                slotIndex
+            );
 
-currentSlot.replaceWith(
-    growingSlot
-);
+        currentSlot.replaceWith(
+            growingSlot
+        );
 
         if (plantModal) {
 
