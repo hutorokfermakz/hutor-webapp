@@ -500,10 +500,20 @@ seedCards.forEach(card => {
 
         if (!cropKey) return;
 
-        const growingSlot =
-            createGrowingSlot(cropKey);
+        const slotIndex =
+    Array.from(
+        document.querySelectorAll(".farm-slot")
+    ).indexOf(currentSlot);
 
-        currentSlot.replaceWith(growingSlot);
+const growingSlot =
+    createGrowingSlot(
+        cropKey,
+        slotIndex
+    );
+
+currentSlot.replaceWith(
+    growingSlot
+);
 
         if (plantModal) {
 
