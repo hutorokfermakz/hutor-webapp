@@ -192,7 +192,9 @@ const crops = {
 
         reward: 25,
 
-        xp: 25
+        xp: 25,
+
+        sellPrice: 12
 
     },
 
@@ -210,7 +212,9 @@ const crops = {
 
         reward: 40,
 
-        xp: 35
+        xp: 35,
+
+        sellPrice: 22
 
     },
 
@@ -228,7 +232,9 @@ const crops = {
 
         reward: 65,
 
-        xp: 50
+        xp: 50,
+
+        sellPrice: 40
 
     }
 
@@ -869,6 +875,46 @@ seedCards.forEach(card => {
         saveGame(
             gameState
         );
+
+    };
+
+});
+
+/* =========================================
+   SELL SYSTEM
+========================================= */
+
+const sellButtons =
+    document.querySelectorAll(
+        ".sell-btn"
+    );
+
+sellButtons.forEach(button => {
+
+    button.onclick = () => {
+
+        const cropKey =
+            button.dataset.sell;
+
+        if (!cropKey) return;
+
+        if (
+            inventory[cropKey] <= 0
+        ) {
+
+            return;
+
+        }
+
+        inventory[cropKey]--;
+
+        gameState.coins +=
+            crops[cropKey]
+            .sellPrice;
+
+        updateInventoryUI();
+
+        saveGame(gameState);
 
     };
 
