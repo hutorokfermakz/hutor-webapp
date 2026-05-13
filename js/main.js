@@ -341,7 +341,65 @@ function createGrowingSlot(
         saveGame(gameState);
 
     }
+/* =========================================
+   READY STATE
+========================================= */
 
+if (seconds <= 0) {
+
+    slot.innerHTML = `
+        <div class="harvest-content">
+
+            <div class="growing-emoji">
+                ${crop.emoji}
+            </div>
+
+            <h3>
+                ${crop.name}
+            </h3>
+
+            <button
+                class="harvest-btn"
+            >
+                Собрать
+            </button>
+
+        </div>
+    `;
+
+    const harvestBtn =
+        slot.querySelector(".harvest-btn");
+
+    if (harvestBtn) {
+
+        harvestBtn.onclick = () => {
+
+            inventory[cropKey]++;
+
+            gameState.coins += 25;
+
+            gameState.farmSlots[
+                slotIndex
+            ] = null;
+
+            updateInventoryUI();
+
+            saveGame(gameState);
+
+            const emptySlot =
+                createEmptySlot();
+
+            slot.replaceWith(
+                emptySlot
+            );
+
+        };
+
+    }
+
+    return slot;
+
+}
     const interval =
         setInterval(() => {
 
