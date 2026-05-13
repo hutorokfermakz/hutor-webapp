@@ -1,4 +1,16 @@
 /* =========================================
+   IMPORTS
+========================================= */
+
+import { gameState }
+from "./core/state.js";
+
+import {
+    saveGame,
+    loadGame
+}
+from "./core/storage.js";
+/* =========================================
    TELEGRAM
 ========================================= */
 
@@ -100,60 +112,11 @@ const crops = {
 /* =========================================
    INVENTORY
 ========================================= */
+const inventory =
+    gameState.inventory;
 
-const inventory = {
-
-    wheat: 0,
-    carrot: 0,
-    strawberry: 0
-
-};
-
-let coins = 250;
-
-function updateInventoryUI() {
-
-    const wheatEl =
-        document.getElementById("inv-wheat");
-
-    const carrotEl =
-        document.getElementById("inv-carrot");
-
-    const strawberryEl =
-        document.getElementById("inv-strawberry");
-
-    const coinsEl =
-        document.getElementById("coins-value");
-
-    if (wheatEl) {
-
-        wheatEl.textContent =
-            inventory.wheat;
-
-    }
-
-    if (carrotEl) {
-
-        carrotEl.textContent =
-            inventory.carrot;
-
-    }
-
-    if (strawberryEl) {
-
-        strawberryEl.textContent =
-            inventory.strawberry;
-
-    }
-
-    if (coinsEl) {
-
-        coinsEl.textContent =
-            coins;
-
-    }
-
-}
+let coins =
+    gameState.coins;
 
 /* =========================================
    TIME FORMAT
