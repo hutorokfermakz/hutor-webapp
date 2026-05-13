@@ -29,11 +29,9 @@ function openScreen(screenId) {
     const targetScreen =
         document.getElementById(screenId);
 
-    if (targetScreen) {
+    if (!targetScreen) return;
 
-        targetScreen.classList.add("active");
-
-    }
+    targetScreen.classList.add("active");
 
     navButtons.forEach(button => {
 
@@ -67,39 +65,6 @@ navButtons.forEach(button => {
 
 });
 
-/* =========================================
-   MODALS
-========================================= */
-
-const plantModal =
-    document.getElementById("plant-modal");
-
-const closeModalBtn =
-    document.getElementById("close-modal");
-
-if (closeModalBtn) {
-
-    closeModalBtn.addEventListener("click", () => {
-
-        plantModal.classList.remove("active");
-
-    });
-
-}
-
-if (plantModal) {
-
-    plantModal.addEventListener("click", e => {
-
-        if (e.target === plantModal) {
-
-            plantModal.classList.remove("active");
-
-        }
-
-    });
-
-}
 /* =========================================
    CROPS
 ========================================= */
@@ -191,6 +156,57 @@ function updateInventoryUI() {
 }
 
 /* =========================================
+   TIME FORMAT
+========================================= */
+
+function formatTime(totalSeconds) {
+
+    const minutes =
+        Math.floor(totalSeconds / 60);
+
+    const seconds =
+        totalSeconds % 60;
+
+    return `${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+
+}
+
+/* =========================================
+   EMPTY SLOT
+========================================= */
+
+function createEmptySlot() {
+
+    const slot =
+        document.createElement("div");
+
+    slot.className =
+        "farm-slot empty";
+
+    slot.innerHTML = `
+        <button
+            type="button"
+            class="add-crop-btn"
+        >
+
+            <span>+</span>
+
+            <p>
+                Посадить культуру
+            </p>
+
+        </button>
+    `;
+
+    attachAddButton(slot);
+
+    return slot;
+
+}
+
+/* =========================================
    CREATE GROWING SLOT
 ========================================= */
 
@@ -198,6 +214,8 @@ function createGrowingSlot(cropKey) {
 
     const crop =
         crops[cropKey];
+
+    if (!crop) return null;
 
     const slot =
         document.createElement("div");
@@ -262,79 +280,39 @@ function createGrowingSlot(cropKey) {
                 const harvestBtn =
                     slot.querySelector(".harvest-btn");
 
-                harvestBtn.addEventListener("click", () => {
+                if (harvestBtn) {
 
-                    inventory[cropKey]++;
+                    harvestBtn.addEventListener("click", () => {
 
-                    coins += 25;
+                        inventory[cropKey]++;
 
-                    updateInventoryUI();
+                        coins += 25;
 
-                    const emptySlot =
-                        createEmptySlot();
+                        updateInventoryUI();
 
-                    slot.replaceWith(emptySlot);
+                        const emptySlot =
+                            createEmptySlot();
 
-                    attachAddButton(emptySlot);
+                        slot.replaceWith(emptySlot);
 
-                });
+                    });
+
+                }
 
             } else {
 
-                timer.textContent =
-                    formatTime(seconds);
+                if (timer) {
+
+                    timer.textContent =
+                        formatTime(seconds);
+
+                }
 
             }
 
         }, 1000);
 
     return slot;
-
-}
-
-/* =========================================
-   EMPTY SLOT
-========================================= */
-
-function createEmptySlot() {
-
-    const slot =
-        document.createElement("div");
-
-    slot.className =
-        "farm-slot";
-
-    slot.innerHTML = `
-        <button class="add-crop-btn">
-
-            <span>+</span>
-
-            <p>
-                Посадить культуру
-            </p>
-
-        </button>
-    `;
-
-    return slot;
-
-}
-
-/* =========================================
-   TIME FORMAT
-========================================= */
-
-function formatTime(totalSeconds) {
-
-    const minutes =
-        Math.floor(totalSeconds / 60);
-
-    const seconds =
-        totalSeconds % 60;
-
-    return `${minutes}:${seconds
-        .toString()
-        .padStart(2, "0")}`;
 
 }
 
@@ -350,6 +328,40 @@ const plantModal =
 const closeModalBtn =
     document.getElementById("close-modal");
 
+/* OPEN SLOT */
+
+function attachAddButton(slot) {
+
+    const button =
+        slot.querySelector(".add-crop-btn");
+
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+
+        currentSlot = slot;
+
+        if (plantModal) {
+
+            plantModal.classList.add("active");
+
+        }
+
+    });
+
+}
+
+/* INIT EMPTY SLOTS */
+
+const allSlots =
+    document.querySelectorAll(".farm-slot.empty");
+
+allSlots.forEach(slot => {
+
+    attachAddButton(slot);
+
+});
+
 /* CLOSE MODAL */
 
 if (closeModalBtn && plantModal) {
@@ -362,41 +374,19 @@ if (closeModalBtn && plantModal) {
 
     });
 
-}
+    plantModal.addEventListener("click", e => {
 
-/* ATTACH + BUTTON */
+        if (e.target === plantModal) {
 
-function attachAddButton(slot) {
+            plantModal.classList.remove("active");
 
-    const button =
-        slot.querySelector(".add-crop-btn");
-
-    if (!button) return;
-
-    button.onclick = () => {
-
-        currentSlot = slot;
-
-        if (plantModal) {
-
-            plantModal.classList.add("active");
+            currentSlot = null;
 
         }
 
-    };
+    });
 
 }
-
-/* FIND ALL SLOTS */
-
-const allSlots =
-    document.querySelectorAll(".farm-slot");
-
-allSlots.forEach(slot => {
-
-    attachAddButton(slot);
-
-});
 
 /* SEED CARDS */
 
@@ -405,7 +395,7 @@ const seedCards =
 
 seedCards.forEach(card => {
 
-    card.onclick = () => {
+    card.addEventListener("click", () => {
 
         if (!currentSlot) return;
 
@@ -417,6 +407,8 @@ seedCards.forEach(card => {
         const growingSlot =
             createGrowingSlot(cropKey);
 
+        if (!growingSlot) return;
+
         currentSlot.replaceWith(growingSlot);
 
         if (plantModal) {
@@ -427,7 +419,7 @@ seedCards.forEach(card => {
 
         currentSlot = null;
 
-    };
+    });
 
 });
 
