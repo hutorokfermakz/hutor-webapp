@@ -145,24 +145,54 @@ const crops = {
     wheat: {
 
         name: "Пшеница",
-        emoji: "🌾",
-        growTime: 120
+
+        stages: [
+            "🌱",
+            "🌿",
+            "🌾"
+        ],
+
+        growTime: 120,
+
+        reward: 25,
+
+        xp: 25
 
     },
 
     carrot: {
 
         name: "Морковь",
-        emoji: "🥕",
-        growTime: 300
+
+        stages: [
+            "🌱",
+            "🥬",
+            "🥕"
+        ],
+
+        growTime: 300,
+
+        reward: 40,
+
+        xp: 35
 
     },
 
     strawberry: {
 
         name: "Клубника",
-        emoji: "🍓",
-        growTime: 480
+
+        stages: [
+            "🌱",
+            "🍃",
+            "🍓"
+        ],
+
+        growTime: 480,
+
+        reward: 65,
+
+        xp: 50
 
     }
 
@@ -368,7 +398,7 @@ function createGrowingSlot(
         <div class="growing-content">
 
             <div class="growing-emoji">
-                ${crop.emoji}
+                ${crop.stages[0]}
             </div>
 
             <h3>
@@ -385,6 +415,11 @@ function createGrowingSlot(
     const timer =
         slot.querySelector(".grow-timer");
 
+    const emojiEl =
+        slot.querySelector(
+            ".growing-emoji"
+        );
+
     /* =========================================
        READY STATE
     ========================================= */
@@ -395,7 +430,7 @@ function createGrowingSlot(
             <div class="harvest-content">
 
                 <div class="growing-emoji">
-                    ${crop.emoji}
+                    ${crop.stages[2]}
                 </div>
 
                 <h3>
@@ -420,9 +455,10 @@ function createGrowingSlot(
 
                 inventory[cropKey]++;
 
-                addXP(25);
+                addXP(crop.xp);
 
-                gameState.coins += 25;
+                gameState.coins +=
+                    crop.reward;
 
                 gameState.farmSlots[
                     slotIndex
@@ -468,6 +504,26 @@ function createGrowingSlot(
 
             seconds--;
 
+            const progress =
+                1 - (
+                    seconds /
+                    crop.growTime
+                );
+
+            if (progress >= 0.66) {
+
+                emojiEl.textContent =
+                    crop.stages[2];
+
+            } else if (
+                progress >= 0.33
+            ) {
+
+                emojiEl.textContent =
+                    crop.stages[1];
+
+            }
+
             if (seconds <= 0) {
 
                 clearInterval(interval);
@@ -476,7 +532,7 @@ function createGrowingSlot(
                     <div class="harvest-content">
 
                         <div class="growing-emoji">
-                            ${crop.emoji}
+                            ${crop.stages[2]}
                         </div>
 
                         <h3>
@@ -501,9 +557,10 @@ function createGrowingSlot(
 
                         inventory[cropKey]++;
 
-                        addXP(25);
+                        addXP(crop.xp);
 
-                        gameState.coins += 25;
+                        gameState.coins +=
+                            crop.reward;
 
                         gameState.farmSlots[
                             slotIndex
