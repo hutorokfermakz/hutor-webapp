@@ -1,27 +1,32 @@
-export const state = {
+/* =========================================
+   GAME STATE
+========================================= */
 
-  player: {
-    coins: 500,
-    crystals: 25,
+export const gameState = {
 
-    xp: 58,
-    level: 3
-  },
+    coins: 250,
 
-  inventory: {
+    xp: 0,
 
-    seeds: {
-      wheat: 3,
-      corn: 2,
-      carrot: 1
+    level: 1,
+
+    inventory: {
+
+        wheat: 0,
+        carrot: 0,
+        strawberry: 0
+
     },
 
-    crops: {
-      wheat: 0,
-      corn: 0,
-      carrot: 0
-    }
-  },
+    farmSlots: [
 
-  farm: {}
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+
+    ]
+
 };
