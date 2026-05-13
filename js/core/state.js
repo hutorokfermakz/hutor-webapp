@@ -14,6 +14,14 @@ export const gameState = {
 
     },
 
+    seeds: {
+
+        wheat: 3,
+        carrot: 1,
+        strawberry: 0
+
+    },
+
     farmSlots: [
 
         null,
