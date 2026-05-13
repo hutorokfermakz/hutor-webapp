@@ -31,7 +31,8 @@ if (savedData) {
    TELEGRAM
 ========================================= */
 
-const tg = window.Telegram.WebApp;
+const tg =
+    window.Telegram.WebApp;
 
 tg.ready();
 
@@ -51,29 +52,40 @@ function openScreen(screenId) {
 
     screens.forEach(screen => {
 
-        screen.classList.remove("active");
+        screen.classList.remove(
+            "active"
+        );
 
     });
 
     const targetScreen =
-        document.getElementById(screenId);
+        document.getElementById(
+            screenId
+        );
 
     if (targetScreen) {
 
-        targetScreen.classList.add("active");
+        targetScreen.classList.add(
+            "active"
+        );
 
     }
 
     navButtons.forEach(button => {
 
-        button.classList.remove("active");
+        button.classList.remove(
+            "active"
+        );
 
         if (
-            button.getAttribute("data-screen")
-            === screenId
+            button.getAttribute(
+                "data-screen"
+            ) === screenId
         ) {
 
-            button.classList.add("active");
+            button.classList.add(
+                "active"
+            );
 
         }
 
@@ -83,16 +95,21 @@ function openScreen(screenId) {
 
 navButtons.forEach(button => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-        const screenId =
-            button.getAttribute("data-screen");
+            const screenId =
+                button.getAttribute(
+                    "data-screen"
+                );
 
-        if (!screenId) return;
+            if (!screenId) return;
 
-        openScreen(screenId);
+            openScreen(screenId);
 
-    });
+        }
+    );
 
 });
 
@@ -101,38 +118,57 @@ navButtons.forEach(button => {
 ========================================= */
 
 const plantModal =
-    document.getElementById("plant-modal");
+    document.getElementById(
+        "plant-modal"
+    );
 
 const closeModalBtn =
-    document.getElementById("close-modal");
+    document.getElementById(
+        "close-modal"
+    );
 
 let currentSlot = null;
 
-if (closeModalBtn && plantModal) {
+if (
+    closeModalBtn &&
+    plantModal
+) {
 
-    closeModalBtn.addEventListener("click", () => {
+    closeModalBtn.addEventListener(
+        "click",
+        () => {
 
-        plantModal.classList.remove("active");
+            plantModal.classList.remove(
+                "active"
+            );
 
-        currentSlot = null;
+            currentSlot = null;
 
-    });
+        }
+    );
 
 }
 
 if (plantModal) {
 
-    plantModal.addEventListener("click", e => {
+    plantModal.addEventListener(
+        "click",
+        e => {
 
-        if (e.target === plantModal) {
+            if (
+                e.target === plantModal
+            ) {
 
-            plantModal.classList.remove("active");
+                plantModal.classList.remove(
+                    "active"
+                );
 
-            currentSlot = null;
+                currentSlot = null;
+
+            }
 
         }
-
-    });
+    );
 
 }
 
@@ -212,25 +248,39 @@ const inventory =
 function updateInventoryUI() {
 
     const wheatEl =
-        document.getElementById("inv-wheat");
+        document.getElementById(
+            "inv-wheat"
+        );
 
     const carrotEl =
-        document.getElementById("inv-carrot");
+        document.getElementById(
+            "inv-carrot"
+        );
 
     const strawberryEl =
-        document.getElementById("inv-strawberry");
+        document.getElementById(
+            "inv-strawberry"
+        );
 
     const coinsEl =
-        document.getElementById("coins-value");
+        document.getElementById(
+            "coins-value"
+        );
 
     const levelEl =
-        document.getElementById("level-value");
+        document.getElementById(
+            "level-value"
+        );
 
     const xpEl =
-        document.getElementById("xp-value");
+        document.getElementById(
+            "xp-value"
+        );
 
     const coinsStatEl =
-        document.getElementById("coins-stat");
+        document.getElementById(
+            "coins-stat"
+        );
 
     if (wheatEl) {
 
@@ -281,6 +331,39 @@ function updateInventoryUI() {
 
     }
 
+    const xpFill =
+        document.getElementById(
+            "xp-fill"
+        );
+
+    const xpProgressText =
+        document.getElementById(
+            "xp-progress-text"
+        );
+
+    const nextLevelXP =
+        gameState.level * 100;
+
+    const progressPercent =
+        (
+            gameState.xp /
+            nextLevelXP
+        ) * 100;
+
+    if (xpFill) {
+
+        xpFill.style.width =
+            `${progressPercent}%`;
+
+    }
+
+    if (xpProgressText) {
+
+        xpProgressText.textContent =
+            `${gameState.xp} / ${nextLevelXP} XP`;
+
+    }
+
 }
 
 /* =========================================
@@ -295,7 +378,8 @@ function addXP(amount) {
         gameState.level * 100;
 
     if (
-        gameState.xp >= nextLevelXP
+        gameState.xp >=
+        nextLevelXP
     ) {
 
         gameState.xp = 0;
@@ -314,10 +398,14 @@ function addXP(amount) {
    TIME FORMAT
 ========================================= */
 
-function formatTime(totalSeconds) {
+function formatTime(
+    totalSeconds
+) {
 
     const minutes =
-        Math.floor(totalSeconds / 60);
+        Math.floor(
+            totalSeconds / 60
+        );
 
     const seconds =
         totalSeconds % 60;
@@ -335,7 +423,9 @@ function formatTime(totalSeconds) {
 function createEmptySlot() {
 
     const slot =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     slot.className =
         "farm-slot empty";
@@ -377,20 +467,28 @@ function createGrowingSlot(
     if (!crop) return;
 
     const slot =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     slot.className =
         "farm-slot growing";
 
     const finishTime =
         savedFinishTime ||
-        (Date.now() + crop.growTime * 1000);
+        (
+            Date.now() +
+            crop.growTime * 1000
+        );
 
     let seconds =
         Math.max(
             0,
             Math.floor(
-                (finishTime - Date.now()) / 1000
+                (
+                    finishTime -
+                    Date.now()
+                ) / 1000
             )
         );
 
@@ -413,7 +511,9 @@ function createGrowingSlot(
     `;
 
     const timer =
-        slot.querySelector(".grow-timer");
+        slot.querySelector(
+            ".grow-timer"
+        );
 
     const emojiEl =
         slot.querySelector(
@@ -447,35 +547,44 @@ function createGrowingSlot(
         `;
 
         const harvestBtn =
-            slot.querySelector(".harvest-btn");
+            slot.querySelector(
+                ".harvest-btn"
+            );
 
         if (harvestBtn) {
 
-            harvestBtn.onclick = () => {
+            harvestBtn.onclick =
+                () => {
 
-                inventory[cropKey]++;
+                    inventory[
+                        cropKey
+                    ]++;
 
-                addXP(crop.xp);
+                    addXP(
+                        crop.xp
+                    );
 
-                gameState.coins +=
-                    crop.reward;
+                    gameState.coins +=
+                        crop.reward;
 
-                gameState.farmSlots[
-                    slotIndex
-                ] = null;
+                    gameState.farmSlots[
+                        slotIndex
+                    ] = null;
 
-                updateInventoryUI();
+                    updateInventoryUI();
 
-                saveGame(gameState);
+                    saveGame(
+                        gameState
+                    );
 
-                const emptySlot =
-                    createEmptySlot();
+                    const emptySlot =
+                        createEmptySlot();
 
-                slot.replaceWith(
-                    emptySlot
-                );
+                    slot.replaceWith(
+                        emptySlot
+                    );
 
-            };
+                };
 
         }
 
@@ -488,14 +597,18 @@ function createGrowingSlot(
         !savedFinishTime
     ) {
 
-        gameState.farmSlots[slotIndex] = {
+        gameState.farmSlots[
+            slotIndex
+        ] = {
 
             cropKey,
             finishTime
 
         };
 
-        saveGame(gameState);
+        saveGame(
+            gameState
+        );
 
     }
 
@@ -510,7 +623,9 @@ function createGrowingSlot(
                     crop.growTime
                 );
 
-            if (progress >= 0.66) {
+            if (
+                progress >= 0.66
+            ) {
 
                 emojiEl.textContent =
                     crop.stages[2];
@@ -524,9 +639,13 @@ function createGrowingSlot(
 
             }
 
-            if (seconds <= 0) {
+            if (
+                seconds <= 0
+            ) {
 
-                clearInterval(interval);
+                clearInterval(
+                    interval
+                );
 
                 slot.innerHTML = `
                     <div class="harvest-content">
@@ -549,35 +668,44 @@ function createGrowingSlot(
                 `;
 
                 const harvestBtn =
-                    slot.querySelector(".harvest-btn");
+                    slot.querySelector(
+                        ".harvest-btn"
+                    );
 
                 if (harvestBtn) {
 
-                    harvestBtn.onclick = () => {
+                    harvestBtn.onclick =
+                        () => {
 
-                        inventory[cropKey]++;
+                            inventory[
+                                cropKey
+                            ]++;
 
-                        addXP(crop.xp);
+                            addXP(
+                                crop.xp
+                            );
 
-                        gameState.coins +=
-                            crop.reward;
+                            gameState.coins +=
+                                crop.reward;
 
-                        gameState.farmSlots[
-                            slotIndex
-                        ] = null;
+                            gameState.farmSlots[
+                                slotIndex
+                            ] = null;
 
-                        updateInventoryUI();
+                            updateInventoryUI();
 
-                        saveGame(gameState);
+                            saveGame(
+                                gameState
+                            );
 
-                        const emptySlot =
-                            createEmptySlot();
+                            const emptySlot =
+                                createEmptySlot();
 
-                        slot.replaceWith(
-                            emptySlot
-                        );
+                            slot.replaceWith(
+                                emptySlot
+                            );
 
-                    };
+                        };
 
                 }
 
@@ -586,7 +714,9 @@ function createGrowingSlot(
                 if (timer) {
 
                     timer.textContent =
-                        formatTime(seconds);
+                        formatTime(
+                            seconds
+                        );
 
                 }
 
@@ -602,10 +732,14 @@ function createGrowingSlot(
    PLANTING SYSTEM
 ========================================= */
 
-function attachAddButton(slot) {
+function attachAddButton(
+    slot
+) {
 
     const button =
-        slot.querySelector(".add-crop-btn");
+        slot.querySelector(
+            ".add-crop-btn"
+        );
 
     if (!button) return;
 
@@ -615,7 +749,9 @@ function attachAddButton(slot) {
 
         if (plantModal) {
 
-            plantModal.classList.add("active");
+            plantModal.classList.add(
+                "active"
+            );
 
         }
 
@@ -628,66 +764,87 @@ function attachAddButton(slot) {
 ========================================= */
 
 const farmGrid =
-    document.querySelector(".farm-grid");
+    document.querySelector(
+        ".farm-grid"
+    );
 
 const allSlots =
     Array.from(
-        document.querySelectorAll(".farm-slot")
+        document.querySelectorAll(
+            ".farm-slot"
+        )
     );
 
-allSlots.forEach((slot, index) => {
+allSlots.forEach(
+    (
+        slot,
+        index
+    ) => {
 
-    const savedSlot =
-        gameState.farmSlots[index];
+        const savedSlot =
+            gameState.farmSlots[
+                index
+            ];
 
-    if (savedSlot) {
+        if (savedSlot) {
 
-        const restoredSlot =
-            createGrowingSlot(
+            const restoredSlot =
+                createGrowingSlot(
 
-                savedSlot.cropKey,
+                    savedSlot.cropKey,
 
-                index,
+                    index,
 
-                savedSlot.finishTime
+                    savedSlot.finishTime
 
+                );
+
+            farmGrid.replaceChild(
+                restoredSlot,
+                slot
             );
 
-        farmGrid.replaceChild(
-            restoredSlot,
-            slot
-        );
+        } else {
 
-    } else {
+            attachAddButton(
+                slot
+            );
 
-        attachAddButton(slot);
+        }
 
     }
-
-});
+);
 
 /* =========================================
    SEED CARDS
 ========================================= */
 
 const seedCards =
-    document.querySelectorAll(".seed-card");
+    document.querySelectorAll(
+        ".seed-card"
+    );
 
 seedCards.forEach(card => {
 
     card.onclick = () => {
 
-        if (!currentSlot) return;
+        if (!currentSlot)
+            return;
 
         const cropKey =
             card.dataset.crop;
 
-        if (!cropKey) return;
+        if (!cropKey)
+            return;
 
         const slotIndex =
             Array.from(
-                document.querySelectorAll(".farm-slot")
-            ).indexOf(currentSlot);
+                document.querySelectorAll(
+                    ".farm-slot"
+                )
+            ).indexOf(
+                currentSlot
+            );
 
         const growingSlot =
             createGrowingSlot(
@@ -701,13 +858,17 @@ seedCards.forEach(card => {
 
         if (plantModal) {
 
-            plantModal.classList.remove("active");
+            plantModal.classList.remove(
+                "active"
+            );
 
         }
 
         currentSlot = null;
 
-        saveGame(gameState);
+        saveGame(
+            gameState
+        );
 
     };
 
@@ -718,28 +879,37 @@ seedCards.forEach(card => {
 ========================================= */
 
 const inventoryCards =
-    document.querySelectorAll(".inventory-card");
+    document.querySelectorAll(
+        ".inventory-card"
+    );
 
-inventoryCards.forEach((card, index) => {
+inventoryCards.forEach(
+    (
+        card,
+        index
+    ) => {
 
-    card.style.opacity = "0";
-
-    card.style.transform =
-        "translateY(20px)";
-
-    setTimeout(() => {
-
-        card.style.transition =
-            "0.45s ease";
-
-        card.style.opacity = "1";
+        card.style.opacity =
+            "0";
 
         card.style.transform =
-            "translateY(0px)";
+            "translateY(20px)";
 
-    }, index * 60);
+        setTimeout(() => {
 
-});
+            card.style.transition =
+                "0.45s ease";
+
+            card.style.opacity =
+                "1";
+
+            card.style.transform =
+                "translateY(0px)";
+
+        }, index * 60);
+
+    }
+);
 
 /* =========================================
    START
@@ -747,4 +917,6 @@ inventoryCards.forEach((card, index) => {
 
 updateInventoryUI();
 
-openScreen("farm-screen");
+openScreen(
+    "farm-screen"
+);
