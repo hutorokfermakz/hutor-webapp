@@ -448,9 +448,35 @@ function attachAddButton(slot) {
 const allSlots =
     document.querySelectorAll(".farm-slot");
 
-allSlots.forEach(slot => {
+allSlots.forEach((slot, index) => {
 
-    attachAddButton(slot);
+    const savedSlot =
+        gameState.farmSlots[index];
+
+    /* RESTORE SAVED SLOT */
+
+    if (savedSlot) {
+
+        const restoredSlot =
+            createGrowingSlot(
+
+                savedSlot.cropKey,
+
+                index,
+
+                savedSlot.finishTime
+
+            );
+
+        slot.replaceWith(
+            restoredSlot
+        );
+
+    } else {
+
+        attachAddButton(slot);
+
+    }
 
 });
 
