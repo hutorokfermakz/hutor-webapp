@@ -109,9 +109,13 @@ if (closeModalBtn) {
 
     closeModalBtn.onclick = () => {
 
-        plantModal.classList.remove(
-            "active"
-        );
+        if (plantModal) {
+
+            plantModal.classList.remove(
+                "active"
+            );
+
+        }
 
         currentSlotIndex = null;
 
@@ -178,6 +182,20 @@ const crops = {
 };
 
 /* =========================================
+   SHOP PRICES
+========================================= */
+
+const shopPrices = {
+
+    wheat: 25,
+
+    carrot: 45,
+
+    strawberry: 80
+
+};
+
+/* =========================================
    INVENTORY UI
 ========================================= */
 
@@ -201,6 +219,21 @@ function updateInventoryUI() {
     const coinsEl =
         document.getElementById(
             "coins-value"
+        );
+
+    const wheatSeedEl =
+        document.getElementById(
+            "seed-wheat"
+        );
+
+    const carrotSeedEl =
+        document.getElementById(
+            "seed-carrot"
+        );
+
+    const strawberrySeedEl =
+        document.getElementById(
+            "seed-strawberry"
         );
 
     if (wheatEl) {
@@ -228,6 +261,47 @@ function updateInventoryUI() {
     if (coinsEl) {
 
         coinsEl.textContent =
+            gameState.coins;
+
+    }
+
+    if (wheatSeedEl) {
+
+        wheatSeedEl.textContent =
+            gameState.seeds.wheat;
+
+    }
+
+    if (carrotSeedEl) {
+
+        carrotSeedEl.textContent =
+            gameState.seeds.carrot;
+
+    }
+
+    if (strawberrySeedEl) {
+
+        strawberrySeedEl.textContent =
+            gameState.seeds.strawberry;
+
+    }
+
+}
+
+/* =========================================
+   SHOP UI
+========================================= */
+
+function updateShopCoins() {
+
+    const shopCoins =
+        document.getElementById(
+            "shop-coins-value"
+        );
+
+    if (shopCoins) {
+
+        shopCoins.textContent =
             gameState.coins;
 
     }
@@ -288,9 +362,13 @@ function createEmptySlot(index) {
 
         currentSlotIndex = index;
 
-        plantModal.classList.add(
-            "active"
-        );
+        if (plantModal) {
+
+            plantModal.classList.add(
+                "active"
+            );
+
+        }
 
     };
 
@@ -349,9 +427,15 @@ function createGrowingSlot(
 
             seconds--;
 
-            gameState.farmSlots[index]
-                .remainingTime =
-                seconds;
+            if (
+                gameState.farmSlots[index]
+            ) {
+
+                gameState.farmSlots[index]
+                    .remainingTime =
+                    seconds;
+
+            }
 
             saveGame(gameState);
 
@@ -399,6 +483,8 @@ function createGrowingSlot(
                     ] = null;
 
                     updateInventoryUI();
+
+                    updateShopCoins();
 
                     renderFarm();
 
@@ -482,6 +568,17 @@ seedCards.forEach(card => {
 
         if (!cropKey) return;
 
+        if (
+            gameState.seeds[cropKey]
+            <= 0
+        ) {
+
+            return;
+
+        }
+
+        gameState.seeds[cropKey]--;
+
         gameState.farmSlots[
             currentSlotIndex
         ] = {
@@ -494,15 +591,62 @@ seedCards.forEach(card => {
 
         };
 
-        plantModal.classList.remove(
-            "active"
-        );
+        if (plantModal) {
+
+            plantModal.classList.remove(
+                "active"
+            );
+
+        }
 
         renderFarm();
+
+        updateInventoryUI();
 
         saveGame(gameState);
 
         currentSlotIndex = null;
+
+    };
+
+});
+
+/* =========================================
+   SHOP SYSTEM
+========================================= */
+
+const buyButtons =
+    document.querySelectorAll(
+        ".buy-btn"
+    );
+
+buyButtons.forEach(button => {
+
+    button.onclick = () => {
+
+        const cropKey =
+            button.dataset.buy;
+
+        const price =
+            shopPrices[cropKey];
+
+        if (
+            gameState.coins < price
+        ) {
+
+            return;
+
+        }
+
+        gameState.coins -= price;
+
+        gameState.seeds[cropKey]++;
+
+        updateInventoryUI();
+
+        updateShopCoins();
+
+        saveGame(gameState);
 
     };
 
@@ -539,6 +683,8 @@ sellButtons.forEach(button => {
             .sellPrice;
 
         updateInventoryUI();
+
+        updateShopCoins();
 
         saveGame(gameState);
 
@@ -584,6 +730,8 @@ inventoryCards.forEach(
 ========================================= */
 
 updateInventoryUI();
+
+updateShopCoins();
 
 renderFarm();
 
