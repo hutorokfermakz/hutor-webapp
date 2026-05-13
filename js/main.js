@@ -344,6 +344,28 @@ function formatTime(totalSeconds) {
 
 let currentSlot = null;
 
+const plantModal =
+    document.getElementById("plant-modal");
+
+const closeModalBtn =
+    document.getElementById("close-modal");
+
+/* CLOSE MODAL */
+
+if (closeModalBtn && plantModal) {
+
+    closeModalBtn.addEventListener("click", () => {
+
+        plantModal.classList.remove("active");
+
+        currentSlot = null;
+
+    });
+
+}
+
+/* ATTACH + BUTTON */
+
 function attachAddButton(slot) {
 
     const button =
@@ -351,7 +373,7 @@ function attachAddButton(slot) {
 
     if (!button) return;
 
-    button.addEventListener("click", () => {
+    button.onclick = () => {
 
         currentSlot = slot;
 
@@ -361,9 +383,11 @@ function attachAddButton(slot) {
 
         }
 
-    });
+    };
 
 }
+
+/* FIND ALL SLOTS */
 
 const allSlots =
     document.querySelectorAll(".farm-slot");
@@ -374,28 +398,36 @@ allSlots.forEach(slot => {
 
 });
 
+/* SEED CARDS */
+
 const seedCards =
     document.querySelectorAll(".seed-card");
 
 seedCards.forEach(card => {
 
-    card.addEventListener("click", () => {
+    card.onclick = () => {
 
         if (!currentSlot) return;
 
         const cropKey =
             card.dataset.crop;
 
+        if (!cropKey) return;
+
         const growingSlot =
             createGrowingSlot(cropKey);
 
         currentSlot.replaceWith(growingSlot);
 
-        plantModal.classList.remove("active");
+        if (plantModal) {
+
+            plantModal.classList.remove("active");
+
+        }
 
         currentSlot = null;
 
-    });
+    };
 
 });
 
