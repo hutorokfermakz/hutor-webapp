@@ -1171,3 +1171,48 @@ p {
         width 0.35s ease;
 
 }
+/* =========================================
+   SELL BUTTON
+========================================= */
+
+.sell-btn {
+
+    width: 100%;
+
+    margin-top: 18px;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,255,170,0.18),
+            rgba(0,100,60,0.28)
+        );
+
+    border:
+        1px solid rgba(0,255,170,0.12);
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+
+    backdrop-filter: blur(20px);
+
+}
+
+.sell-btn:active {
+
+    transform: scale(0.98);
+
+}
