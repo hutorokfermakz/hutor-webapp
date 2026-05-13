@@ -445,15 +445,20 @@ function attachAddButton(slot) {
 
 }
 
+const farmGrid =
+    document.querySelector(".farm-grid");
+
 const allSlots =
-    document.querySelectorAll(".farm-slot");
+    Array.from(
+        document.querySelectorAll(".farm-slot")
+    );
 
 allSlots.forEach((slot, index) => {
 
     const savedSlot =
         gameState.farmSlots[index];
 
-    /* RESTORE SAVED SLOT */
+    /* RESTORE SLOT */
 
     if (savedSlot) {
 
@@ -468,8 +473,9 @@ allSlots.forEach((slot, index) => {
 
             );
 
-        slot.replaceWith(
-            restoredSlot
+        farmGrid.replaceChild(
+            restoredSlot,
+            slot
         );
 
     } else {
