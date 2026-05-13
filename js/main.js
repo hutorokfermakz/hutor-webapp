@@ -276,7 +276,11 @@ function createEmptySlot() {
    CREATE GROWING SLOT
 ========================================= */
 
-function createGrowingSlot(cropKey) {
+function createGrowingSlot(
+    cropKey,
+    slotIndex = null,
+    savedFinishTime = null
+) {
 
     const crop =
         crops[cropKey];
@@ -289,8 +293,17 @@ function createGrowingSlot(cropKey) {
     slot.className =
         "farm-slot growing";
 
+    const finishTime =
+        savedFinishTime ||
+        (Date.now() + crop.growTime * 1000);
+
     let seconds =
-        crop.growTime;
+        Math.max(
+            0,
+            Math.floor(
+                (finishTime - Date.now()) / 1000
+            )
+        );
 
     slot.innerHTML = `
         <div class="growing-content">
@@ -312,6 +325,22 @@ function createGrowingSlot(cropKey) {
 
     const timer =
         slot.querySelector(".grow-timer");
+
+    if (
+        slotIndex !== null &&
+        !savedFinishTime
+    ) {
+
+        gameState.farmSlots[slotIndex] = {
+
+            cropKey,
+            finishTime
+
+        };
+
+        saveGame(gameState);
+
+    }
 
     const interval =
         setInterval(() => {
@@ -335,7 +364,6 @@ function createGrowingSlot(cropKey) {
 
                         <button
                             class="harvest-btn"
-                            data-crop="${cropKey}"
                         >
                             Собрать
                         </button>
@@ -348,11 +376,15 @@ function createGrowingSlot(cropKey) {
 
                 if (harvestBtn) {
 
-                    harvestBtn.addEventListener("click", () => {
+                    harvestBtn.onclick = () => {
 
                         inventory[cropKey]++;
 
                         gameState.coins += 25;
+
+                        gameState.farmSlots[
+                            slotIndex
+                        ] = null;
 
                         updateInventoryUI();
 
@@ -361,9 +393,11 @@ function createGrowingSlot(cropKey) {
                         const emptySlot =
                             createEmptySlot();
 
-                        slot.replaceWith(emptySlot);
+                        slot.replaceWith(
+                            emptySlot
+                        );
 
-                    });
+                    };
 
                 }
 
