@@ -148,3 +148,31 @@ export async function createClan(
     await loadClans();
 
 }
+/* =========================================
+   REALTIME
+========================================= */
+
+supabase
+    .channel("clans-live")
+
+    .on(
+        "postgres_changes",
+
+        {
+
+            event: "*",
+
+            schema: "public",
+
+            table: "clans"
+
+        },
+
+        () => {
+
+            loadClans();
+
+        }
+    )
+
+    .subscribe();
