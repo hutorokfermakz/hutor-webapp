@@ -11,6 +11,13 @@ import {
 }
 from "./core/storage.js";
 
+import {
+
+    loadClans,
+    createClan
+
+}
+from "./systems/clans.js";
 /* =========================================
    LOAD SAVE
 ========================================= */
