@@ -731,7 +731,67 @@ inventoryCards.forEach(
 
     }
 );
+/* =========================================
+   CLANS
+========================================= */
 
+loadClans();
+
+/* CREATE CLAN */
+
+const createClanBtn =
+    document.getElementById(
+        "create-clan-btn"
+    );
+
+if (createClanBtn) {
+
+    createClanBtn.onclick =
+        async () => {
+
+            const name =
+                document
+                    .getElementById(
+                        "clan-name"
+                    )
+                    .value
+                    .trim();
+
+            const tag =
+                document
+                    .getElementById(
+                        "clan-tag"
+                    )
+                    .value
+                    .trim();
+
+            const description =
+                document
+                    .getElementById(
+                        "clan-description"
+                    )
+                    .value
+                    .trim();
+
+            if (!name || !tag) {
+
+                alert(
+                    "Введите название и тег"
+                );
+
+                return;
+
+            }
+
+            await createClan(
+                name,
+                tag,
+                description
+            );
+
+        };
+
+}
 /* =========================================
    START
 ========================================= */
