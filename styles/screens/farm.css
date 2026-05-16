@@ -1,1 +1,76 @@
+.farm-screen{
+  animation:fade .4s ease;
+}
 
+.farm-title{
+  font-size:42px;
+  font-weight:800;
+
+  margin-bottom:12px;
+}
+
+.farm-subtitle{
+  color:var(--muted);
+
+  margin-bottom:32px;
+}
+
+.hero-card{
+  padding:24px;
+
+  margin-bottom:24px;
+}
+
+.hero-value{
+  font-size:44px;
+  font-weight:800;
+
+  margin-top:12px;
+}
+
+.plot-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:16px;
+}
+
+.plot{
+  aspect-ratio:1;
+
+  padding:18px;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.plot::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(circle at top,
+      rgba(0,255,140,0.15),
+      transparent 70%
+    );
+}
+
+.plot-name{
+  position:relative;
+
+  font-size:18px;
+  font-weight:700;
+}
+
+.plot-time{
+  position:relative;
+
+  margin-top:8px;
+
+  color:var(--muted);
+}
