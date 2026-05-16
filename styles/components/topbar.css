@@ -1,1 +1,53 @@
+/* =========================================
+   TOPBAR
+========================================= */
 
+.topbar {
+
+    position: fixed;
+
+    top: 20px;
+    left: 20px;
+    right: 20px;
+
+    height: 74px;
+
+    border-radius:
+        28px;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 22px;
+
+}
+
+.game-logo {
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    letter-spacing:
+        -0.04em;
+
+    color:
+        white;
+
+}
+
+.topbar-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
