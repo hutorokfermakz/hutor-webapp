@@ -1,19 +1,86 @@
-@import "./core/reset.css";
-@import "./core/variables.css";
-@import "./core/base.css";
-@import "./core/layout.css";
-@import "./core/animations.css";
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-@import "./components/glass.css";
-@import "./components/buttons.css";
-@import "./components/cards.css";
-@import "./components/navigation.css";
-@import "./components/topbar.css";
-@import "./components/modal.css";
+html,
+body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
 
-@import "./screens/farm.css";
-@import "./screens/profile.css";
-@import "./screens/shop.css";
-@import "./screens/clans.css";
-@import "./screens/chat.css";
-@import "./screens/inventory.css";
+  background:
+    radial-gradient(circle at top, #0f5132 0%, #03110a 45%, #000000 100%);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+
+  color:white;
+}
+
+#app{
+  width:100%;
+  height:100%;
+}
+
+.screen{
+  width:100%;
+  height:100%;
+  padding:24px;
+
+  display:flex;
+  flex-direction:column;
+}
+
+.title{
+  font-size:32px;
+  font-weight:700;
+  margin-top:60px;
+}
+
+.subtitle{
+  margin-top:10px;
+  opacity:.7;
+  font-size:15px;
+}
+
+.glass-card{
+  margin-top:30px;
+
+  background:rgba(255,255,255,.06);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(20px);
+
+  border-radius:28px;
+
+  padding:20px;
+}
+
+.button{
+  width:100%;
+  height:58px;
+
+  border:none;
+
+  border-radius:20px;
+
+  margin-top:20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00ff99,
+      #00c773
+    );
+
+  color:black;
+
+  font-size:18px;
+  font-weight:700;
+}
