@@ -1,1 +1,69 @@
+/* =========================================
+   BUTTONS
+========================================= */
 
+button {
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease,
+        background 0.2s ease;
+
+}
+
+button:active {
+
+    transform:
+        scale(0.97);
+
+}
+
+.primary-btn {
+
+    width: 100%;
+
+    height: 58px;
+
+    border-radius:
+        18px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #00ff99,
+            #00cc7a
+        );
+
+    color:
+        #03110b;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 0 24px
+        rgba(0,255,153,0.24);
+
+}
+
+.secondary-btn {
+
+    width: 100%;
+
+    height: 56px;
+
+    border-radius:
+        18px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color:
+        white;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+}
