@@ -1,1 +1,40 @@
+/* =========================================
+   BASE
+========================================= */
 
+body {
+
+    background:
+        var(--bg-primary);
+
+    color:
+        var(--white);
+
+}
+
+.hidden {
+
+    display: none !important;
+
+}
+
+.glow-text {
+
+    color:
+        var(--emerald);
+
+    text-shadow:
+        0 0 12px
+        rgba(0,255,153,0.45);
+
+}
+
+.blur {
+
+    backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
+
+}
