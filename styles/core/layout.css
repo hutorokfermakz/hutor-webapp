@@ -1,1 +1,57 @@
+/* =========================================
+   LAYOUT
+========================================= */
 
+.container {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+}
+
+.flex {
+
+    display: flex;
+
+}
+
+.flex-column {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.align-center {
+
+    align-items: center;
+
+}
+
+.justify-between {
+
+    justify-content: space-between;
+
+}
+
+.gap-sm {
+
+    gap: 8px;
+
+}
+
+.gap-md {
+
+    gap: 16px;
+
+}
+
+.gap-lg {
+
+    gap: 24px;
+
+}
