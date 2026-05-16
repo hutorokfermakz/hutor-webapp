@@ -1,77 +1,14 @@
-/* =========================================
-   VARIABLES
-========================================= */
+:root{
+  --bg:#06110d;
 
-:root {
+  --glass:rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.08);
 
-    /* COLORS */
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.6);
 
-    --bg-primary:
-        #06110d;
+  --emerald:#00d47e;
+  --emerald-soft:#00ffae;
 
-    --bg-secondary:
-        #0b1b16;
-
-    --bg-tertiary:
-        #10241d;
-
-    --emerald:
-        #00ff99;
-
-    --emerald-soft:
-        #00cc7a;
-
-    --emerald-dark:
-        #00995c;
-
-    --white:
-        #ffffff;
-
-    --white-soft:
-        rgba(255,255,255,0.72);
-
-    --white-muted:
-        rgba(255,255,255,0.45);
-
-    --border:
-        rgba(255,255,255,0.08);
-
-    --glass:
-        rgba(255,255,255,0.05);
-
-    --glass-strong:
-        rgba(255,255,255,0.08);
-
-    /* SHADOWS */
-
-    --shadow-lg:
-        0 12px 40px
-        rgba(0,0,0,0.45);
-
-    --shadow-glow:
-        0 0 25px
-        rgba(0,255,153,0.18);
-
-    /* RADIUS */
-
-    --radius-sm:
-        14px;
-
-    --radius-md:
-        20px;
-
-    --radius-lg:
-        28px;
-
-    /* TRANSITIONS */
-
-    --transition-fast:
-        0.18s ease;
-
-    --transition-normal:
-        0.3s ease;
-
-    --transition-slow:
-        0.5s ease;
-
+  --radius:28px;
 }
