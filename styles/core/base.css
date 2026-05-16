@@ -1,40 +1,22 @@
-/* =========================================
-   BASE
-========================================= */
+body{
+  background:
+    radial-gradient(circle at top,
+      rgba(0,255,140,0.18),
+      transparent 40%
+    ),
+    #06110d;
 
-body {
+  color:var(--text);
 
-    background:
-        var(--bg-primary);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 
-    color:
-        var(--white);
-
+  overflow:hidden;
 }
 
-.hidden {
-
-    display: none !important;
-
-}
-
-.glow-text {
-
-    color:
-        var(--emerald);
-
-    text-shadow:
-        0 0 12px
-        rgba(0,255,153,0.45);
-
-}
-
-.blur {
-
-    backdrop-filter:
-        blur(14px);
-
-    -webkit-backdrop-filter:
-        blur(14px);
-
+#app{
+  width:100%;
+  min-height:100vh;
 }
