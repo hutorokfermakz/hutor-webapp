@@ -1,37 +1,10 @@
-/* =========================================
-   GLASS
-========================================= */
+.glass{
+  background:var(--glass);
 
-.glass {
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
 
-    background:
-        rgba(255,255,255,0.05);
+  border:1px solid var(--glass-border);
 
-    backdrop-filter:
-        blur(18px);
-
-    -webkit-backdrop-filter:
-        blur(18px);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.08);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,0.35);
-
-}
-
-.glass-strong {
-
-    background:
-        rgba(255,255,255,0.08);
-
-    backdrop-filter:
-        blur(24px);
-
-    -webkit-backdrop-filter:
-        blur(24px);
-
+  border-radius:var(--radius);
 }
