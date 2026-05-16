@@ -1,57 +1,11 @@
-/* =========================================
-   LAYOUT
-========================================= */
+.screen{
+  width:100%;
+  min-height:100vh;
 
-.container {
+  padding:
+    calc(env(safe-area-inset-top) + 24px)
+    20px
+    calc(env(safe-area-inset-bottom) + 120px);
 
-    width: 100%;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-}
-
-.flex {
-
-    display: flex;
-
-}
-
-.flex-column {
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-.align-center {
-
-    align-items: center;
-
-}
-
-.justify-between {
-
-    justify-content: space-between;
-
-}
-
-.gap-sm {
-
-    gap: 8px;
-
-}
-
-.gap-md {
-
-    gap: 16px;
-
-}
-
-.gap-lg {
-
-    gap: 24px;
-
+  position:relative;
 }
