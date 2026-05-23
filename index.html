@@ -1,274 +1,77 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+<div class="maintenance-screen">
 
-  <meta charset="UTF-8" />
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
-  <meta
-    name="viewport"
-    content="
-      width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no
-    "
-  />
+    <div class="maintenance-card">
 
-  <title>Хуторок 🍃</title>
+        <div class="logo-block">
+            <h1>ХУТОРОК 🍃</h1>
+            <span>HUTOROK v7</span>
+        </div>
 
-  <style>
+        <div class="status">
+            ТЕХНИЧЕСКИЕ РАБОТЫ
+        </div>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+        <p class="desc">
+            Мы строим большое обновление нового поколения
+        </p>
 
-    html,
-    body{
+        <div class="features-grid">
 
-      width:100%;
-      height:100%;
+            <div class="feature">
+                🌾
+                <span>Живая ферма</span>
+            </div>
 
-      overflow:hidden;
+            <div class="feature">
+                🚛
+                <span>Логистика</span>
+            </div>
 
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        sans-serif;
+            <div class="feature">
+                🏙️
+                <span>Города</span>
+            </div>
 
-      background:
-        radial-gradient(
-          circle at top,
-          #123f2c 0%,
-          #07150f 45%,
-          #000000 100%
-        );
+            <div class="feature">
+                🛡️
+                <span>Кланы</span>
+            </div>
 
-      color:white;
+            <div class="feature">
+                ❄️
+                <span>Сезоны</span>
+            </div>
 
-    }
+            <div class="feature">
+                🧪
+                <span>Технологии</span>
+            </div>
 
-    body{
+            <div class="feature">
+                🏗️
+                <span>Мировые стройки</span>
+            </div>
 
-      display:flex;
-      align-items:center;
-      justify-content:center;
+            <div class="feature">
+                📈
+                <span>Биржа</span>
+            </div>
 
-      position:relative;
+        </div>
 
-    }
+        <div class="loading">
 
-    .background-glow{
+            <div class="loading-fill"></div>
 
-      position:absolute;
+        </div>
 
-      width:500px;
-      height:500px;
-
-      border-radius:50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(0,255,140,.18),
-          transparent 70%
-        );
-
-      filter:blur(80px);
-
-      animation:
-        pulse 6s ease-in-out infinite;
-
-    }
-
-    @keyframes pulse{
-
-      0%{
-        transform:scale(1);
-        opacity:.5;
-      }
-
-      50%{
-        transform:scale(1.15);
-        opacity:.9;
-      }
-
-      100%{
-        transform:scale(1);
-        opacity:.5;
-      }
-
-    }
-
-    .maintenance-card{
-
-      position:relative;
-
-      width:92%;
-      max-width:430px;
-
-      padding:42px 32px;
-
-      border-radius:32px;
-
-      background:
-        rgba(255,255,255,.06);
-
-      border:
-        1px solid rgba(255,255,255,.08);
-
-      backdrop-filter:blur(28px);
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.45);
-
-      text-align:center;
-
-      z-index:2;
-
-    }
-
-    .logo{
-
-      font-size:42px;
-      font-weight:800;
-
-      letter-spacing:1px;
-
-    }
-
-    .leaf{
-
-      display:inline-block;
-
-      animation:
-        floatLeaf 3s ease-in-out infinite;
-
-    }
-
-    @keyframes floatLeaf{
-
-      0%{
-        transform:translateY(0px);
-      }
-
-      50%{
-        transform:translateY(-6px);
-      }
-
-      100%{
-        transform:translateY(0px);
-      }
-
-    }
-
-    .status{
-
-      margin-top:28px;
-
-      font-size:20px;
-      font-weight:700;
-
-      color:#8dffbf;
-
-    }
-
-    .description{
-
-      margin-top:16px;
-
-      line-height:1.7;
-
-      font-size:15px;
-
-      opacity:.72;
-
-    }
-
-    .loader{
-
-      width:58px;
-      height:58px;
-
-      margin:
-        34px auto 0;
-
-      border-radius:50%;
-
-      border:
-        3px solid rgba(255,255,255,.08);
-
-      border-top:
-        3px solid #00ff99;
-
-      animation:
-        spin 1.1s linear infinite;
-
-    }
-
-    @keyframes spin{
-
-      from{
-        transform:rotate(0deg);
-      }
-
-      to{
-        transform:rotate(360deg);
-      }
-
-    }
-
-    .footer{
-
-      margin-top:28px;
-
-      font-size:13px;
-
-      opacity:.45;
-
-      letter-spacing:.5px;
-
-    }
-
-  </style>
-
-</head>
-<body>
-
-  <div class="background-glow"></div>
-
-  <div class="maintenance-card">
-
-    <div class="logo">
-      ХУТОРОК
-      <span class="leaf">🍃</span>
-    </div>
-
-    <div class="status">
-      ТЕХНИЧЕСКИЕ РАБОТЫ
-    </div>
-
-    <div class="description">
-
-      Мы готовим большое обновление
-      с новыми системами, атмосферой
-      и online-функциями.
-
-      <br><br>
-
-      Серверы скоро снова откроются.
+        <div class="loading-text">
+            Подготовка серверов...
+        </div>
 
     </div>
 
-    <div class="loader"></div>
-
-    <div class="footer">
-      HUTOROK v7
-    </div>
-
-  </div>
-
-</body>
-</html>
+</div>
